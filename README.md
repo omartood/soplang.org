@@ -1,128 +1,125 @@
-# Soplang Documentation Website
+# Soplang.org - Official Website
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This is the official website for Soplang, a modern programming language inspired by Python. The website is built with Next.js and Tailwind CSS.
 
-## Prerequisites
+## Features
 
-- [Bun](https://bun.sh/) must be installed. You can install Bun by running:
-  ```bash
-  curl -fsSL https://bun.sh/install | bash
-  ```
+- **Modern Design**: Clean, responsive design optimized for all devices
+- **Dark Mode Support**: Toggle between light and dark themes
+- **SEO Optimized**: Meta tags, OpenGraph, and fast page speed
+- **Documentation**: Comprehensive documentation with a dynamic sidebar
+- **Blog**: Latest news, updates, and tutorials
+- **Community**: Links to forums, GitHub, and social media
 
-## Installation
+## Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Deployment**: [Vercel](https://vercel.com/)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18.x or later
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-bun install
+git clone https://github.com/soplang/soplang.org.git
+cd soplang.org
 ```
 
-## Local Development
+2. Install dependencies:
 
 ```bash
-bun start
+npm install
+# or
+yarn install
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
+3. Run the development server:
 
 ```bash
-bun build
+npm run dev
+# or
+yarn dev
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
 ## Project Structure
 
 ```
-soplong-docs/
-├── docs/                           # Documentation pages
-├── blog/                           # Blog posts
-├── static/                         # Static assets
-│   └── img/                        # Images and icons
-├── src/
-│   ├── pages/                      # Custom pages (about, download, etc.)
-│   ├── components/
-│   │   ├── about/                  # About page specific components
-│   │   ├── download/               # Download page specific components
-│   │   ├── shared/                 # Shared components across pages
-│   │   │   ├── Buttons.tsx         # All button components
-│   │   │   ├── SVGLinks.tsx        # SVG icons and links
-│   │   │   └── ...                 # Other shared components
-│   │   └── ui/                     # UI library components
-│   ├── css/                        # Global styles
-│   ├── theme/                      # Docusaurus theme overrides
-│   └── plugins/                    # Custom plugins
-├── lib/                            # Utilities and helper functions
-│   └── types.d.ts                  # Type definitions
-└── ...
+/soplang.org
+├── src/                  # Source directory
+│   ├── app/              # Next.js App Router
+│   │   ├── about/        # About page
+│   │   ├── blog/         # Blog pages
+│   │   ├── community/    # Community page
+│   │   ├── docs/         # Documentation pages
+│   │   ├── downloads/    # Downloads page
+│   │   └── page.tsx      # Homepage
+│   ├── components/       # Reusable components
+│   │   ├── Footer.tsx    # Footer component
+│   │   ├── Navbar.tsx    # Navigation bar component
+│   │   └── ...           # Other components
+│   └── styles/           # Global styles
+│       └── globals.css   # Global CSS with Tailwind imports
+├── public/               # Static assets
+├── next.config.js        # Next.js configuration
+├── tailwind.config.js    # Tailwind CSS configuration
+├── tsconfig.json         # TypeScript configuration
+└── package.json          # Project dependencies and scripts
 ```
 
-## Development Guidelines
+## Customization
 
-### File Organization
+### Colors
 
-```
-src/
-├── pages/                          # 📄 Create new pages here
-│   ├── about.mdx
-│   ├── download.mdx
-│   └── index.tsx
-├── components/
-│   ├── about/                      # 📁 About page specific components
-│   │   ├── LanguageGoals.tsx
-│   │   ├── LatestVersionFeatures.tsx
-│   │   └── GetInvolved.tsx
-│   ├── download/                   # 📁 Download page specific components
-│   │   ├── Platforms.tsx
-│   │   └── SystemRequirements.tsx
-│   ├── shared/                     # 🔄 Shared across multiple pages
-│   │   ├── Buttons.tsx
-│   │   ├── SVGLinks.tsx
-│   │   └── HorizontalLine.tsx
-│   └── ui/                         # 🎨 UI library components
-└── lib/                           # ⚙️ Utilities and helpers
-    └── types.d.ts
+The primary and secondary colors are defined as CSS variables in `src/styles/globals.css`:
+
+```css
+:root {
+  --primary-color: #1E3A8A; /* Default blue */
+  --secondary-color: #F59E0B; /* Default orange */
+}
 ```
 
-### Component Guidelines
+These variables are used in the Tailwind configuration (`tailwind.config.js`) to define the `primary` and `secondary` color classes:
 
-```
-src/components/shared/
-├── Buttons.tsx                     # 🔘 ALL button components
-│   ├── SlideBackgroundButton
-│   ├── PrimaryButton
-│   ├── SecondaryButton
-│   └── IconButton
-├── SVGLinks.tsx                    # 🔗 SVG icons and links
-│   ├── GitHubIcon
-│   ├── TwitterIcon
-│   ├── DiscordIcon
-│   └── ExternalLinkIcon
-└── HorizontalLine.tsx              # ➖ Other shared components
+```js
+theme: {
+  extend: {
+    colors: {
+      primary: 'var(--primary-color)',
+      secondary: 'var(--secondary-color)',
+    },
+  },
+},
 ```
 
-**Icon Priority:**
+To change the colors, simply update the CSS variables in `globals.css`.
 
-1. 🎯 **First Choice**: [Lucide Icons](https://lucide.dev)
-2. 🔍 Check availability at [lucide.dev](https://lucide.dev)
-3. 📦 Only use custom SVG if not available in Lucide
-4. 📁 Add custom icons to `SVGLinks.tsx`
+### Dark Mode
 
-### Git Commit Messages
+Dark mode is implemented using Tailwind's `dark` class and a custom `ThemeProvider` component. The theme can be toggled using the `ThemeToggle` component in the navigation bar.
 
-Use proper commit message format:
+## Deployment
 
-- `feat: add new download page component`
-- `fix: resolve button hover animation issue`
-- `docs: update README with project guidelines`
-- `style: improve responsive design for mobile`
-- `refactor: reorganize shared components`
+The website is configured for deployment on Vercel. Simply connect your GitHub repository to Vercel for automatic deployments.
 
-### Icon Usage
+## Contributing
 
-1.  First check [Lucide Icons](https://lucide.dev) for available icons
-2.  Use Lucide icons whenever possible for consistency
-3.  Only use custom SVG icons if not available in Lucide
-4.  Add custom SVG icons to `src/components/shared/SVGLinks.tsx`
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-_Made by Soplang Team❤️._
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+For questions or feedback, please reach out to us at [contact@soplang.org](mailto:contact@soplang.org) or join our [Discord community](https://discord.gg/soplang).
