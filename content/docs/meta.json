@@ -1,0 +1,24 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "index",
+    "00_installation",
+    "00_getting-started",
+    "01_syntax-basics",
+    "02_input-and-output",
+    "03_variables",
+    "04_type-conversion",
+    "05_operators",
+    "06_conditional-statements",
+    "07_loops",
+    "08_functions",
+    "09_data-types",
+    "10_strings",
+    "11_numbers",
+    "12_arrays",
+    "13_objects",
+    "14_keywords-reference",
+    "15_built-in-functions",
+    "faq"
+  ]
+}
