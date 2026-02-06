@@ -1,53 +1,35 @@
 {
-  "name": "soplang.org",
-  "version": "1.0.0",
-  "description": "Official website for Soplang programming language",
+  "name": "soplang-latest-docs",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "dev": "next dev",
     "start": "next start",
-    "lint": "next lint",
-    "generate:downloads": "node scripts/generateDownloads.js",
-    "generate:community": "node scripts/generateCommunityStats.js",
-    "generate:contributors": "node scripts/generateContributors.js",
-    "generate:sitemap": "node scripts/generateSitemap.js"
+    "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
+    "postinstall": "fumadocs-mdx",
+    "lint": "eslint"
   },
-  "keywords": [
-    "soplang",
-    "programming language",
-    "somali",
-    "first somali language",
-    "soplang.org"
-  ],
-  "author": "Sharafdin",
-  "license": "MIT",
   "dependencies": {
-    "@iconify/react": "^6.0.2",
-    "@radix-ui/react-slot": "^1.1.2",
-    "@types/node": "^18.15.11",
-    "@types/prismjs": "^1.26.5",
-    "@types/react": "^18.0.33",
-    "@types/react-dom": "^18.0.11",
-    "autoprefixer": "^10.4.14",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "critters": "^0.0.25",
-    "eslint": "^8.38.0",
-    "eslint-config-next": "^13.3.0",
-    "gray-matter": "^4.0.3",
-    "next": "^13.3.0",
-    "next-mdx-remote": "^5.0.0",
-    "next-themes": "^0.4.6",
-    "postcss": "^8.4.21",
-    "prismjs": "^1.30.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^3.3.1",
-    "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.0.4"
+    "fumadocs-core": "16.5.0",
+    "fumadocs-mdx": "14.2.6",
+    "fumadocs-ui": "16.5.0",
+    "lucide-react": "^0.563.0",
+    "next": "16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
-    "prettier": "3.5.3"
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^25.1.0",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "eslint-config-next": "16.1.6",
+    "eslint": "^9.39.2"
   }
 }
