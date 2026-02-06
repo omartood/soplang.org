@@ -1,0 +1,103 @@
+---
+title: Variables
+description: "Baro sida loo isticmaalo variables: door (dynamic), noocyada static (abn, jajab, qoraal, bool, teed, walax), iyo constants (madoor) ee Soplang."
+---
+
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../components/ui/table";
+
+# Soplang Variables
+
+Soplang variables waxaa lagu qeexaa erayo Somali-first ah oo ka tarjumaya doorka ama nooca. Tani waxay ka dhigtaa koodhka mid muujin leh oo u fudud barayaasha Af-Soomaaliga.
+
+## Dynamic Variables – `door`
+
+`door` waa soo gaabinta _doorsoome_ oo loo adeegsado doorsoomayaal _dynamically typed_.
+
+**dynamic_variables.sop**
+
+```bash
+door magaca = "Aamina"
+door da = 19
+door xaqiiqo = run
+```
+
+## Static Variables
+
+Doorsoomayaasha _static_ waa kuwa si cad loo noocqeeyo (explicit types) si loo helo hufnaan iyo badbaado nooc (type safety).
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Type</TableHead>
+      <TableHead>Keyword</TableHead>
+      <TableHead>Stands for</TableHead>
+      <TableHead>Example</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Integer</TableCell>
+      <TableCell>`abn`</TableCell>
+      <TableCell>*abyoone*</TableCell>
+      <TableCell>`abn tirada = 10`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Float</TableCell>
+      <TableCell>`jajab`</TableCell>
+      <TableCell>*jajab*</TableCell>
+      <TableCell>`jajab qiime = 3.14`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>String</TableCell>
+      <TableCell>`qoraal`</TableCell>
+      <TableCell>*qoraal*</TableCell>
+      <TableCell>`qoraal magaca = "Soplang"`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Boolean</TableCell>
+      <TableCell>`bool`</TableCell>
+      <TableCell>*bool*</TableCell>
+      <TableCell>`bool sax = run`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>List</TableCell>
+      <TableCell>`teed`</TableCell>
+      <TableCell>*teed*</TableCell>
+      <TableCell>`teed liis = [1, 2, 3]`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Object</TableCell>
+      <TableCell>`walax`</TableCell>
+      <TableCell>*walax*</TableCell>
+      <TableCell>`walax qof = {magac: "Ali"}`</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## Constants – `madoor`
+
+`madoor` (soo gaabinta _madoorsoome_) waxaa loo adeegsadaa qiyamka aan la beddeli karin (immutable).
+
+**constants_basic.sop**
+
+```bash
+madoor magaca = "Soplang"
+```
+
+Constants lama u wareejin karo (reassign):
+
+**constants_reassign_error.sop**
+
+```bash
+madoor luqad = "Somali"
+luqad = "English"  // Error: cannot reassign constant
+```
