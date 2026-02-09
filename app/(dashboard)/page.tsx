@@ -134,7 +134,7 @@ export default function Home() {
           </h2>
           <Link
             href="/docs"
-            className="inline-flex h-14 items-center justify-center rounded-full text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-lg px-6 py-2 font-medium shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+            className="inline-flex h-14 items-center justify-center rounded-full text-primary-foreground bg-gradient-primary hover:opacity-95 text-lg px-6 py-2 font-medium shadow-lg shadow-primary/20 transition-all duration-300"
           >
             Start Building Now
           </Link>
