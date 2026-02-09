@@ -15,8 +15,8 @@ export const Hero = () => {
       {/* Animated Gradient Orbs */}
       <div className="absolute top-0 left-0 right-0 -z-20 overflow-hidden">
         <div className="absolute top-[-10%] left-[20%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] animate-blob mix-blend-multiply dark:mix-blend-screen opacity-50"></div>
-        <div className="absolute top-[-10%] right-[20%] w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-[100px] animate-blob animation-delay-2000 mix-blend-multiply dark:mix-blend-screen opacity-50"></div>
-        <div className="absolute bottom-[-20%] left-[40%] w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[120px] animate-blob animation-delay-4000 mix-blend-multiply dark:mix-blend-screen opacity-30"></div>
+        <div className="absolute top-[-10%] right-[20%] w-[400px] h-[400px] bg-primary/15 rounded-full blur-[100px] animate-blob animation-delay-2000 mix-blend-multiply dark:mix-blend-screen opacity-50"></div>
+        <div className="absolute bottom-[-20%] left-[40%] w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] animate-blob animation-delay-4000 mix-blend-multiply dark:mix-blend-screen opacity-30"></div>
       </div>
 
       <div className="container-custom relative z-10">
@@ -27,9 +27,9 @@ export const Hero = () => {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/50 border  text-sm font-semibold text-primary shadow-[0_0_10px_rgba(var(--primary),0.1)] backdrop-blur-sm animate-fade-in-up">
               <Icon
                 icon="streamline-sharp:star-2"
-                className="w-4 h-4 text-indigo-400"
+                className="w-4 h-4 text-primary"
               />
-              <span className="bg-linear-to-r from-ring to-ring bg-clip-text text-white">
+              <span className="text-primary">
                 {latestVersion} is Now Stable
               </span>
             </div>
@@ -48,7 +48,7 @@ export const Hero = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4 animate-fade-in-up animation-delay-300">
               <Link
                 href="/downloads"
-                className="w-full sm:w-auto h-14 px-8 rounded-xl bg-linear-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 hover:scale-105 transition-all duration-300 ring-2 ring-blue-500/20 ring-offset-2 ring-offset-background"
+                className="w-full sm:w-auto h-14 px-8 rounded-xl bg-gradient-primary text-primary-foreground font-bold text-lg flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:opacity-95 hover:-translate-y-1 hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 ring-offset-2 ring-offset-background"
               >
                 <Icon icon="lucide:download" className="w-5 h-5" />
                 Install Soplang
