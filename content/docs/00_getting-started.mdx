@@ -3,6 +3,8 @@ title: Getting Started with Soplang
 description: Welcome to Soplang! This guide will help you install Soplang, set up your development environment, and write your first Soplang program.
 ---
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 Welcome to Soplang! This guide will help you install Soplang, set up your development environment, and write your first Soplang program.
 
 ## 1. Installation
@@ -35,10 +37,7 @@ For more detailed installation instructions, check out our [comprehensive instal
 
 Now that you have Soplang installed, let's write a simple "Hello, World!" program:
 
-**hello.sop**
-
-```bash
-// This is a comment
+<SoplangCodeWindow title="hello.sop" code={`// This is a comment
 print("Hello, World!")
 
 // Variables
@@ -48,11 +47,10 @@ print(f"Welcome to {name} version {version}!")
 
 // Simple function
 def greet(person):
-    return f"Hello, {person}!"
+return f"Hello, {person}!"
 
 message = greet("Developer")
-print(message)
-```
+print(message)`}/>
 
 Save this code in a file named `hello.sop`.
 
@@ -66,7 +64,7 @@ soplang hello.sop
 
 You should see the following output:
 
-```text
+```bash
 Hello, World!
 Welcome to Soplang version 1.2!
 Hello, Developer!
@@ -80,10 +78,7 @@ Congratulations! You've just written and executed your first Soplang program.
 
 Soplang is dynamically typed, meaning you don't need to declare variable types. The language supports common data types like strings, numbers, booleans, lists, and dictionaries.
 
-**data_types.sop**
-
-```bash
-// String
+<SoplangCodeWindow title="data_types.sop" code={`// String
 name = "Soplang"
 
 // Integer
@@ -100,20 +95,16 @@ languages = ["Somali", "JavaScript", "Soplang"]
 
 // Dictionary
 features = {
-    "syntax": "clean",
-    "learning_curve": "gentle",
-    "performance": "excellent"
-}
-```
+"syntax": "clean",
+"learning_curve": "gentle",
+"performance": "excellent"
+}`}/>
 
 ### Control Flow
 
 Soplang uses indentation to define code blocks in control structures:
 
-**control_flow.sop**
-
-```bash
-// If-else statement
+<SoplangCodeWindow code={`// If-else statement
 age = 25
 if age < 18:
     print("You are a minor")
@@ -124,32 +115,27 @@ else:
 
 // For loop
 for language in ["Somali", "JavaScript", "Soplang"]:
-    print(f"I like {language}")
+print(f"I like {language}")
 
 // While loop
 count = 5
 while count > 0:
-    print(count)
-    count -= 1
-print("Blast off!")
-```
+print(count)
+count -= 1
+print("Blast off!")`} title="control_flow.sop"/>
 
 ### Functions
 
 Functions in Soplang are defined using the `def` keyword:
 
-**functions.sop**
-
-```bash
-//Simple function
+<SoplangCodeWindow code={`//Simple function
 def greet(name):
     return f"Hello, {name}!"
 
 // Function with default parameter
 def power(base, exponent=2):
-    return base ** exponent
+return base \*\* exponent
 
 // Function with type hints (optional)
 def add(a: int, b: int) -> int:
-    return a + b
-```
+return a + b`} title="functions.sop"/>

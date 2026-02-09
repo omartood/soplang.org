@@ -3,6 +3,8 @@ title: Soplang Syntax
 description: Soplang syntax waa mid fudud, nadiif ah, oo Somali-first ah—halkan ka bar bilowga iyo dareenka luuqadda.
 ---
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Soplang Syntax
 
 Soplang syntax waxaa loo qaabeeyey in ay noqoto mid cad, kooban, oo si sahlan loogu fahmo af-Soomaali. Waxay isticmaashaa ereyo Soomaali ah si ay u metesho fikradaha barnaamijyada caanka ah, taas oo ka dhigaysa koodhku mid dabiici ah oo la akhrin karo.
@@ -13,9 +15,7 @@ Tani waa barnaamijka ugu fudud ee Soplang. Waxay adeegsanaysaa shaqada-dhexdeeda
 
 **hello-world.sop**
 
-```bash
-qor("Hello, Adduun!")
-```
+<SoplangCodeWindow title="hello-world.sop" code={`qor("Hello, Adduun!")`}/>
 
 ## Structure
 
@@ -34,14 +34,12 @@ Tusaalahan waxa uu akhriyaa gelinta isticmaalaha kadibna wuu salaamaa. Waxa uu k
 
 **example.sop**
 
-```bash
-hawl salaan(magac) {
+<SoplangCodeWindow title="example.sop" code={`hawl salaan(magac) {
     qor("Asalaamu calaykum, " + magac)
 }
 
 door magaca = gelin("Magacaaga qor: ")
-salaan(magaca)
-```
+salaan(magaca)`}/>
 
 ## File Extension
 

@@ -14,6 +14,8 @@ import {
   TableRow,
 } from "../../components/ui/table";
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Functions in Soplang
 
 Functions (hawlo) waa qaybo koodh oo dib loo isticmaali karo. Soplang waxa lagu qeexaa `hawl` waxaana natiijo lagu soo celinayaa `celi`.
@@ -22,44 +24,36 @@ Functions (hawlo) waa qaybo koodh oo dib loo isticmaali karo. Soplang waxa lagu 
 
 Hawl waxa ay bilaabataa `hawl` kadibna magac hawl iyo parameters (aan lahayn type annotations).
 
-```bash
-hawl salaan(magac) {
+<SoplangCodeWindow title="define_function.sop" code={`hawl salaan(magac) {
     qor("Asalaamu calaykum, " + magac)
-}
-```
+}`}/>
 
 ## Call a Function
 
 Marka aad qeexdo, ku wac magaceeda oo raaci doodaha (arguments):
 
-```bash
-salaan("Aamina")
-```
+<SoplangCodeWindow title="call_function.sop" code={`salaan("Aamina")`}/>
 
 ## Return Values – `celi`
 
 Adeegso `celi` si aad uga soo celiso hawl qiime.
 
-```bash
-hawl labanlaab(x) {
+<SoplangCodeWindow title="return_values.sop" code={`hawl labanlaab(x) {
     celi x * 2
 }
 
 abn natiijo = labanlaab(5)
-qor("Natiijo: " + natiijo)
-```
+qor("Natiijo: " + natiijo)`}/>
 
 ## Loops Inside Functions
 
 Hawluhu waxay ka kooban karaan loops iyo logic kale sida blocks-ka caadiga ah.
 
-```bash
-hawl muujin(liis) {
+<SoplangCodeWindow title="loops_inside_functions.sop" code={`hawl muujin(liis) {
     kuceli (i 0 ilaa liis.dherer() - 1) {
         qor("Liiska: " + liis[i])
     }
-}
-```
+}`}/>
 
 ## Summary
 

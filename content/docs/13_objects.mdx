@@ -3,6 +3,8 @@ title: Objects in Soplang
 description: Learn how to declare, modify, and manage walax (objects) in Soplang with Somali-first methods.
 ---
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Objects in Soplang
 
 Objects in Soplang are defined using the `walax` type. They store key–value pairs and provide Somali-first methods to inspect, modify, and copy structured data.
@@ -11,13 +13,11 @@ Objects in Soplang are defined using the `walax` type. They store key–value pa
 
 **declare_object.sop**
 
-```bash
-walax qof = {
+<SoplangCodeWindow title="declare_object.sop" code={`walax qof = {
     magac: "Ayaan",
     da: 25,
     shaqo: "barayaal"
-}
-```
+}`}/>
 
 ## 🔧 Core Object Methods
 
@@ -25,77 +25,61 @@ walax qof = {
 
 **keys.sop**
 
-```bash
-door keys = qof.fure()
-qor(keys)
-```
+<SoplangCodeWindow title="keys.sop" code={`door keys = qof.fure()
+qor(keys)`}/>
 
 ### `qiime()` – Get Values
 
 **values.sop**
 
-```bash
-door values = qof.qiime()
-qor(values)
-```
+<SoplangCodeWindow title="values.sop" code={`door values = qof.qiime()
+qor(values)`}/>
 
 ### `lamaane()` – Get Key-Value Pairs
 
 **pairs.sop**
 
-```bash
-door pairs = qof.lamaane()
-qor(pairs)
-```
+<SoplangCodeWindow title="pairs.sop" code={`door pairs = qof.lamaane()
+qor(pairs)`}/>
 
 ### `leeyahay(x)` – Has Key
 
 **has_key.sop**
 
-```bash
-haddii (qof.leeyahay("magac")) {
+<SoplangCodeWindow title="has_key.sop" code={`haddii (qof.leeyahay("magac")) {
     qor("Magaca wuu jiraa")
-}
-```
+}`}/>
 
 ### `tir(x)` – Delete Key
 
 **delete.sop**
 
-```bash
-qof.tir("shaqo")
-qor(qof)
-```
+<SoplangCodeWindow title="delete.sop" code={`qof.tir("shaqo")
+qor(qof)`}/>
 
 ### `kudar(obj)` – Merge/Assign
 
 **merge.sop**
 
-```bash
-walax A = {x: 1}
+<SoplangCodeWindow title="merge.sop" code={`walax A = {x: 1}
 walax B = {y: 2}
 walax C = A.kudar(B)
 
-qor(C)  // {x: 1, y: 2}
-```
+qor(C)  // {x: 1, y: 2}`}/>
 
 ### `nuqul()` – Copy
 
 **copy.sop**
 
-```bash
-walax asal = {a: 10, b: 20}
+<SoplangCodeWindow title="copy.sop" code={`walax asal = {a: 10, b: 20}
 walax copy = asal.nuqul()
-qor(copy)
-```
+qor(copy)`}/>
 
 ### `nadiifi()` – Clear All Properties
 
 **clear.sop**
 
-```bash
-asal.nadiifi()
-qor("Cleared object: " + asal)
-```
+<SoplangCodeWindow title="clear.sop" code={`asal.nadiifi()
+qor("Cleared object: " + asal)`}/>
 
 **Gunaanad:** `walax` waxay siisaa qaab awood badan oo lagu kaydiyo xog magacyo leh, iyadoo leh habab si buuxda ugu qoran Af-Soomaali.

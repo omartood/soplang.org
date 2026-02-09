@@ -14,16 +14,16 @@ import {
   TableRow,
 } from "../../components/ui/table";
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Strings in Soplang
 
 Soplang waxa uu taageeraa habab kala duwan oo _string_ manipulation ah oo leh magacyo Soomaali u-dhega nugul. Strings waxaa lagu qeexaa `door` ama `qoraal`.
 
 ## Declare a String
 
-```bash
-qoraal magac = "Sharafdin Yusuf"
-door farriin = "Ku soo dhowow Soplang"
-```
+<SoplangCodeWindow title="declare_string.sop" code={`qoraal magac = "Sharafdin Yusuf"
+door farriin = "Ku soo dhowow Soplang"`}/>
 
 ## String Methods
 
@@ -86,8 +86,7 @@ Hababka hoose waxay ka tarjumayaan kuwa caanka ah ee luqadaha kale, balse magacy
 
 ## Example Usage
 
-```bash
-qoraal jumlad = "Soplang waa luqad qurux badan"
+<SoplangCodeWindow title="strings_example_usage.sop" code={`qoraal jumlad = "Soplang waa luqad qurux badan"
 
 // Split string into parts
 teed ereyo = jumlad.qeybi(" ")
@@ -118,7 +117,6 @@ qor("Dad: " + joined)
 
 // Slice part of string
 door qeyb = jumlad.jar(0, 7)
-qor("Qeybta koowaad: " + qeyb)
-```
+qor("Qeybta koowaad: " + qeyb)`}/>
 
 Strings ee Soplang waa muujin iyo la-qabsan fudud, iyadoo magacyada hababka ay yihiin Soomaali-first si ay u noqdaan kuwo si dabiici ah loo fahmo.

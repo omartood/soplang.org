@@ -3,6 +3,8 @@ title: Data Types
 description: "Noocyada xogta ee Soplang: primitives (abn, jajab, qoraal, bool), ururinta (teed, walax), iyo sida loo adeegsado."
 ---
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Data Types in Soplang
 
 Soplang waxa uu leeyahay noocyo xog oo kala duwan si uu u metelo qiimeyaal kala geddisan. Boggan waxa uu daboolayaa noocyada aasaasiga ah (primitives) iyo ururinta (collections) iyo sida ugu habboon ee loo isticmaalo.
@@ -17,8 +19,7 @@ Soplang waxa uu taageeraa tirooyinka dhan iyo jajab. Waxa aad isticmaali kartaa 
 
 **numbers.sop**
 
-```bash
-// Dynamic typing
+<SoplangCodeWindow title="numbers.sop" code={`// Dynamic typing
 door lambarka1 = 42       // Integer
 door lambarka2 = 3.14     // Floating-point
 
@@ -29,8 +30,7 @@ abn lambarka4 = -25       // Negative integer
 // Arithmetic
 qor(lambarka1 + lambarka2)   // 45.14
 qor(lambarka1 * lambarka3)   // 4200
-qor(lambarka3 / lambarka1)   // 2.38...
-```
+qor(lambarka3 / lambarka1)   // 2.38...`}/>
 
 ### Strings
 
@@ -38,8 +38,7 @@ _Strings_ waa taxane xarfo ah. Waxaad adeegsan kartaa q-double ama q-single, ka 
 
 **strings.sop**
 
-```bash
-// Dynamic typing
+<SoplangCodeWindow title="strings.sop" code={`// Dynamic typing
 door magac1 = "Soplang"
 door magac2 = 'Programming Language'
 
@@ -57,8 +56,7 @@ qor(magac3.qayb(0, 7))         // Soplang
 
 // Interpolation (haddii ay taageerto f-strings)
 door version = 2.0
-qor(f"{magac1} v{version}")    // Soplang v2.0
-```
+qor(f"{magac1} v{version}")    // Soplang v2.0`}/>
 
 ### Booleans
 
@@ -66,8 +64,7 @@ Qiimayaasha run/been: `run` iyo `been`. Waxaad adeegsan kartaa `door` ama `bool`
 
 **booleans.sop**
 
-```bash
-// Dynamic typing
+<SoplangCodeWindow title="booleans.sop" code={`// Dynamic typing
 door waa_sax = run
 door waa_qalad = been
 
@@ -86,8 +83,7 @@ door y = 20
 qor(x > y)     // false
 qor(x <= y)    // true
 qor(x == 10)   // true
-qor(x != y)    // true
-```
+qor(x != y)    // true`}/>
 
 ## Collection Types
 
@@ -99,8 +95,7 @@ Liisaska waa ururin leh amar (ordered). Waad abuuri kartaa adigoo adeegsanaya `t
 
 **lists.sop**
 
-```bash
-// Abuurista liis
+<SoplangCodeWindow title="lists.sop" code={`// Abuurista liis
 door tiro = [1, 2, 3, 4, 5]
 teed magacyada = ["Cabdi", "Caasha", "Xasan", "Hodan"]
 teed isku_dhafan = [1, "Soplang", run, 3.14]
@@ -121,8 +116,7 @@ magacyada.saar(1)    // ka saar index 1
 qor(magacyada)       // ["Cabdi", "Xasan", "Hodan"]
 
 // Dherer
-qor(magacyada.dherer())  // 3
-```
+qor(magacyada.dherer())  // 3`}/>
 
 ### Objects (Dictionaries)
 
@@ -130,8 +124,7 @@ _Objects_ waa lammaane fure–qiime ah. Waxaad ku abuuri kartaa `door` adigoo ad
 
 **objects.sop**
 
-```bash
-// Abuurista objects
+<SoplangCodeWindow title="objects.sop" code={`// Abuurista objects
 door qof = {
   "magac": "Cabdilaahi",
   "da": 25,
@@ -165,5 +158,4 @@ qor("luuqad" ku dhex jira qof)  // false
 // Habab
 qor(qof.fureyaasha())    // ["magac", "da", "waa_arday", "degaan"]
 qor(qof.qiimeyaasha())   // ["Cabdilaahi", 26, true, "Muqdisho"]
-qor(luuqad.dherer())     // 4
-```
+qor(luuqad.dherer())     // 4`}/>

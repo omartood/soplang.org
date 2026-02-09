@@ -3,6 +3,8 @@ title: Input and Output
 description: Sida loo isticmaalo qor() iyo gelin() si aad u daabacdo wax soo saar ama u akhrido gelinta isticmaalaha ee Soplang.
 ---
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Input and Output in Soplang
 
 Soplang waxay isticmaashaa shaqooyin-dhexdeed fudud si loo soo bandhigo wax soo saar iyo in lagu akhriyo gelinta isticmaalaha.
@@ -13,11 +15,9 @@ Adeegso `qor()` si aad u muujiso qiimayaal ama xarfo (strings) shaashadda.
 
 **print_console.sop**
 
-```bash
-qor("Hello, Adduun!")
+<SoplangCodeWindow title="print_console.sop" code={`qor("Hello, Adduun!")
 door magaca = "Aamina"
-qor("Magaca: " + magaca)
-```
+qor("Magaca: " + magaca)`}/>
 
 ### `gelin()` – Read from User Input
 
@@ -25,15 +25,11 @@ Adeegso `gelin()` si aad u weydiiso isticmaalaha gelin. Qiimaha wuxuu had iyo je
 
 **read_input.sop**
 
-```bash
-door magaca = gelin("Magacaaga qor: ")
-qor("Waad ku mahadsan tahay, " + magaca)
-```
+<SoplangCodeWindow title="read_input.sop" code={`door magaca = gelin("Magacaaga qor: ")
+qor("Waad ku mahadsan tahay, " + magaca)`}/>
 
 Haddii aad u baahan tahay is-beddel nooc (type conversion), waxaad adeegsan kartaa `abn()` si aad ugu rogto tiro.
 
 **type_conversion.sop**
 
-```bash
-door da = abn(gelin("Da'daada qor: "))
-```
+<SoplangCodeWindow title="type_conversion.sop" code={`door da = abn(gelin("Da'daada qor: "))`}/>

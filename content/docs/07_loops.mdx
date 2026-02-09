@@ -14,6 +14,8 @@ import {
   TableRow,
 } from "../../components/ui/table";
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Loops in Soplang
 
 Soplang waxa uu taageeraa laba nooc oo loops ah: `intay (shuruud)` oo u dhiganta _while_, iyo `kuceli (bilow ilaa dhamaad)` oo u dhiganta _for_. Waxa kale oo jira `jooji` (break) iyo `soco` (continue) si aad u yeelato xakameyn faahfaahsan.
@@ -24,20 +26,17 @@ Koodhka ku jira block-ga wuu soconayaa inta shuruuddu tahay _run_:
 
 **while_basic.sop**
 
-```bash
-abn i = 1
+<SoplangCodeWindow title="while_basic.sop" code={`abn i = 1
 intay (i <= 5) {
     qor("i = " + i)
     i = i + 1
-}
-```
+}`}/>
 
 Waxay taageertaa `jooji` iyo `soco`:
 
 **while_break_continue.sop**
 
-```bash
-abn i = 0
+<SoplangCodeWindow title="while_break_continue.sop" code={`abn i = 0
 intay (i <= 10) {
     i = i + 1
 
@@ -50,59 +49,49 @@ intay (i <= 10) {
     }
 
     qor("i = " + i) // waxay daabacdaa: 1, 3, 5
-}
-```
+}`}/>
 
 ## For Loop – `kuceli`
 
 **for_basic.sop**
 
-```bash
-kuceli (i 1 ilaa 5) {
+<SoplangCodeWindow title="for_basic.sop" code={`kuceli (i 1 ilaa 5) {
     qor("Tirada: " + i)
-}
-```
+}`}/>
 
 Talaabo (step) la doortay:
 
 **for_step.sop**
 
-```bash
-kuceli (j 2 ilaa 10 :: 2) {
+<SoplangCodeWindow title="for_step.sop" code={`kuceli (j 2 ilaa 10 :: 2) {
     qor("Step: " + j)
-}
-```
+}`}/>
 
 ## Loop Over List
 
 **loop_over_list.sop**
 
-```bash
-teed numbers = [10, 20, 30]
+<SoplangCodeWindow title="loop_over_list.sop" code={`teed numbers = [10, 20, 30]
 kuceli (i 0 ilaa numbers.dherer() - 1) {
     qor("Element " + i + ": " + numbers[i])
-}
-```
+}`}/>
 
 ## Nested Loops
 
 **nested_loops.sop**
 
-```bash
-kuceli (i 1 ilaa 3) {
+<SoplangCodeWindow title="nested_loops.sop" code={`kuceli (i 1 ilaa 3) {
     intay (i > 0) {
         qor("Nested example")
         jooji
     }
-}
-```
+}`}/>
 
 ## Factorial with While
 
 **factorial_while.sop**
 
-```bash
-abn a = 5
+<SoplangCodeWindow title="factorial_while.sop" code={`abn a = 5
 abn result = 1
 abn n = a
 
@@ -110,8 +99,7 @@ intay (n > 0) {
     result = result * n
     n = n - 1
 }
-qor(result)
-```
+qor(result)`}/>
 
 ## Summary
 
