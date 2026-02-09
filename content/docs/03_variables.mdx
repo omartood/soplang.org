@@ -14,6 +14,8 @@ import {
   TableRow,
 } from "../../components/ui/table";
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Soplang Variables
 
 Soplang variables waxaa lagu qeexaa erayo Somali-first ah oo ka tarjumaya doorka ama nooca. Tani waxay ka dhigtaa koodhka mid muujin leh oo u fudud barayaasha Af-Soomaaliga.
@@ -24,11 +26,9 @@ Soplang variables waxaa lagu qeexaa erayo Somali-first ah oo ka tarjumaya doorka
 
 **dynamic_variables.sop**
 
-```bash
-door magaca = "Aamina"
+<SoplangCodeWindow title="dynamic_variables.sop" code={`door magaca = "Aamina"
 door da = 19
-door xaqiiqo = run
-```
+door xaqiiqo = run`}/>
 
 ## Static Variables
 
@@ -89,15 +89,11 @@ Doorsoomayaasha _static_ waa kuwa si cad loo noocqeeyo (explicit types) si loo h
 
 **constants_basic.sop**
 
-```bash
-madoor magaca = "Soplang"
-```
+<SoplangCodeWindow title="constants_basic.sop" code={`madoor magaca = "Soplang"`}/>
 
 Constants lama u wareejin karo (reassign):
 
 **constants_reassign_error.sop**
 
-```bash
-madoor luqad = "Somali"
-luqad = "English"  // Error: cannot reassign constant
-```
+<SoplangCodeWindow title="constants_reassign_error.sop" code={`madoor luqad = "Somali"
+luqad = "English"  // Error: cannot reassign constant`}/>

@@ -14,6 +14,8 @@ import {
   TableRow,
 } from "../../components/ui/table";
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Soplang Keywords Reference
 
 Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u dhigmaha Ingiriisiga, iyo tusaalooyin isticmaal.
@@ -331,8 +333,7 @@ Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u
 
 **keywords_quick_examples.sop**
 
-```bash
-// Variables
+<SoplangCodeWindow title="keywords_quick_examples.sop" code={`// Variables
 door magac = "Sharafdin"
 madoor PI = 3.14159
 abn da = 25
@@ -357,5 +358,4 @@ intay (x < 3) { qor(x); x = x + 1 }
 
 // Functions
 hawl isuGee(a, b) { celi a + b }
-qor(isuGee(2, 3))
-```
+qor(isuGee(2, 3))`}/>

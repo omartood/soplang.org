@@ -3,126 +3,100 @@ title: Arrays
 description: "Isticmaalka teed (arrays): qeexid, dherer, ku darid/kasaarid, rog, nadiifi, habee, beddel/shaandhayn, indexing iyo jarid."
 ---
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Arrays
 
 Arrays waxa lagu qeexaa erayga `teed`. Waxay hayaan uruurin qiimayaal ah oo leh habab badan: maarayn, beddelid, iyo falanqayn.
 
 ## Declaring Arrays
 
-```bash
-teed numbers = [1, 2, 3, 4]
-teed magacyo = ["Ali", "Zahra"]
-```
+<SoplangCodeWindow title="arrays_declaring.sop" code={`teed numbers = [1, 2, 3, 4]
+teed magacyo = ["Ali", "Zahra"]`}/>
 
 ## Core Array Methods
 
 ### `dherer()` – Get Length
 
-```bash
-teed x = [10, 20, 30]
-qor("Length: " + x.dherer())  // 3
-```
+<SoplangCodeWindow title="arrays_length.sop" code={`teed x = [10, 20, 30]
+qor("Length: " + x.dherer())  // 3`}/>
 
 ### `kudar(x)` – Add to End
 
-```bash
-teed x = [1, 2]
+<SoplangCodeWindow title="arrays_push.sop" code={`teed x = [1, 2]
 x.kudar(3)   // [1, 2, 3]
-x.kudar(4)   // [1, 2, 3, 4]
-```
+x.kudar(4)   // [1, 2, 3, 4]`}/>
 
 ### `kasaar()` – Remove Last
 
-```bash
-door last = x.kasaar()
-qor("Removed: " + last)
-```
+<SoplangCodeWindow title="arrays_pop.sop" code={`door last = x.kasaar()
+qor("Removed: " + last)`}/>
 
 ### `kudar(teed)` – Concatenate
 
-```bash
-teed a = [1, 2]
+<SoplangCodeWindow title="arrays_concat.sop" code={`teed a = [1, 2]
 teed b = [3, 4]
-teed c = a.kudar(b)    // [1, 2, 3, 4]
-```
+teed c = a.kudar(b)    // [1, 2, 3, 4]`}/>
 
 ### `leeyahay(x)` – Contains Check
 
-```bash
-haddii (c.leeyahay(3)) {
+<SoplangCodeWindow title="arrays_contains.sop" code={`haddii (c.leeyahay(3)) {
     qor("Waa jiraa")
-}
-```
+}`}/>
 
 ## Utility Methods
 
 ### `nuqul()` – Copy Array
 
-```bash
-teed asal = [10, 20]
+<SoplangCodeWindow title="arrays_copy.sop" code={`teed asal = [10, 20]
 teed copy = asal.nuqul()
-qor("Copy: " + copy)
-```
+qor("Copy: " + copy)`}/>
 
 ### `rog()` – Reverse
 
-```bash
-asal.rog()
-qor("Reversed: " + asal)
-```
+<SoplangCodeWindow title="arrays_reverse.sop" code={`asal.rog()
+qor("Reversed: " + asal)`}/>
 
 ### `nadiifi()` – Clear
 
-```bash
-copy.nadiifi()
-qor("Emptied copy: " + copy)
-```
+<SoplangCodeWindow title="arrays_clear.sop" code={`copy.nadiifi()
+qor("Emptied copy: " + copy)`}/>
 
 ### `habee()` – Sort
 
-```bash
-teed t = [4, 2, 3]
+<SoplangCodeWindow title="arrays_sort.sop" code={`teed t = [4, 2, 3]
 t.habee()
-qor("Sorted: " + t)
-```
+qor("Sorted: " + t)`}/>
 
 ## Transform and Filter
 
 ### `aaddin(funk)` – Map Items
 
-```bash
-hawl laban(x) {
+<SoplangCodeWindow title="arrays_map.sop" code={`hawl laban(x) {
     celi x * 2
 }
 
 teed nums = [1, 2, 3]
-teed doubled = nums.aaddin("laban")
-```
+teed doubled = nums.aaddin("laban")`}/>
 
 ### `shaandhee(funk)` – Filter Items
 
-```bash
-hawl is_even(x) {
+<SoplangCodeWindow title="arrays_filter.sop" code={`hawl is_even(x) {
     celi x % 2 == 0
 }
 
-teed filtered = nums.shaandhee("is_even")
-```
+teed filtered = nums.shaandhee("is_even")`}/>
 
 ## Indexing and Slicing
 
 ### `muuji(x)` – Find Index
 
-```bash
-abn i = nums.muuji(2)
-qor("Index of 2: " + i)
-```
+<SoplangCodeWindow title="arrays_index_of.sop" code={`abn i = nums.muuji(2)
+qor("Index of 2: " + i)`}/>
 
 ### `jar(a, b)` – Slice Sublist
 
-```bash
-teed subset = nums.jar(1, 3)
-qor("Subset: " + subset)
-```
+<SoplangCodeWindow title="arrays_slice.sop" code={`teed subset = nums.jar(1, 3)
+qor("Subset: " + subset)`}/>
 
 **Gunaanad:** `teed` waa qaab-dhismeed aasaasi ah oo Soo-maali-first ah, fududeynaaya maaraynta iyo ku celcelinta liisaska.

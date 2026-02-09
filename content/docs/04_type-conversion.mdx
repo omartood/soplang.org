@@ -14,6 +14,8 @@ import {
   TableRow,
 } from "../../components/ui/table";
 
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
 # Type Conversion in Soplang
 
 Soplang waxa uu leeyahay shaqooyin-dhexdeed (built-ins) oo fudud oo lagu kala beddelo noocyada xogta. Kuwaas waxay kuu oggolaanayaan inaad si ammaan ah ugu beddesho u dhaxeysa integer, string, decimal, iyo boolean—adigoo ilaalinaya saxnaanta xogta.
@@ -24,11 +26,9 @@ Adeegso `nooc()` si aad u hubiso nooca qiime kasta.
 
 **type_checking.sop**
 
-```bash
-door natiijo = nooc(42)         // "abn"
+<SoplangCodeWindow title="type_checking.sop" code={`door natiijo = nooc(42)         // "abn"
 door natiijo2 = nooc("abc")     // "qoraal"
-door natiijo3 = nooc(3.14)      // "jajab"
-```
+door natiijo3 = nooc(3.14)      // "jajab"`}/>
 
 ## Type Conversion Functions
 
@@ -83,8 +83,7 @@ Hoos waxaa ku qoran is-beddellada caanka ah iyo shaqada la adeegsado:
 
 ## Example
 
-```bash
-// Integer to string
+<SoplangCodeWindow title="type_conversion_example.sop" code={`// Integer to string
 abn int_value = 42
 qoraal int_str = qoraal(int_value)
 qor("Integer to string: " + int_str + " (Type: " + nooc(int_str) + ")")
@@ -97,7 +96,6 @@ qor("String to decimal: " + converted_decimal + " (Type: " + nooc(converted_deci
 // Decimal to integer (truncation)
 jajab decimal_num = 42.75
 abn int_from_decimal = abn(decimal_num)
-qor("Decimal to integer (truncation): " + int_from_decimal)
-```
+qor("Decimal to integer (truncation): " + int_from_decimal)`}/>
 
 Shaqooyinkan beddelka noocyadu waxay muhiim u yihiin dhismaha _input-handling_ adag, tusaale ahaan marka aad akhrinayso gelinta isticmaalaha ama faylasha oo aad rabto inaad hubiso noocyo sax ah ka hor inta aanad xisaab samayn.
