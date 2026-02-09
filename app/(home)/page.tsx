@@ -25,11 +25,11 @@ export default function Home() {
               keywords, we empower students, educators, and developers to build
               software using their mother tongue.
             </p>
-            <div className="p-8 bg-card border rounded-2xl shadow-sm text-left relative overflow-hidden group hover:border-primary/50 transition-colors">
+            <div className="p-8 bg-card border rounded-2xl shadow-sm text-left relative overflow-hidden group hover:bg-accent transition-colors">
               <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                 <Icon
                   icon="fa6-solid:code"
-                  className="w-24 scale-[.5] h-24 rotate-12"
+                  className="w-24 transition duration-200 group-hover:bg-ring group-hover:scale-[.6] scale-[.5] h-24 rotate-12"
                 />
               </div>
               <p className="italic text-muted-foreground text-center text-lg font-medium relative z-10">

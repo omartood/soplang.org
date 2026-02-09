@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import "./global.css";
 
 import "@/lib/metadata";
@@ -7,7 +6,7 @@ import "@/styles/soplang-syntax.css";
 import "@/styles/terminal.css";
 import { RootProvider } from "fumadocs-ui/provider/next";
 
-import { inter, roboto } from "@/lib/fonts";
+import { inter } from "@/lib/fonts";
 
 export default function RootLayout({
   children,
@@ -18,7 +17,7 @@ export default function RootLayout({
     <html
       lang="so"
       suppressHydrationWarning
-      className={`${roboto.variable} antialiased`}
+      className={`${inter.className} antialiased`}
       dir="ltr"
       translate="no"
     >
@@ -127,13 +126,10 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${roboto.className} ${inter.className} font-sans antialiased`}
+        className={`${inter.className} font-sans antialiased`}
         suppressHydrationWarning
       >
-        <RootProvider>
-          {children}
-          <Footer />
-        </RootProvider>
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   );
