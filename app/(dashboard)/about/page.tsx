@@ -1,5 +1,6 @@
-import { Icon } from "@iconify/react";
+import CommonBadge from "@/components/CommonBadge";
 import SoplangCodeWindow from "@/components/SoplangCodeWindow";
+import { Icon } from "@iconify/react";
 
 export default function AboutPage() {
   return (
@@ -13,16 +14,11 @@ export default function AboutPage() {
       <div className="container-custom py-10 md:py-22">
         {/* Dynamic Header / Hero */}
         <div className="text-center max-w-4xl mx-auto mb-20 relative">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-primary text-sm font-medium mb-6 animate-fade-in-up">
-            <Icon icon="lucide:sparkles" className="w-4 h-4" />
-            <span>The Story of Soplang</span>
-          </div>
+          <CommonBadge text="The Story of Soplang" />
 
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-8 tracking-tight animate-fade-in-up animation-delay-100 leading-tight">
             Empowering Somalia with <br className="hidden md:block" />
-            <span className="text-gradient-primary">
-              Native Technology
-            </span>
+            <span className="text-gradient-primary">Native Technology</span>
           </h1>
 
           <div className="relative inline-block">
@@ -63,15 +59,15 @@ export default function AboutPage() {
               <div className="w-full md:w-1/2">
                 <SoplangCodeWindow
                   title="example.sop"
-                  code={`qiimo = 150
-canshuur = 0.1
-wadarta = qiimo + (qiimo * canshuur)
-
-hadii (wadarta > 100) {
-    qor("Qiimaha wuu sareeyaa: " + wadarta);
-} kale {
-    qor("Qiimuhu waa macquul: " + wadarta);
-}`}
+                  code={`
+                  qiimo = 150
+                  canshuur = 0.1
+                  wadarta = qiimo + (qiimo * canshuur)
+                  hadii (wadarta > 100) {
+                      qor("Qiimaha wuu sareeyaa: " + wadarta);
+                  } kale {
+                      qor("Qiimuhu waa macquul: " + wadarta);
+                  }`}
                   className="transform md:rotate-2 hover:rotate-0 transition-transform duration-500"
                 />
               </div>
@@ -82,7 +78,7 @@ hadii (wadarta > 100) {
         {/* Timeline & Facts Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
           {/* Card 1 */}
-          <div className="group bg-card hover:bg-card/80 border border-border hover:border-primary/30 p-8 rounded-3xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+          <div className="group bg-card hover:bg-card/80 border border-border hover:border p-8 rounded-3xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
             <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Icon icon="lucide:calendar-clock" className="w-6 h-6" />
             </div>
@@ -96,7 +92,7 @@ hadii (wadarta > 100) {
           </div>
 
           {/* Card 2 */}
-          <div className="group bg-card hover:bg-card/80 border border-border hover:border-primary/30 p-8 rounded-3xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+          <div className="group bg-card hover:bg-card/80 border border-border hover:border p-8 rounded-3xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
             <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Icon icon="simple-icons:python" className="w-6 h-6" />
             </div>
@@ -111,7 +107,7 @@ hadii (wadarta > 100) {
           </div>
 
           {/* Card 3 */}
-          <div className="group bg-card hover:bg-card/80 border border-border hover:border-primary/30 p-8 rounded-3xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+          <div className="group bg-card hover:bg-card/80 border border-border hover:border p-8 rounded-3xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
             <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Icon icon="lucide:box" className="w-6 h-6" />
             </div>
@@ -125,7 +121,7 @@ hadii (wadarta > 100) {
           </div>
 
           {/* Card 4 */}
-          <div className="group bg-card hover:bg-card/80 border border-border hover:border-primary/30 p-8 rounded-3xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+          <div className="group bg-card hover:bg-card/80 border border-border hover:border p-8 rounded-3xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
             <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Icon icon="lucide:globe-2" className="w-6 h-6" />
             </div>
@@ -144,14 +140,7 @@ hadii (wadarta > 100) {
           <div className="absolute inset-0 bg-[url('/bg-grid.svg')] opacity-10" />
 
           <div className="relative z-10 p-10 md:p-20 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full badge-primary text-sm font-medium mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-              </span>
-              Coming Soon
-            </div>
-
+            <CommonBadge text=" Coming Soon" />
             <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground">
               The Future of Soplang
             </h2>
