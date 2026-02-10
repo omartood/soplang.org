@@ -148,23 +148,35 @@ body {
 @layer utilities {
   /* Primary-based gradient utilities for documentation consistency */
   .text-gradient-primary {
-    background: linear-gradient(to right, hsl(var(--primary-gradient-from)), hsl(var(--primary-gradient-to)));
+    background: linear-gradient(
+      to right,
+      hsl(var(--primary-gradient-from)),
+      hsl(var(--primary-gradient-to))
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .bg-gradient-primary {
-    background: linear-gradient(to right, hsl(var(--primary-gradient-from)), hsl(var(--primary-gradient-to)));
+    background: linear-gradient(
+      to right,
+      hsl(var(--primary-gradient-from)),
+      hsl(var(--primary-gradient-to))
+    );
   }
 
   .badge-primary {
-    @apply bg-primary/10 text-primary border border-primary/20;
+    @apply bg-primary/10 text-primary border;
   }
 
   /* Legacy alias */
   .text-gradient {
-    background: linear-gradient(to right, hsl(var(--primary-gradient-from)), hsl(var(--primary-gradient-to)));
+    background: linear-gradient(
+      to right,
+      hsl(var(--primary-gradient-from)),
+      hsl(var(--primary-gradient-to))
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

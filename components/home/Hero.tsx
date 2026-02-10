@@ -1,9 +1,9 @@
 "use client";
 
 import { sample_codeSnippet } from "@/constants/codeSnippetData";
-import { latestVersion } from "@/constants/latestVersion";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import CommonBadge from "../CommonBadge";
 import CodeWindow from "../SoplangCodeWindow";
 
 export const Hero = () => {
@@ -24,15 +24,7 @@ export const Hero = () => {
           {/* Text Content */}
           <div className="w-full lg:w-1/2 text-center lg:text-left space-y-8">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/50 border  text-sm font-semibold text-primary shadow-[0_0_10px_rgba(var(--primary),0.1)] backdrop-blur-sm animate-fade-in-up">
-              <Icon
-                icon="streamline-sharp:star-2"
-                className="w-4 h-4 text-primary"
-              />
-              <span className="text-primary">
-                {latestVersion} is Now Stable
-              </span>
-            </div>
+            <CommonBadge text="v2.0.0 is Now Stable" />
 
             <h1 className="flex gap-2 flex-wrap items-center justify-center lg:justify-start lg:w-full text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] animate-fade-in-up animation-delay-100">
               Build Dreams
@@ -55,7 +47,7 @@ export const Hero = () => {
               </Link>
               <Link
                 href="/docs"
-                className="w-full sm:w-auto h-14 px-8 rounded-xl bg-card border border-border/50 hover:border-primary/50 hover:bg-secondary/50 font-semibold text-lg flex items-center justify-center gap-3 transition-all duration-300 group backdrop-blur-sm"
+                className="w-full sm:w-auto h-14 px-8 rounded-xl bg-card border border-border/50  hover:bg-secondary/50 font-semibold text-lg flex items-center justify-center gap-3 transition-all duration-300 group backdrop-blur-sm"
               >
                 Documentation
                 <Icon

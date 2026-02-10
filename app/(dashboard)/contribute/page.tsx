@@ -48,7 +48,7 @@ export default function ContributePage() {
               href="https://github.com/soplang/soplang"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-card border border-border hover:border-primary/50 text-foreground font-semibold transition-all shadow-sm hover:shadow-md hover:-translate-y-1"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-card border border-border  text-foreground font-semibold transition-all shadow-sm hover:shadow-md hover:-translate-y-1"
             >
               <Icon icon="lucide:github" className="w-5 h-5" />
               Visit Repository

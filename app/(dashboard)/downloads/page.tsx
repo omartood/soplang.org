@@ -1,8 +1,8 @@
 import Link from "next/link";
 
+import CommonBadge from "@/components/CommonBadge";
 import CodeWindow from "@/components/SoplangCodeWindow";
 import { platforms } from "@/constants/downloadData";
-import { latestVersion } from "@/constants/latestVersion";
 import { packageManagers } from "@/constants/packageManagersData";
 import { Icon } from "@iconify/react";
 
@@ -18,10 +18,8 @@ export default function DownloadsPage() {
       <div className="container-custom pt-10 md:pt-16">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-primary text-sm font-medium mb-4">
-            <Icon icon="lucide:download" className="w-4 h-4" />
-            <span>Latest Version {latestVersion}</span>
-          </div>
+          <CommonBadge text="v2.0.0 is Now Stable" />
+
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6">
             Install <span className="text-gradient-primary">Soplang</span>
           </h1>
@@ -36,7 +34,7 @@ export default function DownloadsPage() {
           {platforms.map((platform) => (
             <div
               key={platform.id}
-              className={`group relative p-8 rounded-2xl bg-card backdrop-blur-xl border border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl shadow-sm overflow-hidden w-full md:max-w-md`}
+              className={`group relative p-8 rounded-2xl bg-card backdrop-blur-xl border border-border  transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl shadow-sm overflow-hidden w-full md:max-w-md`}
             >
               {/* Hover Gradient */}
               <div
@@ -133,7 +131,7 @@ export default function DownloadsPage() {
             {packageManagers.map((pm, idx) => (
               <div
                 key={idx}
-                className="w-full md:w-[calc(50%-1.5rem)] lg:max-w-2xl p-6 rounded-xl bg-card border border-border hover:border-primary/20 transition-all flex flex-col h-full"
+                className="w-full md:w-[calc(50%-1.5rem)] lg:max-w-2xl p-6 rounded-xl bg-card border border-border transition-all flex flex-col h-full"
               >
                 <div className="flex items-center gap-3 mb-4">
                   {pm.icon}
