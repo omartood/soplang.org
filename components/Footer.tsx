@@ -104,7 +104,7 @@ export default function Footer() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="w-10 h-10 rounded-full bg-secondary text-muted-foreground flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300 ring-1 ring-border shadow-sm"
+                  className="w-10 h-10 rounded-full  flex items-center justify-center hover:bg-primary hover:text-fd-primary transition-all duration-300 border shadow-sm"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={link.name}
@@ -126,7 +126,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                      className="text-muted-foreground hover:text-fd-primary transition-colors text-sm"
                       {...(link.target ?
                         { target: link.target, rel: "noopener noreferrer" }
                       : {})}
