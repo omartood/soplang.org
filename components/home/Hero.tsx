@@ -37,10 +37,10 @@ export const Hero = () => {
               Somali community.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4 animate-fade-in-up animation-delay-300">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4 animate-fade-in-up animation-delay-300 px-3">
               <Link
                 href="/downloads"
-                className="w-full sm:w-auto h-14 px-8 rounded-xl bg-gradient-primary text-primary-foreground font-bold text-lg flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:opacity-95 hover:-translate-y-1 hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 ring-offset-2 ring-offset-background"
+                className="w-full sm:w-auto h-14 px-8 rounded-xl bg-fd-primary text-fd-background dark:bg-fd-accent dark:text-white font-bold text-lg flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:opacity-95 hover:-translate-y-1 hover:scale-105 transition-all duration-300  "
               >
                 <Icon icon="lucide:download" className="w-5 h-5" />
                 Install Soplang

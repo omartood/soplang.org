@@ -32,10 +32,10 @@ const CodeWindow: React.FC<CodeWindowProps> = ({
 
   return (
     <div
-      className={`code-window rounded-lg overflow-hidden shadow-md my-4 ${className}`}
+      className={`code-window b rounded-lg overflow-hidden shadow-md my-4 ${className}`}
     >
       {/* macOS style window header */}
-      <div className="code-window-header bg-gray-800 dark:bg-[#1e1e1e] px-4 py-2 flex items-center justify-between">
+      <div className="code-window-header bg-fd-card-foreground  px-4 py-2 flex items-center justify-between">
         <div className="flex space-x-2">
           <div className="w-3 h-3 bg-red-500 rounded-full window-button close"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full window-button minimize"></div>
@@ -53,7 +53,7 @@ const CodeWindow: React.FC<CodeWindowProps> = ({
       </div>
 
       {/* Code content with Soplang syntax highlighting */}
-      <div className="bg-[#1e1e1e] dark:bg-[#1e1e1e] overflow-x-auto rounded-bl-lg rounded-br-lg dark:border-gray-700">
+      <div className="bg-fd-card-foreground dark:bg-fd-popover overflow-x-auto rounded-bl-lg rounded-br-lg dark:border-gray-700">
         <SoplangHighlighter code={code} />
       </div>
     </div>
