@@ -1,4 +1,17 @@
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog - Soplang",
+  description:
+    "Explore news, updates, and articles about Soplang, the first Somali programming language. Our blog is currently under development—check back soon!",
+  openGraph: {
+    title: "Blog - Soplang",
+    description:
+      "Stay up to date with news, stories, and updates from the Soplang community. The blog is under development—check back soon!",
+    images: "/og.png",
+  },
+};
 
 export default function BlogPage() {
   return (

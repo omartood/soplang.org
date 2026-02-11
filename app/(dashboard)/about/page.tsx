@@ -1,6 +1,19 @@
 import CommonBadge from "@/components/CommonBadge";
 import SoplangCodeWindow from "@/components/SoplangCodeWindow";
 import { Icon } from "@iconify/react";
+import { Metadata } from "next/types";
+
+export const metadata: Metadata = {
+  title: "About Soplang – Empowering Somalia with Native Technology",
+  description:
+    "Discover the story behind Soplang: why it was created, its mission to empower Somalia with technology in the Somali language, and how it brings coding closer to local speakers. Learn about the vision of the creator, Mr Sharafdin, and the unique impact of the first Somali programming language.",
+  openGraph: {
+    title: "About Soplang – Empowering Somalia with Native Technology",
+    description:
+      "Learn about Soplang’s origin, mission, and impact as the first Somali programming language empowering local developers and learners.",
+    images: "/og.png",
+  },
+};
 
 export default function AboutPage() {
   return (

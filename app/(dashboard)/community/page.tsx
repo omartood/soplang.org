@@ -9,6 +9,12 @@ export const metadata: Metadata = {
   title: "Community - Soplang",
   description:
     "Join the Soplang community to connect with other developers, find resources, and contribute to the project.",
+  openGraph: {
+    title: "Soplang Community",
+    description:
+      "Connect with other Soplang developers, join Discord, contribute on GitHub, and help shape the future of Somali programming.",
+    images: "/og.png",
+  },
 };
 
 // Community platforms data
