@@ -1,5 +1,3 @@
-"use client";
-
 import { Icon } from "@iconify/react";
 import { Metadata } from "next/types";
 export const metadata: Metadata = {
