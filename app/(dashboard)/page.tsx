@@ -101,7 +101,7 @@ export default function Home() {
               </p>
               <Link
                 href="/tutorials"
-                className="text-primary font-semibold hover:underline flex items-center gap-1 group"
+                className="text-primary font-semibold hover:underline flex items-center  gap-1 group"
               >
                 Start Tutorial{" "}
                 <Icon
@@ -147,7 +147,7 @@ export default function Home() {
           </h2>
           <Link
             href="/docs"
-            className="inline-flex h-14 items-center justify-center rounded-full text-primary-foreground bg-gradient-primary hover:opacity-95 text-lg px-6 py-2 font-medium shadow-lg shadow-primary/20 transition-all duration-300"
+            className="inline-flex h-14 items-center justify-center rounded-full text-white dark:bg-fd-accent dark:text-white border bg-fd-primary hover:opacity-95 text-lg px-6 py-2 font-medium shadow-lg shadow-primary/20 transition-all duration-300"
           >
             Start Building Now
           </Link>

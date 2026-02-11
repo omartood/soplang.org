@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import { Metadata } from "next/types";
 
 export const metadata: Metadata = {
-  title: "About Soplang – Empowering Somalia with Native Technology",
+  title: "About Soplang - Empowering Somalia with Native Technology",
   description:
     "Discover the story behind Soplang: why it was created, its mission to empower Somalia with technology in the Somali language, and how it brings coding closer to local speakers. Learn about the vision of the creator, Mr Sharafdin, and the unique impact of the first Somali programming language.",
   openGraph: {

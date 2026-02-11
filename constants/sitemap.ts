@@ -1,224 +1,224 @@
 export const siteStructure = [
   {
-    title: 'About',
+    title: "About",
     links: [
       {
-        name: 'Help',
-        href: '/about/help',
+        name: "Help",
+        href: "/about/help",
       },
       {
-        name: 'About Home',
-        href: '/about',
+        name: "About Home",
+        href: "/about",
       },
     ],
   },
   {
-    title: 'Blog',
+    title: "Blog",
     links: [
       {
-        name: 'Blog Home',
-        href: '/blog',
+        name: "Blog Home",
+        href: "/blog",
       },
     ],
   },
   {
-    title: 'Community',
+    title: "Community",
     links: [
       {
-        name: 'Community Home',
-        href: '/community',
+        name: "Community Home",
+        href: "/community",
       },
     ],
   },
   {
-    title: 'Contact',
+    title: "Contact",
     links: [
       {
-        name: 'Contact Home',
-        href: '/contact',
+        name: "Contact Home",
+        href: "/contact",
       },
     ],
   },
   {
-    title: 'Contribute',
+    title: "Contribute",
     links: [
       {
-        name: 'Security',
-        href: '/contribute/security',
+        name: "Security",
+        href: "/contribute/security",
       },
       {
-        name: 'Contribute Home',
-        href: '/contribute',
+        name: "Contribute Home",
+        href: "/contribute",
       },
     ],
   },
   {
-    title: 'Docs',
+    title: "Docs",
     links: [
       {
-        name: 'Installing Soplang',
-        href: '/docs/00_installation',
+        name: "Installing Soplang",
+        href: "/docs/00_installation",
       },
       {
-        name: 'Getting Started with Soplang',
-        href: '/docs/00_getting-started',
+        name: "Getting Started with Soplang",
+        href: "/docs/00_getting-started",
       },
       {
-        name: 'Soplang Syntax',
-        href: '/docs/01_syntax-basics',
+        name: "Soplang Syntax",
+        href: "/docs/01_syntax-basics",
       },
       {
-        name: 'Arrays',
-        href: '/docs/12_arrays',
+        name: "Arrays",
+        href: "/docs/12_arrays",
       },
       {
-        name: 'Built-in Functions in Soplang',
-        href: '/docs/15_built-in-functions',
+        name: "Built-in Functions in Soplang",
+        href: "/docs/15_built-in-functions",
       },
       {
-        name: 'Conditional Statements',
-        href: '/docs/06_conditional-statements',
+        name: "Conditional Statements",
+        href: "/docs/06_conditional-statements",
       },
       {
-        name: 'Data Types',
-        href: '/docs/09_data-types',
+        name: "Data Types",
+        href: "/docs/09_data-types",
       },
       {
-        name: 'Functions',
-        href: '/docs/08_functions',
+        name: "Functions",
+        href: "/docs/08_functions",
       },
       {
-        name: 'Input and Output',
-        href: '/docs/02_input-and-output',
+        name: "Input and Output",
+        href: "/docs/02_input-and-output",
       },
       {
-        name: 'Soplang Keywords Reference',
-        href: '/docs/14_keywords-reference',
+        name: "Soplang Keywords Reference",
+        href: "/docs/14_keywords-reference",
       },
       {
-        name: 'Loops',
-        href: '/docs/07_loops',
+        name: "Loops",
+        href: "/docs/07_loops",
       },
       {
-        name: 'Numbers',
-        href: '/docs/11_numbers',
+        name: "Numbers",
+        href: "/docs/11_numbers",
       },
       {
-        name: 'Objects in Soplang',
-        href: '/docs/13_objects',
+        name: "Objects in Soplang",
+        href: "/docs/13_objects",
       },
       {
-        name: 'Operators',
-        href: '/docs/05_operators',
+        name: "Operators",
+        href: "/docs/05_operators",
       },
       {
-        name: 'Strings in Soplang',
-        href: '/docs/10_strings',
+        name: "Strings in Soplang",
+        href: "/docs/10_strings",
       },
       {
-        name: 'Type Conversion',
-        href: '/docs/04_type-conversion',
+        name: "Type Conversion",
+        href: "/docs/04_type-conversion",
       },
       {
-        name: 'Variables',
-        href: '/docs/03_variables',
+        name: "Variables",
+        href: "/docs/03_variables",
       },
       {
-        name: 'Docs Home',
-        href: '/docs',
+        name: "Docs Home",
+        href: "/docs",
       },
       {
-        name: 'Faq',
-        href: '/docs/faq',
+        name: "Faq",
+        href: "/docs/faq",
       },
     ],
   },
   {
-    title: 'Downloads',
+    title: "Downloads",
     links: [
       {
-        name: 'Downloads Home',
-        href: '/downloads',
+        name: "Downloads Home",
+        href: "/downloads",
       },
     ],
   },
   {
-    title: 'Examples',
+    title: "Examples",
     links: [
       {
-        name: 'Hello World in Soplang',
-        href: '/examples/hello-world',
+        name: "Hello World in Soplang",
+        href: "/examples/hello-world",
       },
       {
-        name: 'Examples Home',
-        href: '/examples',
+        name: "Examples Home",
+        href: "/examples",
       },
     ],
   },
   {
-    title: 'Faq',
+    title: "Faq",
     links: [
       {
-        name: 'Faq Home',
-        href: '/faq',
+        name: "Faq Home",
+        href: "/faq",
       },
     ],
   },
   {
-    title: 'Privacy',
+    title: "Privacy",
     links: [
       {
-        name: 'Privacy Home',
-        href: '/privacy',
+        name: "Privacy Home",
+        href: "/privacy",
       },
     ],
   },
   {
-    title: 'Search',
+    title: "Search",
     links: [
       {
-        name: 'Search Home',
-        href: '/search',
+        name: "Search Home",
+        href: "/search",
       },
     ],
   },
   {
-    title: 'Sitemap',
+    title: "Sitemap",
     links: [
       {
-        name: 'Sitemap Home',
-        href: '/sitemap',
+        name: "Sitemap Home",
+        href: "/sitemap",
       },
     ],
   },
   {
-    title: 'Terms',
+    title: "Terms",
     links: [
       {
-        name: 'Terms Home',
-        href: '/terms',
+        name: "Terms Home",
+        href: "/terms",
       },
     ],
   },
   {
-    title: 'Trademarks',
+    title: "Trademarks",
     links: [
       {
-        name: 'Trademarks Home',
-        href: '/trademarks',
+        name: "Trademarks Home",
+        href: "/trademarks",
       },
     ],
   },
   {
-    title: 'Tutorials',
+    title: "Tutorials",
     links: [
       {
-        name: 'Introduction to Tutorials',
-        href: '/tutorials/index',
+        name: "Introduction to Tutorials",
+        href: "/tutorials/index",
       },
       {
-        name: 'Tutorials Home',
-        href: '/tutorials',
+        name: "Tutorials Home",
+        href: "/tutorials",
       },
     ],
   },
