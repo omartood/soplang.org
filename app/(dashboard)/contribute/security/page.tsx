@@ -1,12 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Security Policy - Soplang",
   description:
     "Learn about the security practices and vulnerability reporting processes for the Soplang programming language.",
   keywords: "Soplang, security, vulnerability, disclosure, reporting",
+  openGraph: {
+    title: "Soplang Security Policy",
+    description:
+      "Read the Soplang security policy, including how to responsibly report vulnerabilities and how we handle security issues.",
+    images: "/og.png",
+  },
 };
 
 export default function SecurityPolicyPage() {

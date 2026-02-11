@@ -4,6 +4,12 @@ import { Icon } from '@iconify/react';
 export const metadata: Metadata = {
   title: 'Terms of Use - Soplang',
   description: 'Terms of Use for Soplang programming language.',
+  openGraph: {
+    title: 'Terms of Use - Soplang',
+    description:
+      'Review the Terms of Use for Soplang, including licensing, responsibilities, and limitations of liability.',
+    images: '/og.png',
+  },
 };
 
 export default function TermsPage() {

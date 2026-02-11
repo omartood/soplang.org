@@ -1,10 +1,23 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 import CommonBadge from "@/components/CommonBadge";
 import CodeWindow from "@/components/SoplangCodeWindow";
 import { platforms } from "@/constants/downloadData";
 import { packageManagers } from "@/constants/packageManagersData";
 import { Icon } from "@iconify/react";
+
+export const metadata: Metadata = {
+  title: "Download Soplang - Install the Somali Programming Language",
+  description:
+    "Download Soplang, the first Somali programming language, for your preferred platform, or install it via your favorite package manager.",
+  openGraph: {
+    title: "Download Soplang",
+    description:
+      "Download Soplang for your operating system or install it via your favorite package manager to start coding in Somali.",
+    images: "/og.png",
+  },
+};
 
 export default function DownloadsPage() {
   return (

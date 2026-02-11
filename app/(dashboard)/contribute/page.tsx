@@ -1,13 +1,20 @@
 import CodeWindow from "@/components/SoplangCodeWindow";
 import { contributors } from "@/constants/contributorsData";
 import { Icon } from "@iconify/react";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Contribute to Soplang - Join the Community",
   description:
     "Learn how to contribute to Soplang, an open-source Somali programming language. Find guidelines, development setup instructions, and join our community of contributors.",
   keywords:
     "Soplang, contribute, open-source, Somali programming language, coding, development, community",
+  openGraph: {
+    title: "Contribute to Soplang",
+    description:
+      "Discover how to contribute code, documentation, and community support to Soplang, the first Somali programming language.",
+    images: "/og.png",
+  },
 };
 
 export default function ContributePage() {

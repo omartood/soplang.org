@@ -4,6 +4,12 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy - Soplang",
   description: "Privacy Policy for Soplang programming language.",
+  openGraph: {
+    title: "Privacy Policy - Soplang",
+    description:
+      "Understand how Soplang collects, uses, and protects your data when you use our language, website, and related services.",
+    images: "/og.png",
+  },
 };
 
 export default function PrivacyPolicyPage() {

@@ -5,6 +5,12 @@ export const metadata: Metadata = {
   title: "Trademarks - Soplang",
   description:
     "Trademark guidelines and policies for Soplang programming language.",
+  openGraph: {
+    title: "Soplang Trademarks",
+    description:
+      "Learn how to correctly use the Soplang name and logo, and review our official trademark guidelines and policies.",
+    images: "/og.png",
+  },
 };
 
 export default function TrademarksPage() {

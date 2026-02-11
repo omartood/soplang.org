@@ -2,7 +2,20 @@ import { Features } from "@/components/home/Features";
 import { Hero } from "@/components/home/Hero";
 import { Sponsors } from "@/components/home/Sponsors";
 import { Icon } from "@iconify/react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Soplang - First Somali Programming Language",
+  description:
+    "Discover Soplang, the first Somali programming language, built to make coding intuitive and accessible using native Somali syntax.",
+  openGraph: {
+    title: "Soplang - First Somali Programming Language",
+    description:
+      "Discover Soplang, the first Somali programming language, built to make coding intuitive and accessible using native Somali syntax.",
+    images: "/og.png",
+  },
+};
 
 export default function Home() {
   return (
