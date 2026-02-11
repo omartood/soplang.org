@@ -84,11 +84,23 @@ export function ViewOptions({
   githubUrl: string;
 }) {
   const items = useMemo(() => {
-    const fullMarkdownUrl =
-      typeof window !== "undefined" ?
-        new URL(markdownUrl, window.location.origin)
-      : "loading";
-    const q = `Read ${fullMarkdownUrl}, I want to ask questions about it.`;
+    // Prefer the actual deployed site URL for LLM links, so tools like ChatGPT
+    // can access your live docs instead of a local dev URL.
+    const fallbackBase =
+      process.env.NODE_ENV === "development" ?
+        "https://localhost:3000"
+      : "https://soplang.abdifitahabdulkadir.dev";
+
+    const baseUrl =
+      (
+        typeof window !== "undefined" &&
+        window.location.origin !== "http://localhost:3000"
+      ) ?
+        window.location.origin
+      : fallbackBase;
+
+    const fullMarkdownUrl = new URL(markdownUrl, baseUrl);
+    const q = `Read ${fullMarkdownUrl.toString()}, I want to ask questions about it.`;
 
     return [
       {
