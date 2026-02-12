@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
   --color-fd-background: hsl(210, 40%, 98%);
   --color-fd-foreground: hsl(222, 47%, 11%);
