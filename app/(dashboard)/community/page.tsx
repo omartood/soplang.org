@@ -186,7 +186,7 @@ export default function CommunityPage() {
 
         {/* Contribute Section */}
         <section className="mb-24">
-          <div className="relative overflow-hidden rounded-3xl bg-blue-800 text-white p-8 md:p-16 text-center">
+          <div className="relative overflow-hidden rounded-3xl dark:bg-fd-primary/40 bg-fd-foreground border shadow-sm text-white dark:text-white p-8 md:p-16 text-center">
             {/* Decorative circles */}
             <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
             <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
