@@ -13,6 +13,7 @@ export function baseOptions(): BaseLayoutProps {
       { text: "Home", url: "/", active: "nested-url" },
       { text: "Downloads", url: "/downloads", active: "nested-url" },
       { text: "Documentation", url: "/docs", active: "nested-url" },
+      { text: "Contribute", url: "/contribute", active: "nested-url" },
       { text: "About", url: "/about", active: "nested-url" },
     ],
   };

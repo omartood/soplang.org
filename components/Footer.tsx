@@ -33,6 +33,7 @@ const footerLinks = [
         target: "_blank",
       },
       { ...getSectionHome("Contribute"), name: "Contribute" },
+      findSitemapLink("Contribute", "Security"),
       {
         name: "Somast",
         href: "https://www.somast.so/",
