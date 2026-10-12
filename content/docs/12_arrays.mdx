@@ -1,6 +1,6 @@
 ---
 title: Arrays
-description: "Isticmaalka teed (arrays): qeexid, dherer, ku darid/kasaarid, rog, nadiifi, habee, beddel/shaandhayn, indexing iyo jarid."
+description: "Isticmaalka teed (arrays): qeexid, dherer, ku darid/kasaarid, rog, nadiifi, habee, aaddin/shaandhee, indexing iyo jarid."
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
@@ -23,6 +23,8 @@ qor("Length: " + x.dherer())  // 3`}/>
 
 ### `kudar(x)` – Add to End
 
+`kudar()` oo qiime keliya la siiyo wuxuu beddelaa liiska laftiisa (in-place).
+
 <SoplangCodeWindow title="arrays_push.sop" code={`teed x = [1, 2]
 x.kudar(3)   // [1, 2, 3]
 x.kudar(4)   // [1, 2, 3, 4]`}/>
@@ -30,13 +32,18 @@ x.kudar(4)   // [1, 2, 3, 4]`}/>
 ### `kasaar()` – Remove Last
 
 <SoplangCodeWindow title="arrays_pop.sop" code={`door last = x.kasaar()
-qor("Removed: " + last)`}/>
+qor("Removed: " + last)   // Removed: 4`}/>
+
+`kasaar()` liis madhan waa khalad runtime.
 
 ### `kudar(teed)` – Concatenate
 
+Marka `kudar()` la siiyo liis kale, wuxuu soo celiyaa **liis cusub** — `a` isma beddelo.
+
 <SoplangCodeWindow title="arrays_concat.sop" code={`teed a = [1, 2]
 teed b = [3, 4]
-teed c = a.kudar(b)    // [1, 2, 3, 4]`}/>
+teed c = a.kudar(b)    // [1, 2, 3, 4]
+qor(a)                 // [1, 2]`}/>
 
 ### `leeyahay(x)` – Contains Check
 
@@ -66,37 +73,60 @@ qor("Emptied copy: " + copy)`}/>
 
 <SoplangCodeWindow title="arrays_sort.sop" code={`teed t = [4, 2, 3]
 t.habee()
-qor("Sorted: " + t)`}/>
+qor("Sorted: " + t)   // Sorted: [2, 3, 4]
+
+teed magacyo = ["Zahra", "Ali", "Hodan"]
+magacyo.habee()
+qor(magacyo)          // [Ali, Hodan, Zahra]`}/>
+
+<Callout type="warn" title="habee() wuxuu u kala soocaa sida qoraal">
+  Hadda `habee()` wuxuu isbarbardhigaa qiimayaasha sida qoraal (string), ma aha sida tiro. Sidaa darteed `[10, 2, 3].habee()` wuxuu noqonayaa `[10, 2, 3]`, maxaa yeelay `"10"` ayaa ka horreeya `"2"`. Tirooyin hal-xaraf ah si sax ah ayay u shaqeeyaan.
+</Callout>
 
 ## Transform and Filter
 
 ### `aaddin(funk)` – Map Items
 
+`aaddin()` iyo `shaandhee()` waxay qaataan **hawl** — u gudbi magaca hawsha iyadoon xigasho (`"..."`) lahayn. Labaduba waxay soo celiyaan liis cusub.
+
 <SoplangCodeWindow title="arrays_map.sop" code={`hawl laban(x) {
     celi x * 2
 }
 
-teed nums = [1, 2, 3]
-teed doubled = nums.aaddin("laban")`}/>
+teed nums = [1, 2, 3, 4]
+teed doubled = nums.aaddin(laban)
+qor(doubled)   // [2, 4, 6, 8]`}/>
 
 ### `shaandhee(funk)` – Filter Items
 
-<SoplangCodeWindow title="arrays_filter.sop" code={`hawl is_even(x) {
+<SoplangCodeWindow title="arrays_filter.sop" code={`hawl waa_dhaban(x) {
     celi x % 2 == 0
 }
 
-teed filtered = nums.shaandhee("is_even")`}/>
+teed filtered = nums.shaandhee(waa_dhaban)
+qor(filtered)   // [2, 4]`}/>
 
 ## Indexing and Slicing
 
 ### `muuji(x)` – Find Index
 
-<SoplangCodeWindow title="arrays_index_of.sop" code={`abn i = nums.muuji(2)
-qor("Index of 2: " + i)`}/>
+<SoplangCodeWindow title="arrays_index_of.sop" code={`door i = nums.muuji(2)
+qor("Index of 2: " + i)   // Index of 2: 1
+
+qor(nums.muuji(99))       // maran (lama helin)`}/>
+
+### Negative Indexing
+
+Index taban wuxuu ka tiriyaa dhamaadka liiska.
+
+<SoplangCodeWindow title="arrays_negative_index.sop" code={`qor(nums[-1])            // 4
+qor(nums.jar(-2, 4))     // [3, 4]`}/>
 
 ### `jar(a, b)` – Slice Sublist
 
-<SoplangCodeWindow title="arrays_slice.sop" code={`teed subset = nums.jar(1, 3)
-qor("Subset: " + subset)`}/>
+`jar(a, b)` waxay soo celisaa walxaha laga bilaabo index `a` ilaa `b` (`b` kuma jiro).
 
-**Gunaanad:** `teed` waa qaab-dhismeed aasaasi ah oo Soo-maali-first ah, fududeynaaya maaraynta iyo ku celcelinta liisaska.
+<SoplangCodeWindow title="arrays_slice.sop" code={`teed subset = nums.jar(1, 3)
+qor("Subset: " + subset)   // Subset: [2, 3]`}/>
+
+**Gunaanad:** `teed` waa qaab-dhismeed aasaasi ah oo Somali-first ah, fududeynaaya maaraynta iyo ku celcelinta liisaska.

@@ -1,6 +1,6 @@
 ---
 title: Strings in Soplang
-description: "Declare iyo ka shaqaynta xarfo (strings) ee Soplang: qoraal/door, iyo hababka sida qeybi, leeyahay, dhamaad, bilow, beddel, kudar, jar."
+description: "Declare iyo ka shaqaynta xarfo (strings) ee Soplang: qoraal/door, indexing, iyo hababka sida qeybi, leeyahay, dhamaad, bilow, beddel, beddel_dhammaan, kudar, jar, xarafaha_weyn, xarfaha_yaryar, masax, raadi."
 ---
 
 import {
@@ -66,8 +66,14 @@ Hababka hoose waxay ka tarjumayaan kuwa caanka ah ee luqadaha kale, balse magacy
     <TableRow>
       <TableCell>`beddel(x, y)`</TableCell>
       <TableCell>`replace()`</TableCell>
-      <TableCell>Beddel *x* adigoo u beddelaya *y*.</TableCell>
+      <TableCell>Beddel *x* kii ugu horreeyay adigoo u beddelaya *y*.</TableCell>
       <TableCell>`door cusub = text.beddel("old", "new")`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`beddel_dhammaan(x, y)`</TableCell>
+      <TableCell>`replaceAll()`</TableCell>
+      <TableCell>Beddel *x* meel kasta oo uu ka jiro.</TableCell>
+      <TableCell>`door cusub = text.beddel_dhammaan("a", "x")`</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>`kudar(teed)`</TableCell>
@@ -81,8 +87,48 @@ Hababka hoose waxay ka tarjumayaan kuwa caanka ah ee luqadaha kale, balse magacy
       <TableCell>Soo saar qayb ka timid *bilow* ilaa *dhamaad*.</TableCell>
       <TableCell>`door sub = text.jar(0, 3)`</TableCell>
     </TableRow>
+    <TableRow>
+      <TableCell>`xarafaha_weyn()`</TableCell>
+      <TableCell>`toUpperCase()`</TableCell>
+      <TableCell>U beddel xarfo waaweyn.</TableCell>
+      <TableCell>`door weyn = text.xarafaha_weyn()`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`xarfaha_yaryar()`</TableCell>
+      <TableCell>`toLowerCase()`</TableCell>
+      <TableCell>U beddel xarfo yaryar.</TableCell>
+      <TableCell>`door yar = text.xarfaha_yaryar()`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`masax()`</TableCell>
+      <TableCell>`trim()`</TableCell>
+      <TableCell>Ka saar meelaha bannaan bilowga iyo dhamaadka.</TableCell>
+      <TableCell>`door nadiif = text.masax()`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`raadi(sub)`</TableCell>
+      <TableCell>`indexOf()`</TableCell>
+      <TableCell>Soo celi index-ka ugu horreeya ee *sub*, ama `-1` haddii aan la helin.</TableCell>
+      <TableCell>`door i = text.raadi("pro")`</TableCell>
+    </TableRow>
   </TableBody>
 </Table>
+
+<Callout title="Dhererka string">
+  Strings ma laha habka `.dherer()`. Isticmaal hawsha `dherer(text)`.
+</Callout>
+
+## Indexing and Length
+
+Xaraf kasta waxaad ku heli kartaa index (laga bilaabo `0`). Index taban wuxuu ka tiriyaa dhamaadka. `jar()` waxay sidoo kale aqbashaa index taban, ama hal qiime oo keliya (ilaa dhamaadka).
+
+<SoplangCodeWindow title="strings_indexing.sop" code={`qoraal luqad = "Soplang"
+
+qor(dherer(luqad))    // 7
+qor(luqad[0])         // S
+qor(luqad[-1])        // g
+qor(luqad.jar(3))     // lang
+qor(luqad.jar(-4))    // lang`}/>
 
 ## Example Usage
 
@@ -117,6 +163,16 @@ qor("Dad: " + joined)
 
 // Slice part of string
 door qeyb = jumlad.jar(0, 7)
-qor("Qeybta koowaad: " + qeyb)`}/>
+qor("Qeybta koowaad: " + qeyb)
+
+// Case, trim, and search
+qor("soplang".xarafaha_weyn())             // SOPLANG
+qor("SOPLANG".xarfaha_yaryar())            // soplang
+qor("  soplang  ".masax())                 // soplang
+qor("soplang programming".raadi("pro"))    // 8
+
+// Replace first vs. replace all
+qor("abaaba".beddel("a", "x"))             // xbaaba
+qor("abaaba".beddel_dhammaan("a", "x"))    // xbxxbx`}/>
 
 Strings ee Soplang waa muujin iyo la-qabsan fudud, iyadoo magacyada hababka ay yihiin Soomaali-first si ay u noqdaan kuwo si dabiici ah loo fahmo.

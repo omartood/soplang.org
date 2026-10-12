@@ -19,6 +19,10 @@
     "13_objects",
     "14_keywords-reference",
     "15_built-in-functions",
+    "16_classes",
+    "17_error-handling",
+    "18_modules",
+    "19_cli-and-repl",
     "faq"
   ]
 }

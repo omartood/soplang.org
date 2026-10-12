@@ -1,14 +1,12 @@
 ---
 title: Soplang Keywords Reference
-description: Tixraac dhamaystiran ee ereyada (keywords) Soplang (door, madoor, haddii, kuceli, hawl, celi, iwm).
+description: Tixraac dhamaystiran ee ereyada (keywords) Soplang (door, madoor, haddii, kuceli, hawl, celi, qaab, fasax, keen, iwm).
 ---
 
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -18,7 +16,7 @@ import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Soplang Keywords Reference
 
-Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u dhigmaha Ingiriisiga, iyo tusaalooyin isticmaal.
+Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u dhigmaha Ingiriisiga, iyo tusaalooyin isticmaal. Ereyadan looma isticmaali karo magac doorsoome ama hawl.
 
 ## Variable Declaration Keywords
 
@@ -72,7 +70,7 @@ Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u
       <TableCell>`walax`</TableCell>
       <TableCell>Object type</TableCell>
       <TableCell>`object`</TableCell>
-      <TableCell>`walax person = { name: "Sharafdin" }`</TableCell>
+      <TableCell>`walax qof = { magac: "Sharafdin" }`</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>`teed`</TableCell>
@@ -80,14 +78,10 @@ Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u
       <TableCell>`array`</TableCell>
       <TableCell>`teed numbers = [1, 2, 3]`</TableCell>
     </TableRow>
-    <TableRow>
-      <TableCell>`maran`</TableCell>
-      <TableCell>Null value</TableCell>
-      <TableCell>`null`</TableCell>
-      <TableCell>`door a = maran`</TableCell>
-    </TableRow>
   </TableBody>
 </Table>
+
+`abn`, `jajab`, `qoraal`, `bool`, `teed`, iyo `walax` waxay sidoo kale yihiin hawlo beddel-nooc ah (`abn(4.9)`, `qoraal(25)`). Eeg [Built-in Functions](/docs/15_built-in-functions).
 
 ## Control Flow Keywords
 
@@ -115,8 +109,8 @@ Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u
     </TableRow>
     <TableRow>
       <TableCell>`ugudambeyn`</TableCell>
-      <TableCell>Else statement</TableCell>
-      <TableCell>`else`</TableCell>
+      <TableCell>Else / default case</TableCell>
+      <TableCell>`else` / `default`</TableCell>
       <TableCell>`ugudambeyn { qor("Yar") }`</TableCell>
     </TableRow>
     <TableRow>
@@ -133,19 +127,19 @@ Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u
     </TableRow>
     <TableRow>
       <TableCell>`kuceli`</TableCell>
-      <TableCell>For loop</TableCell>
+      <TableCell>For loop (inclusive range)</TableCell>
       <TableCell>`for`</TableCell>
       <TableCell>`kuceli (i 1 ilaa 5) { qor(i) }`</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>`ilaa`</TableCell>
-      <TableCell>Loop range end</TableCell>
+      <TableCell>Loop range end (only inside `kuceli`)</TableCell>
       <TableCell>`to`</TableCell>
       <TableCell>`kuceli (i 1 ilaa 5) { qor(i) }`</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>`::`</TableCell>
-      <TableCell>Loop increment</TableCell>
+      <TableCell>Loop step</TableCell>
       <TableCell>`step`</TableCell>
       <TableCell>`kuceli (i 1 ilaa 10 :: 2) { qor(i) }`</TableCell>
     </TableRow>
@@ -197,6 +191,88 @@ Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u
   </TableBody>
 </Table>
 
+## Class Keywords
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Keyword</TableHead>
+      <TableHead>Meaning</TableHead>
+      <TableHead>English Equivalent</TableHead>
+      <TableHead>Example</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>`qaab`</TableCell>
+      <TableCell>Class definition</TableCell>
+      <TableCell>`class`</TableCell>
+      <TableCell>`qaab Bisad { ... }`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`dhaxal`</TableCell>
+      <TableCell>Inherit from a parent class</TableCell>
+      <TableCell>`extends`</TableCell>
+      <TableCell>`qaab Bisad dhaxal Xayawaan { ... }`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`cusub`</TableCell>
+      <TableCell>Create a new instance</TableCell>
+      <TableCell>`new`</TableCell>
+      <TableCell>`door b = cusub Bisad("Mia")`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`nafta`</TableCell>
+      <TableCell>The current instance</TableCell>
+      <TableCell>`this` / `self`</TableCell>
+      <TableCell>`nafta.magac = magac`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`dhaw`</TableCell>
+      <TableCell>Constructor method name (called by `cusub`)</TableCell>
+      <TableCell>`constructor`</TableCell>
+      <TableCell>`hawl dhaw(magac) { nafta.magac = magac }`</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+`dhaw` ma aha keyword la xafiday — waa magaca hawsha constructor-ka. Eeg [Classes](/docs/16_classes).
+
+## Error Handling and Module Keywords
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Keyword</TableHead>
+      <TableHead>Meaning</TableHead>
+      <TableHead>English Equivalent</TableHead>
+      <TableHead>Example</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>`fasax`</TableCell>
+      <TableCell>Protected (try) block</TableCell>
+      <TableCell>`try`</TableCell>
+      <TableCell>`fasax { ... } qabo (k) { ... }`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`qabo`</TableCell>
+      <TableCell>Catch block with error variable</TableCell>
+      <TableCell>`catch`</TableCell>
+      <TableCell>`qabo (khalad) { qor(khalad) }`</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`keen`</TableCell>
+      <TableCell>Import another `.sop` file</TableCell>
+      <TableCell>`import`</TableCell>
+      <TableCell>`keen "utils.sop"`</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+Eeg [Error Handling](/docs/17_error-handling) iyo [Modules](/docs/18_modules).
+
 ## Special Values
 
 <Table>
@@ -222,10 +298,10 @@ Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u
       <TableCell>`haddii (!been) { ... }`</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>`maran`</TableCell>
       <TableCell>`null`</TableCell>
-      <TableCell>Empty/null value</TableCell>
-      <TableCell>`door val = maran`</TableCell>
+      <TableCell>`null`</TableCell>
+      <TableCell>No value — prints as `maran`, and `nooc(null)` is `"maran"`</TableCell>
+      <TableCell>`door val = null`</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -245,13 +321,13 @@ Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u
     <TableRow>
       <TableCell>`+`</TableCell>
       <TableCell>`+`</TableCell>
-      <TableCell>Addition</TableCell>
+      <TableCell>Addition / string concatenation</TableCell>
       <TableCell>`x = a + b`</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>`-`</TableCell>
       <TableCell>`-`</TableCell>
-      <TableCell>Subtraction</TableCell>
+      <TableCell>Subtraction / negation</TableCell>
       <TableCell>`x = a - b`</TableCell>
     </TableRow>
     <TableRow>
@@ -329,6 +405,8 @@ Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u
   </TableBody>
 </Table>
 
+`&&` iyo `||` waa isku heer (bidix ilaa midig) — isticmaal qaansooyin `()` marka aad isku darayso. Eeg [Operators](/docs/05_operators).
+
 ## Quick Examples
 
 **keywords_quick_examples.sop**
@@ -342,7 +420,7 @@ qoraal qora = "Salaan"
 bool sax = run
 teed numbers = [1, 2, 3]
 walax qof = { magac: "Ayaan" }
-door wax = maran
+door wax = null
 
 // Control flow
 haddii (da >= 18) { qor("Qof weyn") } ugudambeyn { qor("Ilmo") }
@@ -353,9 +431,28 @@ dooro (qora) {
 }
 
 kuceli (i 1 ilaa 5 :: 2) { qor(i) }
+
 abn x = 1
-intay (x < 3) { qor(x); x = x + 1 }
+intay (x < 3) {
+  qor(x)
+  x = x + 1
+}
 
 // Functions
 hawl isuGee(a, b) { celi a + b }
-qor(isuGee(2, 3))`}/>
+qor(isuGee(2, 3))
+
+// Classes
+qaab Qof {
+  hawl dhaw(magac) { nafta.magac = magac }
+  hawl salaam() { celi "Salaan, " + nafta.magac }
+}
+door q = cusub Qof("Aamina")
+qor(q.salaam())
+
+// Error handling
+fasax {
+  qor(10 / 0)
+} qabo (khalad) {
+  qor("Khalad: " + khalad)
+}`}/>

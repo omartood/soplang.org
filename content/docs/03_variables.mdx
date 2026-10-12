@@ -30,6 +30,20 @@ Soplang variables waxaa lagu qeexaa erayo Somali-first ah oo ka tarjumaya doorka
 door da = 19
 door xaqiiqo = run`}/>
 
+Doorsoome `door` ah wuxuu qaadan karaa qiime nooc kasta ah, xitaa marka dambe:
+
+<SoplangCodeWindow title="dynamic_reassign.sop" code={`door x = 10
+x = "hadda waa qoraal"   // waa la oggol yahay
+qor(x)`}/>
+
+### Declare Once
+
+Magac waxaa la qeexi karaa hal mar oo keliya — xitaa gudaha block (`haddii`, `intay`, …). Si aad qiimaha u beddesho, ha ku celin `door`; si toos ah u qor `magac = qiime`.
+
+<SoplangCodeWindow title="declare_once.sop" code={`door a = 1
+a = 2          // sax: beddelid
+door a = 3     // Khalad nooc: Magaca 'a' mar hore ayaa la qeexay [E020]`}/>
+
 ## Static Variables
 
 Doorsoomayaasha _static_ waa kuwa si cad loo noocqeeyo (explicit types) si loo helo hufnaan iyo badbaado nooc (type safety).
@@ -83,6 +97,16 @@ Doorsoomayaasha _static_ waa kuwa si cad loo noocqeeyo (explicit types) si loo h
   </TableBody>
 </Table>
 
+### Type Checking
+
+Doorsoome static ah wuxuu xafidaa noociisa. Haddii aad siiso qiime nooc kale ah — marka la qeexayo ama marka dambe — Soplang waxay soo saartaa khalad nooc (`E022`) **ka hor** inta aan barnaamijka la fulin.
+
+<SoplangCodeWindow title="static_type_error.sop" code={`abn tirada = 10
+tirada = 20            // sax: weli waa abn
+tirada = "labaatan"    // Khalad nooc: 'tirada' waa abn laakin qiimaheeda 'qoraal' ma ahan abn [E022]`}/>
+
+Haddii aad rabto in doorsoome kasta uu yeesho nooc cad, isticmaal `soplang --strict file.sop`. Strict mode wuxuu diidaa `door`. Eeg [CLI & REPL](/docs/19_cli-and-repl).
+
 ## Constants – `madoor`
 
 `madoor` (soo gaabinta _madoorsoome_) waxaa loo adeegsadaa qiyamka aan la beddeli karin (immutable).
@@ -96,4 +120,12 @@ Constants lama u wareejin karo (reassign):
 **constants_reassign_error.sop**
 
 <SoplangCodeWindow title="constants_reassign_error.sop" code={`madoor luqad = "Somali"
-luqad = "English"  // Error: cannot reassign constant`}/>
+luqad = "English"  // Khalad nooc: Ma bedeli kartid qiimaha doorsamaha madoor 'luqad' [E020]`}/>
+
+`madoor` waxaa sidoo kale lagu dari karaa nooc static ah, si nooca qiimaha loo hubiyo:
+
+**constants_typed.sop**
+
+<SoplangCodeWindow title="constants_typed.sop" code={`madoor abn SANAD = 2025
+madoor PI = 3.14159
+qor(SANAD)`}/>
