@@ -12,7 +12,7 @@ export const NavLogo = () => {
           priority
         />
       </div>
-      <span className="font-bold text-xl md:text-2xl text-blue-600">
+      <span className="text-xl font-semibold tracking-tight text-primary md:text-2xl">
         Soplang
       </span>
     </div>

@@ -1,6 +1,6 @@
 ---
 title: Built-in Functions in Soplang
-description: Tixraac degdeg ah oo ku saabsan hawlaha ku-dhexjira Soplang (qor, gelin, nooc, abn, jajab, qoraal, bool, teed, walax, daji, kor, dherer, xul).
+description: Tixraac degdeg ah oo ku saabsan hawlaha ku-dhexjira Soplang (qor, gelin, nooc, abn, jajab, qoraal, bool, teed, walax, daji, kor, dherer, xul, baaxad).
 ---
 
 import {
@@ -20,7 +20,7 @@ import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 Soplang waxa uu leeyahay hawlo muhiim ah oo si joogto ah u diyaar ah—daabacaad, akhris, beddel-nooc, leex-leexin tiro (rounding), abuuris liis/obj, iyo in ka badan—dhammaantood magacyo Soomaali ah.
 
-## 📋 Built-in Function Reference
+## Built-in Function Reference
 
 <Table>
   <TableHeader>
@@ -95,7 +95,7 @@ Soplang waxa uu leeyahay hawlo muhiim ah oo si joogto ah u diyaar ah—daabacaad
         object()
       </TableCell>
       <TableCell className="font-mono text-xs">
-        door obj = walax(magac: "Ali")
+        door obj = walax("magac", "Ali")
       </TableCell>
     </TableRow>
     <TableRow>
@@ -116,26 +116,45 @@ Soplang waxa uu leeyahay hawlo muhiim ah oo si joogto ah u diyaar ah—daabacaad
     </TableRow>
     <TableRow>
       <TableCell className="font-mono text-primary">dherer()</TableCell>
-      <TableCell>Length of string/list</TableCell>
+      <TableCell>Length of string, list, or object</TableCell>
       <TableCell className="font-mono text-muted-foreground">
         len()/.length
       </TableCell>
       <TableCell className="font-mono text-xs">
-        door l = "text".dherer()
+        door l = dherer("text")
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell className="font-mono text-primary">xul()</TableCell>
-      <TableCell>Pick random number</TableCell>
+      <TableCell>Random number or random list item</TableCell>
       <TableCell className="font-mono text-muted-foreground">
         random()
       </TableCell>
       <TableCell className="font-mono text-xs">door n = xul(1, 6)</TableCell>
     </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-primary">baaxad()</TableCell>
+      <TableCell>Create a list of numbers (range)</TableCell>
+      <TableCell className="font-mono text-muted-foreground">
+        range()
+      </TableCell>
+      <TableCell className="font-mono text-xs">door l = baaxad(1, 5)</TableCell>
+    </TableRow>
   </TableBody>
 </Table>
 
-## 🧪 Examples
+## Notes
+
+- **`walax()`** waxay qaadataa lammaanayaal fure–qiime ah oo isku xiga: `walax("magac", "Ali", "da", 20)`. Inta badan waa ka fudud tahay in la qoro object literal: `{magac: "Ali", da: 20}`.
+- **`dherer()`** waxay ka shaqaysaa strings, liisas, iyo objects. Liisasku sidoo kale waxay leeyihiin habka `.dherer()`; strings iyo objects ma laha.
+- **`xul()`** waxay leedahay saddex qaab:
+  - `xul()` — jajab random ah oo u dhexeeya `0` iyo `1`
+  - `xul(a, b)` — jajab random ah oo u dhexeeya `a` iyo `b`. Haddii aad rabto tiro dhan, isticmaal `daji(xul(1, 7))` (`1`–`6`).
+  - `xul(liis)` — hal walax oo random ah oo liiska ka mid ah
+- **`baaxad()`** waxay soo saartaa liis tirooyin ah; dhamaadku kuma jiro: `baaxad(5)` → `[0, 1, 2, 3, 4]`, `baaxad(2, 6)` → `[2, 3, 4, 5]`, `baaxad(1, 10, 2)` → `[1, 3, 5, 7, 9]`.
+- **`daji()` / `kor()`** waxay soo celiyaan `jajab`. Isticmaal `abn()` haddii aad u baahan tahay `abn`.
+
+## Examples
 
 **builtins_examples.sop**
 
@@ -158,14 +177,18 @@ door b = bool(0)
 
 // List and Object creation
 door l = teed(1, 2, 3)
-door o = walax(name: "Ayaan", age: 20)
+door o = walax("name", "Ayaan", "age", 20)
 
 // Math rounding
 qor("Floor: " + daji(4.8))
 qor("Ceil: " + kor(4.2))
 
 // Random number
-door r = xul(1, 6)
-qor("Random: " + r)`}/>
+door r = daji(xul(1, 7))
+qor("Random: " + r)
+
+// Random item and range
+qor(xul(["Cas", "Buluug", "Cagaar"]))
+qor(baaxad(1, 5))   // [1, 2, 3, 4]`}/>
 
 **Gunaanad:** built-ins-ka Soplang waxay ka dhigaan koodhka mid kooban, muujin leh, isla markaana si dabiici ah ugu qoran Af-Soomaali.

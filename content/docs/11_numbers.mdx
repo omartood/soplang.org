@@ -46,14 +46,18 @@ door qiime = 2.5       // dynamic, decimal value
 // Arithmetic
 jajab x = 10.0
 jajab y = 4.0
-qor(x + y)   // 14.0
-qor(x - y)   // 6.0
-qor(x * y)   // 40.0
+qor(x + y)   // 14
+qor(x - y)   // 6
+qor(x * y)   // 40
 qor(x / y)   // 2.5
 
 // Comparisons
 qor(pi > 3)        // run
 qor(2.0 == 2)      // run (labaduba waxay loo turjumi karaa qiime isu eg)`}/>
+
+<Callout title="Sida jajab loo daabaco">
+  Marka `jajab` uu yahay tiro dhan (sida `14.0`), `qor()` waxay u daabacdaa `14` iyadoon `.0` lahayn. Noociisu weli waa `jajab` — hubi `nooc()`.
+</Callout>
 
 Haddii aad ka timid `door` oo aadan hubin nooca, waxaad ka fiirsan kartaa `nooc()` si aad u xaqiijiso.
 
@@ -69,7 +73,7 @@ jajab b = 2.0
 
 // Natiijo jajab
 door c = a + b
-qor(c)          // 7.0
+qor(c)          // 7
 qor(nooc(c))    // "jajab"
 
 // Qasbi integer (truncation)
@@ -78,7 +82,7 @@ qor(d)          // 2
 
 // Qasbi decimal
 jajab e = jajab(a * 2)
-qor(e)          // 10.0`}/>
+qor(e)          // 10`}/>
 
 ## Beddel & xaqiijin degdeg ah
 
@@ -89,8 +93,17 @@ qor("Nooc: " + nooc(da))             // "abn"
 
 // String → decimal
 jajab qiime = jajab("12.75")
-qor(qiime + 0.25)                    // 13.0
+qor(qiime + 0.25)                    // 13
 
 // Number → string
 qoraal s = qoraal(2025)
 qor("Sanad: " + s)`}/>
+
+## Rounding — `daji()` iyo `kor()`
+
+`daji()` waxay hoos ugu soo koobtaa (floor), `kor()` waxay kor ugu qaaddaa (ceil). Labaduba waxay soo celiyaan `jajab`; isticmaal `abn()` haddii aad u baahan tahay `abn`.
+
+<SoplangCodeWindow title="rounding.sop" code={`qor(daji(4.8))         // 4
+qor(kor(4.2))          // 5
+qor(nooc(daji(4.8)))   // jajab
+qor(abn(kor(4.2)))     // 5`}/>

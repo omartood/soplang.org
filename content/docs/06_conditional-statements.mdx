@@ -99,6 +99,16 @@ dooro (maalinta) {
 
 Tani waxay ku habboon tahay go'aan-qaadasho leh laamo badan oo ku saleysan qiime go'an.
 
+`xaalad` waxay la shaqaysaa tirooyin iyo qoraallo labadaba. Hal `xaalad` oo keliya ayaa fulaysa — looma baahna `jooji` (ma jiro fall-through). `ugudambeyn` waa ikhtiyaari.
+
+<SoplangCodeWindow title="switch_numbers.sop" code={`abn lambar = 2
+
+dooro (lambar) {
+    xaalad 1 { qor("Hal") }
+    xaalad 2 { qor("Laba") }
+    xaalad 3 { qor("Saddex") }
+}`}/>
+
 ## Combined Usage
 
 Waxaad isku dari kartaa `haddii`/`haddii_kale`/`ugudambeyn` iyo `dooro` si aad u dhisto logic adag oo weli akhris-wanaagsan.

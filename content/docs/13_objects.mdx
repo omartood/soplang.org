@@ -9,7 +9,7 @@ import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 Objects in Soplang are defined using the `walax` type. They store key–value pairs and provide Somali-first methods to inspect, modify, and copy structured data.
 
-## 🧾 Declaring an Object – `walax`
+## Declaring an Object – `walax`
 
 **declare_object.sop**
 
@@ -19,14 +19,37 @@ Objects in Soplang are defined using the `walax` type. They store key–value pa
     shaqo: "barayaal"
 }`}/>
 
-## 🔧 Core Object Methods
+Keys can be written as plain names (`magac:`) or as strings (`"magac":`).
+
+## Reading and Updating Properties
+
+Use dot-notation to read a property, change it, or add a new one. Bracket-notation with a string key works too, which is useful when the key is stored in a variable. Use `dherer()` to count the properties.
+
+**properties.sop**
+
+<SoplangCodeWindow title="properties.sop" code={`qor(qof.magac)          // Ayaan
+qor(qof["da"])          // 25
+
+qof.da = 26             // update
+qof.magaalo = "Hargeysa"  // add a new property
+
+door fure = "shaqo"
+qor(qof[fure])          // barayaal
+
+qor(dherer(qof))        // 4`}/>
+
+Reading a property that does not exist returns `null` (printed as `maran`).
+
+## Core Object Methods
+
+`fure()`, `qiime()`, and `lamaane()` return their results sorted alphabetically by key.
 
 ### `fure()` – Get Keys
 
 **keys.sop**
 
 <SoplangCodeWindow title="keys.sop" code={`door keys = qof.fure()
-qor(keys)`}/>
+qor(keys)   // [da, magaalo, magac, shaqo]`}/>
 
 ### `qiime()` – Get Values
 
@@ -57,7 +80,9 @@ qor(pairs)`}/>
 <SoplangCodeWindow title="delete.sop" code={`qof.tir("shaqo")
 qor(qof)`}/>
 
-### `kudar(obj)` – Merge/Assign
+### `kudar(obj)` – Merge
+
+`kudar()` returns a **new** object; the original objects are not changed.
 
 **merge.sop**
 

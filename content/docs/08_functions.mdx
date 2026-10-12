@@ -22,7 +22,7 @@ Functions (hawlo) waa qaybo koodh oo dib loo isticmaali karo. Soplang waxa lagu 
 
 ## Define a Function – `hawl`
 
-Hawl waxa ay bilaabataa `hawl` kadibna magac hawl iyo parameters (aan lahayn type annotations).
+Hawl waxa ay bilaabataa `hawl` kadibna magac hawl iyo parameters. Parameters-ku waxay noqon karaan dynamic ama typed (eeg hoos).
 
 <SoplangCodeWindow title="define_function.sop" code={`hawl salaan(magac) {
     qor("Asalaamu calaykum, " + magac)
@@ -44,6 +44,77 @@ Adeegso `celi` si aad uga soo celiso hawl qiime.
 
 abn natiijo = labanlaab(5)
 qor("Natiijo: " + natiijo)`}/>
+
+Hawl aan `celi` lahayn — ama `celi` aan qiime lahayn — waxay soo celisaa `null` (`maran`). `celi` bannaan waxaa loo isticmaali karaa in hawsha si degdeg ah looga baxo:
+
+<SoplangCodeWindow title="early_return.sop" code={`hawl hubi(x) {
+    haddii (x < 0) {
+        qor("Tiro taban")
+        celi
+    }
+    qor("Tiro togan")
+}
+
+hubi(-1)   // Tiro taban
+hubi(3)    // Tiro togan`}/>
+
+## Typed Parameters and Return Types
+
+Waxaad nooc u qori kartaa parameter kasta, iyo nooca celinta adigoo `: nooc` ku daraya `)` kadib. Noocyada waa la hubiyaa ka hor inta aan barnaamijka la fulin.
+
+<SoplangCodeWindow title="typed_functions.sop" code={`hawl isu_gee(abn a, abn b): abn {
+    celi a + b
+}
+
+hawl magac_buuxa(qoraal hore, qoraal dambe): qoraal {
+    celi hore + " " + dambe
+}
+
+qor(isu_gee(2, 3))                  // 5
+qor(magac_buuxa("Aamina", "Cali"))  // Aamina Cali`}/>
+
+Haddii nooc khaldan la gudbiyo, barnaamijku ma bilaabmayo:
+
+<SoplangCodeWindow title="typed_functions_error.sop" code={`isu_gee("2", 3)   // Khalad nooc: doodda 1 ee 'isu_gee' waa 'abn', laakiin 'qoraal' ayaa la helay [E022]`}/>
+
+## Recursion
+
+Hawl way wici kartaa nafteeda:
+
+<SoplangCodeWindow title="recursion.sop" code={`hawl fiibo(n) {
+    haddii (n < 2) {
+        celi n
+    }
+    celi fiibo(n - 1) + fiibo(n - 2)
+}
+
+qor(fiibo(10))   // 55`}/>
+
+## Functions as Values
+
+Hawluhu waa qiimayaal (`nooc()` waxay soo celisaa `"hawl"`). Waxaad ku kaydin kartaa doorsoome, ama u gudbin kartaa hawl kale sida `aaddin()` iyo `shaandhee()` — magaca hawsha qaansooyin la'aan iyo xarfo-xigasho la'aan.
+
+<SoplangCodeWindow title="functions_as_values.sop" code={`hawl laban(x) {
+    celi x * 2
+}
+
+door f = laban
+qor(f(21))                     // 42
+qor([1, 2, 3].aaddin(laban))   // [2, 4, 6]`}/>
+
+## Scope
+
+Doorsoomayaasha lagu qeexo gudaha hawl waa maxali (local) — dibadda lagama arko. Beddelidda doorsoome dibadda ah gudaha hawl ma saameyso kan dibadda; taa beddelkeeda, natiijada ku soo celi `celi`.
+
+<SoplangCodeWindow title="scope.sop" code={`door tirin = 0
+
+hawl kordhi(n) {
+    celi n + 1
+}
+
+tirin = kordhi(tirin)
+tirin = kordhi(tirin)
+qor(tirin)   // 2`}/>
 
 ## Loops Inside Functions
 

@@ -1,156 +1,142 @@
+import { JsonLd, softwareSchema } from "@/components/JsonLd";
+import { Faq } from "@/components/home/Faq";
 import { Features } from "@/components/home/Features";
 import { Hero } from "@/components/home/Hero";
+import { KeywordGlossary } from "@/components/home/KeywordGlossary";
 import { Sponsors } from "@/components/home/Sponsors";
-import { Icon } from "@iconify/react";
+import { getLatestRelease } from "@/lib/github";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
-  title: "Soplang - First Somali Programming Language",
-  description:
-    "Discover Soplang, the first Somali programming language, built to make coding intuitive and accessible using native Somali syntax.",
+  title: { absolute: SITE_TITLE },
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Soplang - First Somali Programming Language",
-    description:
-      "Discover Soplang, the first Somali programming language, built to make coding intuitive and accessible using native Somali syntax.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: "/",
     images: "/og.png",
   },
 };
 
-export default function Home() {
+const steps = [
+  {
+    title: "Install",
+    body: "Download the installer for your system, or run Soplang with Docker.",
+    command: "soplang --version",
+    href: "/downloads",
+    label: "Go to downloads",
+  },
+  {
+    title: "Write",
+    body: "Create a file that ends in .sop and write your first line.",
+    command: 'qor("Salaan!")',
+    href: "/docs/00_getting-started",
+    label: "Read the guide",
+  },
+  {
+    title: "Run",
+    body: "Run the file from your terminal, or open the REPL to try ideas.",
+    command: "soplang salaan.sop",
+    href: "/docs/19_cli-and-repl",
+    label: "CLI and REPL",
+  },
+];
+
+export default async function Home() {
+  const release = await getLatestRelease();
+
   return (
-    <div className="bg-background min-h-screen w-full ">
+    <div className="min-h-screen bg-surface">
+      <JsonLd data={softwareSchema(release.tag)} />
       <Hero />
+
       <Sponsors />
+
+      <KeywordGlossary />
+
       <Features />
 
-      {/* Mission Section */}
-      <section className="py-20 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-black dark:bg-grid-white opacity-[0.03] -z-10"></div>
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-              Built for Somalia
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
-              Soplang (Somali Programming Language) bridges the gap between
-              complex coding concepts and native understanding. By using Somali
-              keywords, we empower students, educators, and developers to build
-              software using their mother tongue.
-            </p>
-            <div className="p-8 bg-card border rounded-2xl shadow-sm text-left relative overflow-hidden group hover:bg-accent transition-colors">
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Icon
-                  icon="fa6-solid:code"
-                  className="w-24 transition duration-200 group-hover:bg-ring group-hover:scale-[.6] scale-[.5] h-24 rotate-12"
-                />
-              </div>
-              <p className="italic text-muted-foreground text-center text-lg font-medium relative z-10">
-                "Dhis Software Adigoo Adeegsanaya Afkaaga Hooyo!"
-              </p>
-            </div>
-          </div>
+      <section className="section-tight">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="eyebrow">Get started</p>
+          <h2 className="type-section mt-3">From install to first program</h2>
+          <ol className="mt-8 grid gap-4 md:grid-cols-3">
+            {steps.map((step, index) => (
+              <li key={step.title} className="panel-sm flex flex-col p-6 sm:p-7">
+                <span className="font-mono text-sm font-semibold text-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-3 text-lg font-semibold text-ink">{step.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-ink/75">
+                  {step.body}
+                </p>
+                <code className="mt-5 block overflow-x-auto rounded-xl bg-fd-card-foreground px-4 py-3 font-mono text-[13px] text-gray-200">
+                  {step.command}
+                </code>
+                <Link
+                  href={step.href}
+                  className="mt-5 inline-flex text-sm font-bold text-primary hover:text-primary-hover"
+                >
+                  {step.label}
+                </Link>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* Quick Start Steps - Preserving helpful content */}
-      <section className="py-24 bg-secondary/20">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-              Get Started in Minutes
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Follow these simple steps to start coding in Soplang.
-            </p>
-          </div>
+      <Faq />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Step 1 */}
-            <div className="relative p-8 bg-card rounded-2xl border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6">
-                <Icon icon="clarity:install-line" className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Install</h3>
-              <p className="text-muted-foreground mb-6">
-                Download the latest version for your operating system.
-              </p>
-              <Link
-                href="/downloads"
-                className="text-primary font-semibold hover:underline flex items-center gap-1 group"
-              >
-                Go to Downloads{" "}
-                <Icon
-                  icon="lucide:arrow-right"
-                  className="w-3 h-3 group-hover:translate-x-1 transition-transform"
-                />
-              </Link>
-            </div>
-
-            {/* Step 2 */}
-            <div className="relative p-8 bg-card rounded-2xl border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6">
-                <Icon
-                  icon="streamline-freehand:learning-programming-book"
-                  className="w-8 h-8"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Learn</h3>
-              <p className="text-muted-foreground mb-6">
-                Follow our step-by-step tutorial to write your first program.
-              </p>
-              <Link
-                href="/tutorials"
-                className="text-primary font-semibold hover:underline flex items-center  gap-1 group"
-              >
-                Start Tutorial{" "}
-                <Icon
-                  icon="lucide:arrow-right"
-                  className="w-3 h-3 group-hover:translate-x-1 transition-transform"
-                />
-              </Link>
-            </div>
-
-            {/* Step 3 */}
-            <div className="relative p-8 bg-card rounded-2xl border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6">
-                <Icon
-                  icon="fluent:people-community-20-regular"
-                  className="w-8 h-8"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Join</h3>
-              <p className="text-muted-foreground mb-6">
-                Connect with the community and share your projects.
-              </p>
-              <Link
-                href="/community"
-                className="text-primary font-semibold hover:underline flex items-center gap-1 group"
-              >
-                Join Discord{" "}
-                <Icon
-                  icon="lucide:arrow-right"
-                  className="w-3 h-3 group-hover:translate-x-1 transition-transform"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-32 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-linear-to-b from-transparent to-primary/5 -z-10"></div>
-        <div className="container-custom">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tighter">
-            Ready to start coding?
-          </h2>
+      <section className="section-tight">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <figure className="max-w-3xl">
+            <blockquote className="text-2xl font-semibold leading-snug tracking-tight text-ink sm:text-3xl">
+              &ldquo;Dhis software adigoo adeegsanaya afkaaga hooyo.&rdquo;
+            </blockquote>
+            <figcaption className="mt-3 text-[15px] text-muted-foreground">
+              Build software in your mother tongue.
+            </figcaption>
+          </figure>
+          <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ink/70">
+            Soplang started in 2023 so that the first obstacle to learning
+            code would be the idea, not the language it is written in.
+          </p>
           <Link
-            href="/docs"
-            className="inline-flex h-14 items-center justify-center rounded-full text-white dark:bg-fd-accent dark:text-white border bg-fd-primary hover:opacity-95 text-lg px-6 py-2 font-medium shadow-lg shadow-primary/20 transition-all duration-300"
+            href="/about"
+            className="mt-5 inline-flex text-sm font-bold text-primary hover:text-primary-hover"
           >
-            Start Building Now
+            Read our story
           </Link>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="rounded-[2rem] bg-fd-card-foreground px-8 py-12 sm:px-12 sm:py-16">
+            <h2 className="text-[clamp(1.75rem,1.5rem+1vw,2.25rem)] font-semibold leading-tight tracking-tight text-white">
+              Ready to write your first line?
+            </h2>
+            <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-gray-300">
+              Install Soplang, open the guide, and run a program in Somali in
+              a few minutes.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/downloads" className="btn-primary">
+                Install Soplang
+              </Link>
+              <Link
+                href="/docs"
+                className="btn-ghost-dark"
+              >
+                Read the docs
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

@@ -4,14 +4,15 @@ import { Icon } from "@iconify/react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Security Policy - Soplang",
+  title: "Security Policy",
   description:
-    "Learn about the security practices and vulnerability reporting processes for the Soplang programming language.",
-  keywords: "Soplang, security, vulnerability, disclosure, reporting",
+    "How to report a security vulnerability in Soplang and how reports are handled.",
+  alternates: { canonical: "/contribute/security" },
   openGraph: {
-    title: "Soplang Security Policy",
+    title: "Security Policy",
     description:
-      "Read the Soplang security policy, including how to responsibly report vulnerabilities and how we handle security issues.",
+      "How to report a security vulnerability in Soplang and how reports are handled.",
+    url: "/contribute/security",
     images: "/og.png",
   },
 };
@@ -58,11 +59,11 @@ export default function SecurityPolicyPage() {
                   Please report security vulnerabilities by emailing our security team directly. We will acknowledge your email within 48 hours.
                 </p>
                 <a
-                  href="mailto:security@soplang.org"
+                  href="mailto:info@soplang.org"
                   className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-medium transition-colors"
                 >
                   <Icon icon="lucide:mail" className="w-5 h-5" />
-                  security@soplang.org
+                  info@soplang.org
                 </a>
               </div>
 
@@ -153,7 +154,7 @@ export default function SecurityPolicyPage() {
             <p className="text-sm text-muted-foreground mb-4">
               Stay informed about the latest security bulletins and patches.
             </p>
-            <Link href="/blog?category=security" className="text-sm text-primary hover:underline font-medium inline-flex items-center gap-1">
+            <Link href="https://github.com/soplang/soplang/security/advisories" className="text-sm text-primary hover:underline font-medium inline-flex items-center gap-1">
               View Bulletins <Icon icon="lucide:arrow-right" className="w-3 h-3" />
             </Link>
           </div>

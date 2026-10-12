@@ -2,12 +2,15 @@ import { Icon } from "@iconify/react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - Soplang",
-  description: "Privacy Policy for Soplang programming language.",
+  title: "Privacy Policy",
+  description:
+    "How Soplang collects, uses, and protects data on the website and in the language tools.",
+  alternates: { canonical: "/privacy" },
   openGraph: {
-    title: "Privacy Policy - Soplang",
+    title: "Privacy Policy",
     description:
-      "Understand how Soplang collects, uses, and protects your data when you use our language, website, and related services.",
+      "How Soplang collects, uses, and protects data on the website and in the language tools.",
+    url: "/privacy",
     images: "/og.png",
   },
 };
@@ -178,14 +181,14 @@ export default function PrivacyPolicyPage() {
                     icon="lucide:at-sign"
                     className="w-4 h-4 text-primary"
                   />
-                  privacy@soplang.org
+                  info@soplang.org
                 </div>
                 <div className="flex items-center gap-2 text-foreground font-medium">
                   <Icon
-                    icon="lucide:map-pin"
+                    icon="lucide:globe"
                     className="w-4 h-4 text-primary"
                   />
-                  Soplang Software Foundation
+                  <a href="https://www.somast.so/" target="_blank" rel="noopener noreferrer" className="hover:text-primary">somast.so</a>
                 </div>
               </div>
             </section>

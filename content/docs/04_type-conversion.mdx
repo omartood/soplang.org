@@ -30,6 +30,27 @@ Adeegso `nooc()` si aad u hubiso nooca qiime kasta.
 door natiijo2 = nooc("abc")     // "qoraal"
 door natiijo3 = nooc(3.14)      // "jajab"`}/>
 
+`nooc()` waxay soo celisaa mid ka mid ah magacyadan:
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Qiime</TableHead>
+      <TableHead>`nooc()`</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow><TableCell>`42`</TableCell><TableCell>`abn`</TableCell></TableRow>
+    <TableRow><TableCell>`3.14`</TableCell><TableCell>`jajab`</TableCell></TableRow>
+    <TableRow><TableCell>`"abc"`</TableCell><TableCell>`qoraal`</TableCell></TableRow>
+    <TableRow><TableCell>`run` / `been`</TableCell><TableCell>`bool`</TableCell></TableRow>
+    <TableRow><TableCell>`[1, 2]`</TableCell><TableCell>`teed`</TableCell></TableRow>
+    <TableRow><TableCell>`{a: 1}` ama object class</TableCell><TableCell>`walax`</TableCell></TableRow>
+    <TableRow><TableCell>hawl (function)</TableCell><TableCell>`hawl`</TableCell></TableRow>
+    <TableRow><TableCell>`null`</TableCell><TableCell>`maran`</TableCell></TableRow>
+  </TableBody>
+</Table>
+
 ## Type Conversion Functions
 
 Hoos waxaa ku qoran is-beddellada caanka ah iyo shaqada la adeegsado:
@@ -80,6 +101,17 @@ Hoos waxaa ku qoran is-beddellada caanka ah iyo shaqada la adeegsado:
     </TableRow>
   </TableBody>
 </Table>
+
+## `bool()` Rules
+
+`bool()` waxay soo celisaa `been` qiimayaashan: `0`, `0.0`, `""`, `null`, `been`, liis madhan `[]`, object madhan `{}`, iyo qoraallada `"false"` ama `"False"`. Wax kasta oo kale waa `run` — xitaa qoraalka `"been"`.
+
+<SoplangCodeWindow title="bool_rules.sop" code={`qor(bool(0))          // been
+qor(bool(""))         // been
+qor(bool([]))         // been
+qor(bool("false"))    // been
+qor(bool("salaan"))   // run
+qor(bool("been"))     // run`}/>
 
 ## Example
 

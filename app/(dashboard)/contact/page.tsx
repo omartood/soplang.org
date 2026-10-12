@@ -1,118 +1,113 @@
+import { JsonLd, ids } from "@/components/JsonLd";
+import { absoluteUrl, CONTACT_EMAIL } from "@/lib/site";
 import { Icon } from "@iconify/react";
 import { Metadata } from "next/types";
+
 export const metadata: Metadata = {
-  title: "Contact Soplang - Get in Touch",
+  title: "Contact",
   description:
-    "Contact the Soplang team with questions, feedback, or partnership inquiries, or reach out through our community channels.",
+    "Contact the Soplang team at info@soplang.org with questions, feedback, or partnership requests.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact",
+    description:
+      "Contact the Soplang team at info@soplang.org with questions, feedback, or partnership requests.",
+    url: "/contact",
+    images: "/og.png",
+  },
 };
+
+const channels = [
+  {
+    icon: "lucide:github",
+    title: "GitHub",
+    description: "Report bugs, request features, or contribute code.",
+    link: "https://github.com/soplang",
+  },
+  {
+    icon: "lucide:mail",
+    title: "Email",
+    description: "Direct support for partnerships and other inquiries.",
+    link: "mailto:info@soplang.org",
+  },
+  {
+    icon: "lucide:building-2",
+    title: "Somast",
+    description: "The team that develops and maintains Soplang.",
+    link: "https://www.somast.so/",
+  },
+  {
+    icon: "lucide:book-open",
+    title: "Documentation",
+    description: "Guides and references for the language.",
+    link: "/docs",
+  },
+];
+
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
-        <div className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] animate-pulse"></div>
-        <div
-          className="absolute top-1/2 -left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] animate-pulse"
-          style={{ animationDelay: "2s" }}
-        ></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto">
-        {/* Hero Section */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gradient-primary mb-6">
-            Get in Touch
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have questions about Soplang? We're here to help. Reach out to the
-            community or send us a direct message.
+    <div className="min-h-screen bg-surface">
+      <JsonLd
+        data={{
+          "@type": "ContactPage",
+          url: absoluteUrl("/contact"),
+          name: "Contact Soplang",
+          isPartOf: { "@id": ids.website },
+          mainEntity: {
+            "@id": ids.maintainer,
+            contactPoint: {
+              "@type": "ContactPoint",
+              email: CONTACT_EMAIL,
+              contactType: "customer support",
+              availableLanguage: ["English", "Somali"],
+            },
+          },
+        }}
+      />
+      <section className="page-hero">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <p className="eyebrow">Contact</p>
+          <h1 className="type-title mt-5">Get in touch</h1>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            Questions, feedback, or a partnership. Open an issue on GitHub for
+            bugs and features, or email info@soplang.org for anything else.
           </p>
         </div>
+      </section>
 
-        <div className="max-w-4xl mx-auto space-y-12">
-          {/* Contact Info Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 animate-fade-in-up [animation-delay:200ms]">
-            <ContactCard
-              icon="simple-icons:discord"
-              title="Discord"
-              description="Join our active developer community for real-time help."
-              link="https://discord.gg/n296G4dd7x"
-              color="bg-primary"
-            />
-            <ContactCard
-              icon="lucide:github"
-              title="GitHub"
-              description="Report bugs, request features, or contribute code."
-              link="https://github.com/soplang"
-              color="bg-gray-800"
-            />
-            <ContactCard
-              icon="lucide:mail"
-              title="Email"
-              description="Direct support for sensitive inquiries or partnerships."
-              link="mailto:support@soplang.org"
-              color="bg-primary"
-            />
-            <ContactCard
-              icon="lucide:help-circle"
-              title="Help Center"
-              description="Browse our documentation and frequently asked questions."
-              link="/about/help"
-              color="bg-primary"
-            />
-          </div>
+      <section className="section-tight">
+        <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:px-6 sm:grid-cols-2">
+          {channels.map((channel) => (
+            <a
+              key={channel.title}
+              href={channel.link}
+              target={channel.link.startsWith("http") ? "_blank" : undefined}
+              rel={channel.link.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="panel-sm block p-6 sm:p-7"
+            >
+              <span className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                <Icon icon={channel.icon} className="h-[17px] w-[17px]" />
+              </span>
+              <h2 className="text-lg font-semibold text-ink">{channel.title}</h2>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
+                {channel.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
 
-          {/* Additional Info Box */}
-          <div className="bg-primary/5 border border-primary/20 rounded-3xl p-8 relative overflow-hidden animate-fade-in-up [animation-delay:400ms]">
-            <div className="absolute top-0 right-0 p-4 opacity-10">
-              <Icon icon="lucide:info" className="w-24 h-24" />
-            </div>
-            <h3 className="text-xl font-bold mb-4 items-center flex gap-2">
-              <Icon icon="lucide:clock" className="w-5 h-5 text-primary" />
-              Response Time
-            </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Our community is active 24/7 on Discord. For direct messages via
-              email, we typically respond within 1-2 business days.
+      <section className="section">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="panel p-8 sm:p-10">
+            <p className="eyebrow">Response time</p>
+            <p className="mt-4 text-[17px] leading-relaxed text-ink/75">
+              Email usually gets a reply within one or two business days.
+              GitHub issues are answered by the maintainers and contributors.
             </p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
-  );
-}
-
-function ContactCard({
-  icon,
-  title,
-  description,
-  link,
-  color,
-}: {
-  icon: string;
-  title: string;
-  description: string;
-  link: string;
-  color: string;
-}) {
-  return (
-    <a
-      href={link}
-      target={link.startsWith("http") ? "_blank" : "_self"}
-      rel="noopener noreferrer"
-      className="group block p-6 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl hover:bg-card/80 transition-all hover:shadow-xl hover:-translate-y-1"
-    >
-      <div
-        className={`w-12 h-12 ${color} rounded-xl flex items-center justify-center mb-4 text-white group-hover:scale-110 transition-transform`}
-      >
-        <Icon icon={icon} className="w-6 h-6" />
-      </div>
-      <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">
-        {title}
-      </h3>
-      <p className="text-sm text-muted-foreground line-clamp-2">
-        {description}
-      </p>
-    </a>
   );
 }

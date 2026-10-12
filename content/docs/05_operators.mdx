@@ -156,4 +156,31 @@ bool isMismatch = !(x == y)
 qor("Is in range: " + isInRange)
 qor("Mismatch: " + isMismatch)`}/>
 
+### Operator Precedence
+
+Soplang waxay xisaabisaa operators-ka sidan (kan ugu sarreeya marka hore):
+
+1. Unary: `!`, `-`
+2. `*`, `/`, `%`
+3. `+`, `-`
+4. Comparison: `==`, `!=`, `>`, `<`, `>=`, `<=`
+5. Logical: `&&`, `||`
+
+<Callout type="warn" title="&& iyo || waa isku heer">
+  Luqadaha badankood `&&` ayaa ka horreeya `||`. Soplang-ka hadda labaduba waa isku heer, waxaana loo xisaabiyaa bidix ilaa midig — `run || been && been` waxay noqonaysaa `been`. Mar walba qaansooyin `()` isticmaal marka aad isku darayso: `run || (been && been)`.
+</Callout>
+
+## String Concatenation
+
+`+` waxay sidoo kale isku xirtaa strings. Haddii hal dhinac uu yahay string, dhinaca kale (tiro, bool, liis) wuxuu si toos ah isugu beddelaa qoraal.
+
+<SoplangCodeWindow title="string_concat.sop" code={`qor("Soplang " + "waa fiican")   // Soplang waa fiican
+qor("Da'da: " + 25)               // Da'da: 25
+
+// Natiijada isbarbardhigga waa la kaydin karaa
+door natiijo = 5 > 3
+qor(natiijo)                      // run`}/>
+
+Qaybintu (`/`) waxay mar walba bixisaa natiijo sax ah: `10 / 4` waa `2.5`. Qaybinta eber (`x / 0`) waa khalad runtime.
+
 Operators-ka Soplang waxay kuu oggolaanayaan inaad dhisto muujiyeyo awood leh iyo xakamayn (control flow) nadiif ah.

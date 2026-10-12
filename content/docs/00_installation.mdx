@@ -1,11 +1,11 @@
 ---
 title: Installing Soplang
-description: Download Soplang and run it via Docker. A simple, universal setup guide.
+description: Download Soplang, build it from source, or run it via Docker. A simple, universal setup guide.
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
-This guide shows two easy ways to get started with **Soplang**: downloading a prebuilt release or using the official Docker image.
+This guide shows three ways to get started with **Soplang**: downloading a prebuilt release, building from source, or using the official Docker image.
 
 ## General Download (All Platforms)
 
@@ -13,7 +13,7 @@ This guide shows two easy ways to get started with **Soplang**: downloading a pr
 2. **Extract / Install:** Unzip or install the package as provided by the release. If it’s a single binary, place it somewhere in your PATH (e.g., `~/bin` on UNIX-like systems).
 3. **(Optional) Add to PATH:** Ensure the `soplang` binary is available on your PATH. For example (shell/zsh):
    ```shell
-   echo 'export PATH="$HOME/bin:$PATH"' >> ~/.shellrc && source ~/.shellrc
+   echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc   # or ~/.bashrc
    ```
 4. **Verify:** Open your terminal and run:
    ```shell
@@ -31,6 +31,25 @@ Execute the file:
 ```bash
 soplang hello.sop
 ```
+
+## Build from Source
+
+Soplang is written in Rust. With the [Rust toolchain](https://rustup.rs/) (`rustc` and `cargo`) installed:
+
+```shell
+git clone https://github.com/soplang/soplang.git
+cd soplang
+cargo build --release
+```
+
+The binary is created at `target/release/soplang`. Try it with one of the bundled examples:
+
+```shell
+./target/release/soplang examples/01_hello.sop
+./target/release/soplang          # start the interactive REPL
+```
+
+Copy `target/release/soplang` to a folder on your PATH to use it everywhere.
 
 ## Use Docker (No Local Install)
 
@@ -78,4 +97,4 @@ chmod +x /path/to/soplang
 
 ### Still stuck?
 
-Check the [downloads](/downloads) page notes or ask in [community support](/community).
+Check the [downloads](/downloads) page notes or ask in [Discord](https://discord.gg/n296G4dd7x).

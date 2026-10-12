@@ -1,4 +1,6 @@
 import { LLMCopyButton, ViewOptions } from "@/components/ai/page-actions";
+import { JsonLd, breadcrumbSchema, ids } from "@/components/JsonLd";
+import { absoluteUrl } from "@/lib/site";
 import { getPageImage, source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
 import {
@@ -18,13 +20,32 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 
   const MDX = page.data.body;
   const gitConfig = {
-    user: "username",
-    repo: "repo",
+    user: "soplang",
+    repo: "soplang-site",
     branch: "main",
   };
 
+  const articleSchema = {
+    "@type": "TechArticle",
+    headline: page.data.title,
+    description: page.data.description,
+    url: absoluteUrl(page.url),
+    image: absoluteUrl(getPageImage(page).url),
+    inLanguage: ["so", "en"],
+    about: { "@id": ids.language },
+    author: { "@id": ids.maintainer },
+    publisher: { "@id": ids.maintainer },
+    isPartOf: { "@id": ids.website },
+  };
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "Docs", path: "/docs" },
+    ...(page.url === "/docs" ? [] : [{ name: page.data.title, path: page.url }]),
+  ];
+
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
+      <JsonLd data={[articleSchema, breadcrumbSchema(crumbs)]} />
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className="mb-0">
         {page.data.description}
@@ -33,8 +54,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
         <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
         <ViewOptions
           markdownUrl={`${page.url}.mdx`}
-          // update it to match your repo
-          githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/docs/content/docs/${page.path}`}
+          githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`}
         />
       </div>
       <DocsBody>
@@ -63,7 +83,18 @@ export async function generateMetadata(
   return {
     title: page.data.title,
     description: page.data.description,
+    alternates: { canonical: page.url },
     openGraph: {
+      type: "article",
+      title: page.data.title,
+      description: page.data.description,
+      url: page.url,
+      images: getPageImage(page).url,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.data.title,
+      description: page.data.description,
       images: getPageImage(page).url,
     },
   };

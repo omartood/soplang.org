@@ -1,13 +1,16 @@
-export const sample_codeSnippet = `// Hello World
+export const sample_codeSnippet = `// Salaan, Adduunka!
 qor("Salaan, Adduunka!")
 
-// Variables
-door magac = 'Sharafdin'
-qoraal shaqo = "Engineer"
+door magac = "Hodan"
+abn da = 21
 
-// Function
-hawl salaan(qofka) {
-    celi "Salaan, " + qofka + "!"
+hawl salaan(qof) {
+    celi "Salaan, " + qof + "!"
 }
-qor(salaan(magac))
+
+haddii (da >= 18) {
+    qor(salaan(magac))
+} ugudambeyn {
+    qor("Weli waad yar tahay")
+}
 `;

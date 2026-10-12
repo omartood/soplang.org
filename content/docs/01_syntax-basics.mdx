@@ -21,12 +21,46 @@ Tani waa barnaamijka ugu fudud ee Soplang. Waxay adeegsanaysaa shaqada-dhexdeeda
 
 Barnaamijyada Soplang waxay ka kooban yihiin qaybahaan:
 
-- **Declarations** – adigoo adeegsanaya `door`, `abn`, `jajab`, ama `madoor`
+- **Declarations** – adigoo adeegsanaya `door`, `abn`, `jajab`, `qoraal`, `bool`, `teed`, `walax`, ama `madoor`
 - **Functions** – adigoo adeegsanaya `hawl`, `celi`
-- **Control flow** – adigoo adeegsanaya `haddii`, `ugudambeyn`, `celi`, iwm.
+- **Control flow** – adigoo adeegsanaya `haddii`, `haddii_kale`, `ugudambeyn`, `dooro`, `kuceli`, `intay`, iwm.
+- **Classes** – adigoo adeegsanaya `qaab`, `dhaxal`, `cusub`, `nafta`
+- **Error handling & modules** – `fasax`/`qabo` iyo `keen`
 - **Built-ins** – sida `qor()`, `gelin()`, `nooc()`
 
 Blocks waxaa lagu qeexaa laalaabyo (`{}`) koodhkuna wuxuu ku socdaa khad-khad.
+
+## Comments
+
+Faallooyinka (comments) lama fuliyo. Soplang waxay taageertaa faallo hal sadar ah (`//`) iyo faallo sadarro badan ah (`/* ... */`).
+
+<SoplangCodeWindow title="comments.sop" code={`// Faallo hal sadar ah
+
+/*
+   Faallo
+   sadarro badan ah
+*/
+
+qor("Faallooyinka lama fuliyo")  // faallo dhamaadka sadarka`}/>
+
+## Basic Rules
+
+- **Hal amar sadarkiiba:** amar kasta wuxuu ku dhammaadaa dhamaadka sadarka. Semicolon (`;`) lama isticmaalo — waa khalad parser.
+- **Blocks:** `{}` ayaa lagu xiraa jirka `haddii`, `kuceli`, `intay`, `hawl`, iwm. Indentation-ku waa akhris-wanaag oo keliya.
+- **Shuruudaha:** shuruudaha `haddii`, `intay`, iyo `dooro` waxay galaan qaansooyin `()`.
+- **Xarfaha waa kala duwan yihiin (case-sensitive):** `magac` iyo `Magac` waa laba doorsoome oo kala duwan.
+- **Strings:** waxaad isticmaali kartaa `"..."` ama `'...'`. Ma jiraan escape sequences (`"\n"` si toos ah ayuu u daabacmaa) iyo string interpolation midna — isticmaal `+` si aad isugu xirto.
+- **Isku-xirka `+`:** marka mid ka mid ah dhinacyadu yahay string, qiimaha kale wuxuu si toos ah isugu beddelaa qoraal.
+
+<SoplangCodeWindow title="basic_rules.sop" code={`door a = "Salaan"
+door b = 'Salaan'
+qor(a == b)                    // run
+
+door Magac = "Ali"
+door magac = "Xasan"
+qor(Magac + " iyo " + magac)   // Ali iyo Xasan
+
+qor("Tirada: " + 5)            // Tirada: 5`}/>
 
 ## Example Program
 

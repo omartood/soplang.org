@@ -2,13 +2,16 @@ import { Metadata } from 'next';
 import { Icon } from '@iconify/react';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use - Soplang',
-  description: 'Terms of Use for Soplang programming language.',
+  title: "Terms of Use",
+  description:
+    "Terms of use for the Soplang website and software, including licensing and limitations of liability.",
+  alternates: { canonical: "/terms" },
   openGraph: {
-    title: 'Terms of Use - Soplang',
+    title: "Terms of Use",
     description:
-      'Review the Terms of Use for Soplang, including licensing, responsibilities, and limitations of liability.',
-    images: '/og.png',
+      "Terms of use for the Soplang website and software, including licensing and limitations of liability.",
+    url: "/terms",
+    images: "/og.png",
   },
 };
 
@@ -94,7 +97,7 @@ export default function TermsPage() {
                   Intellectual Property
                 </h2>
                 <p>
-                  The Soplang name, logo, and branding are trademarks of the Soplang Software Foundation. While the software is open-source, these trademarks may not be used without permission.
+                  The Soplang name, logo, and branding are trademarks of Somast. While the software is open-source, these trademarks may not be used without permission.
                 </p>
               </section>
 
@@ -108,7 +111,7 @@ export default function TermsPage() {
                   <p className="text-muted-foreground mb-4">Soplang is provided "as is" without warranty of any kind.</p>
 
                   <p className="font-semibold mb-2">Limitation of Liability</p>
-                  <p className="text-muted-foreground mb-0">In no event shall Soplang Software Foundation be liable for any indirect, incidental, special, consequential, or punitive damages.</p>
+                  <p className="text-muted-foreground mb-0">In no event shall Somast be liable for any indirect, incidental, special, consequential, or punitive damages.</p>
                 </div>
               </section>
 
@@ -123,11 +126,11 @@ export default function TermsPage() {
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
                   <div className="flex items-center gap-2 text-foreground font-medium">
                     <Icon icon="lucide:at-sign" className="w-4 h-4 text-primary" />
-                    legal@soplang.org
+                    info@soplang.org
                   </div>
                   <div className="flex items-center gap-2 text-foreground font-medium">
-                    <Icon icon="lucide:map-pin" className="w-4 h-4 text-primary" />
-                    Soplang Software Foundation
+                    <Icon icon="lucide:globe" className="w-4 h-4 text-primary" />
+                    <a href="https://www.somast.so/" target="_blank" rel="noopener noreferrer" className="hover:text-primary">somast.so</a>
                   </div>
                 </div>
               </div>

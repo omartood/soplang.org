@@ -1,6 +1,5 @@
 import { siteStructure } from "@/constants/sitemap";
 import { getCurrentYear } from "@/lib/formatDate";
-import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { NavLogo } from "./Navbar";
 
@@ -18,118 +17,66 @@ const getSectionHome = (sectionTitle: string) => {
 
 const footerLinks = [
   {
-    title: "Product",
+    title: "Learn",
     links: [
-      { ...getSectionHome("Downloads"), name: "Download" },
       { ...getSectionHome("Docs"), name: "Documentation" },
-      {
-        name: "Source Code",
-        href: "https://github.com/soplang/soplang.git",
-        target: "_blank",
-      },
-    ].filter(Boolean) as { name: string; href: string; target?: string }[],
-  },
-  {
-    title: "Resources",
-    links: [
       findSitemapLink("Docs", "Getting Started with Soplang"),
-      getSectionHome("Tutorials"),
-      getSectionHome("Examples"),
+      { ...getSectionHome("Downloads"), name: "Downloads" },
     ].filter(Boolean) as { name: string; href: string; target?: string }[],
   },
   {
-    title: "Community",
+    title: "Project",
     links: [
       {
-        name: "Discord Server",
-        href: "https://discord.gg/n296G4dd7x",
+        name: "GitHub",
+        href: "https://github.com/soplang",
         target: "_blank",
       },
+      { ...getSectionHome("Contribute"), name: "Contribute" },
+      findSitemapLink("Contribute", "Security"),
       {
-        name: "GitHub Discussions",
-        href: "https://github.com/orgs/soplang/discussions",
+        name: "Somast",
+        href: "https://www.somast.so/",
         target: "_blank",
       },
-      getSectionHome("Contribute"),
-    ].filter(Boolean) as { name: string; href: string; target?: string }[],
-  },
-  {
-    title: "Legal",
-    links: [
-      getSectionHome("Privacy"),
-      getSectionHome("Terms"),
-      getSectionHome("Trademarks"),
     ].filter(Boolean) as { name: string; href: string; target?: string }[],
   },
 ];
 
-const socialLinks = [
-  {
-    name: "GitHub",
-    href: "https://github.com/soplang",
-    icon: <Icon icon="lucide:github" className="w-5 h-5" />,
-  },
-  {
-    name: "X",
-    href: "https://x.com/soplangorg",
-    icon: <Icon className="w-5 h-5" icon={"lucide:twitter"} />,
-  },
-  {
-    name: "Discord",
-    href: "https://discord.gg/n296G4dd7x",
-    icon: <Icon icon="simple-icons:discord" className="w-5 h-5" />,
-  },
-];
+const legalLinks = [
+  getSectionHome("Privacy"),
+  getSectionHome("Terms"),
+  getSectionHome("Trademarks"),
+]
+  .filter((link) => link !== undefined)
+  .map((link) => ({ ...link, name: link.name.replace(/ Home$/, "") }));
 
 export default function Footer() {
   const currentYear = getCurrentYear();
 
   return (
-    <footer className="bg-background border-t border-border/40 relative overflow-hidden">
-      {/* Ambient Background Glow */}
-      <div className="absolute bottom-0 left-1/4 w-[500px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="container-custom px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16">
-          {/* Brand Column */}
-          <div className="lg:col-span-2 space-y-6">
+    <footer className="border-t border-line bg-surface">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-4 lg:col-span-2">
             <NavLogo />
-            <p className="text-muted-foreground leading-relaxed max-w-sm">
-              The first open-source programming language designed natively for
-              the Somali community. Empowering the next generation of
-              developers.
+            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
+              The first programming language with Somali syntax. Built so more
+              people can learn and write software in their own language.
             </p>
-            <div className="flex items-center gap-4">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="w-10 h-10 rounded-full  flex items-center justify-center hover:bg-primary hover:text-fd-primary transition-all duration-300 border shadow-sm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={link.name}
-                >
-                  {link.icon}
-                </a>
-              ))}
-            </div>
           </div>
-
-          {/* Links Columns */}
           {footerLinks.map((group) => (
-            <div key={group.title} className="lg:col-span-1">
-              <h3 className="font-semibold text-foreground mb-6">
-                {group.title}
-              </h3>
-              <ul className="space-y-4">
+            <div key={group.title}>
+              <h2 className="text-sm font-bold text-ink">{group.title}</h2>
+              <ul className="mt-4 space-y-3">
                 {group.links.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-muted-foreground hover:text-fd-primary transition-colors text-sm"
-                      {...(link.target ?
-                        { target: link.target, rel: "noopener noreferrer" }
-                      : {})}
+                      className="text-sm text-muted-foreground hover:text-primary"
+                      {...(link.target
+                        ? { target: link.target, rel: "noopener noreferrer" }
+                        : {})}
                     >
                       {link.name}
                     </Link>
@@ -139,21 +86,35 @@ export default function Footer() {
             </div>
           ))}
         </div>
-
-        {/* Bottom Strip */}
-        <div className="pt-8 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+        <div className="mt-12 flex flex-col gap-3 border-t border-line pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {currentYear} Soplang Software Foundation. All rights reserved.
+            © {currentYear} Soplang. Created by{" "}
+            <Link
+              href="https://www.sharafdin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-ink hover:text-primary"
+            >
+              Sharafdin Yusuf
+            </Link>
+            . Developed and maintained by{" "}
+            <Link
+              href="https://www.somast.so/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-ink hover:text-primary"
+            >
+              Somast
+            </Link>
+            .
           </p>
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2">
-              Made with{" "}
-              <Icon
-                icon="lucide:heart"
-                className="w-4 h-4 text-red-500 fill-red-500 animate-pulse"
-              />{" "}
-              in Somalia
-            </span>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {legalLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="hover:text-primary">
+                {link.name}
+              </Link>
+            ))}
+            <span>Mogadishu, Somalia</span>
           </div>
         </div>
       </div>

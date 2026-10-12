@@ -1,141 +1,133 @@
 ---
 title: Getting Started with Soplang
-description: Welcome to Soplang! This guide will help you install Soplang, set up your development environment, and write your first Soplang program.
+description: Install Soplang, write your first program, and learn the core building blocks of the language.
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
-Welcome to Soplang! This guide will help you install Soplang, set up your development environment, and write your first Soplang program.
+Welcome to Soplang! This guide walks you through installing Soplang, writing your first program, and the core concepts you will use every day.
 
 ## 1. Installation
 
-Before you can start programming with Soplang, you need to install it on your system. Choose the installation method that works best for you:
-
-### Option 1: Direct Download
-
-**soplang-installer**
+Download a prebuilt release for your platform from the [downloads page](/downloads), or build it from source with Cargo. Then check that it works:
 
 ```bash
-soplang --install
+soplang --version
 ```
 
-_Welcome to the Soplang installer. Please select your operating system..._
-
-### Option 2: Package Managers
-
-**package-manager-install**
-
-```bash
-soplang --package-manager
-```
-
-_Choose your preferred package manager to install Soplang..._
-
-For more detailed installation instructions, check out our [comprehensive installation guide](/docs/installation).
+For all options (installers, Docker, building from source), see the [installation guide](/docs/00_installation).
 
 ## 2. Your First Soplang Program
 
-Now that you have Soplang installed, let's write a simple "Hello, World!" program:
+Create a file named `hello.sop`:
 
 <SoplangCodeWindow title="hello.sop" code={`// This is a comment
-print("Hello, World!")
+qor("Salaan, Adduunka!")
 
 // Variables
-name = "Soplang"
-version = 1.2
-print(f"Welcome to {name} version {version}!")
+door magac = "Soplang"
+door nooca = 2
+qor("Ku soo dhowow " + magac + " " + nooca + "!")
 
-// Simple function
-def greet(person):
-return f"Hello, {person}!"
+// A simple function
+hawl salaam(qof) {
+    celi "Salaan, " + qof + "!"
+}
 
-message = greet("Developer")
-print(message)`}/>
-
-Save this code in a file named `hello.sop`.
+qor(salaam("Developer"))`}/>
 
 ### Running Your Program
 
-To run your Soplang program, open a terminal or command prompt and navigate to the directory where you saved the file. Then run:
+Open a terminal in the folder where you saved the file and run:
 
 ```bash
 soplang hello.sop
 ```
 
-You should see the following output:
+You should see:
 
 ```bash
-Hello, World!
-Welcome to Soplang version 1.2!
-Hello, Developer!
+Salaan, Adduunka!
+Ku soo dhowow Soplang 2!
+Salaan, Developer!
 ```
 
-Congratulations! You've just written and executed your first Soplang program.
+Congratulations, you just wrote and ran your first Soplang program. You can also experiment interactively by running `soplang` with no arguments to open the REPL. See [CLI & REPL](/docs/19_cli-and-repl).
 
 ## 3. Basic Concepts
 
 ### Variables and Data Types
 
-Soplang is dynamically typed, meaning you don't need to declare variable types. The language supports common data types like strings, numbers, booleans, lists, and dictionaries.
+Soplang supports both dynamic and static typing. Use `door` for a dynamic variable, or a type keyword (`abn`, `jajab`, `qoraal`, `bool`, `teed`, `walax`) to fix the variable's type.
 
-<SoplangCodeWindow title="data_types.sop" code={`// String
-name = "Soplang"
+<SoplangCodeWindow title="data_types.sop" code={`// Dynamic (door): the type comes from the value
+door magac = "Soplang"
+door da = 3
 
-// Integer
-version = 1
+// Static: the type is declared explicitly
+abn sanad = 2025
+jajab pi = 3.14159
+qoraal luqad = "Af-Soomaali"
+bool waa_fiican = run
+teed luqadaha = ["Soplang", "Python", "Rust"]
+walax astaamo = {
+    syntax: "nadiif",
+    barasho: "fudud"
+}
 
-// Float
-pi = 3.14159
-
-// Boolean
-is_awesome = True
-
-// List
-languages = ["Somali", "JavaScript", "Soplang"]
-
-// Dictionary
-features = {
-"syntax": "clean",
-"learning_curve": "gentle",
-"performance": "excellent"
-}`}/>
+qor(nooc(pi))          // jajab
+qor(luqadaha)          // [Soplang, Python, Rust]
+qor(astaamo.syntax)    // nadiif`}/>
 
 ### Control Flow
 
-Soplang uses indentation to define code blocks in control structures:
+Code blocks are wrapped in curly braces `{}` and conditions go in parentheses `()`. Indentation is only for readability.
 
-<SoplangCodeWindow code={`// If-else statement
-age = 25
-if age < 18:
-    print("You are a minor")
-elif age >= 18 and age < 65:
-    print("You are an adult")
-else:
-    print("You are a senior")
+<SoplangCodeWindow title="control_flow.sop" code={`// if / else if / else
+abn da = 25
+haddii (da < 18) {
+    qor("Waad yar tahay")
+} haddii_kale (da < 65) {
+    qor("Waxaad tahay qof weyn")
+} ugudambeyn {
+    qor("Waxaad tahay oday")
+}
 
-// For loop
-for language in ["Somali", "JavaScript", "Soplang"]:
-print(f"I like {language}")
+// for loop (the range is inclusive)
+teed luqadaha = ["Soplang", "Python", "Rust"]
+kuceli (i 0 ilaa dherer(luqadaha) - 1) {
+    qor("Waan jeclahay " + luqadaha[i])
+}
 
-// While loop
-count = 5
-while count > 0:
-print(count)
-count -= 1
-print("Blast off!")`} title="control_flow.sop"/>
+// while loop
+abn tirin = 3
+intay (tirin > 0) {
+    qor(tirin)
+    tirin = tirin - 1
+}
+qor("Duul!")`}/>
 
 ### Functions
 
-Functions in Soplang are defined using the `def` keyword:
+Functions are defined with `hawl` and return values with `celi`. Parameters and the return value can optionally be typed.
 
-<SoplangCodeWindow code={`//Simple function
-def greet(name):
-    return f"Hello, {name}!"
+<SoplangCodeWindow title="functions.sop" code={`// Untyped parameters
+hawl salaam(magac) {
+    celi "Salaan, " + magac + "!"
+}
 
-// Function with default parameter
-def power(base, exponent=2):
-return base \*\* exponent
+// Typed parameters and return type
+hawl isu_gee(abn a, abn b): abn {
+    celi a + b
+}
 
-// Function with type hints (optional)
-def add(a: int, b: int) -> int:
-return a + b`} title="functions.sop"/>
+qor(salaam("Aamina"))   // Salaan, Aamina!
+qor(isu_gee(2, 3))      // 5`}/>
+
+## Next Steps
+
+- [Syntax Basics](/docs/01_syntax-basics): comments, blocks, and the rules of the language
+- [Variables](/docs/03_variables): `door`, static types, and `madoor` constants
+- [Classes](/docs/16_classes): object-oriented programming with `qaab`
+- [Error Handling](/docs/17_error-handling): `fasax` and `qabo`
+- [Keywords Reference](/docs/14_keywords-reference): every keyword in one place

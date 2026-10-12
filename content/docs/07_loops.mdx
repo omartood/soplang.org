@@ -53,6 +53,8 @@ intay (i <= 10) {
 
 ## For Loop – `kuceli`
 
+Qaabka guud waa `kuceli (doorsoome bilow ilaa dhamaad :: talaabo)`. Xadka waa **inclusive** — `dhamaad` laftiisa waa la gaaraa. `:: talaabo` waa ikhtiyaari (default waa `1`).
+
 **for_basic.sop**
 
 <SoplangCodeWindow title="for_basic.sop" code={`kuceli (i 1 ilaa 5) {
@@ -67,6 +69,20 @@ Talaabo (step) la doortay:
     qor("Step: " + j)
 }`}/>
 
+<Callout type="warn" title="Talaabo taban (negative step)">
+  Hadda `kuceli` wuxuu u socdaa kor oo keliya — `kuceli (i 5 ilaa 1 :: -1)` waxba ma fuliyo. Si aad hoos ugu tiriso, isticmaal `intay`.
+</Callout>
+
+**count_down.sop**
+
+<SoplangCodeWindow title="count_down.sop" code={`door i = 5
+intay (i >= 1) {
+    qor(i)
+    i = i - 1
+}`}/>
+
+`ilaa` ma aha keyword la xafiday; waxay macno leedahay oo keliya gudaha `kuceli (...)`.
+
 ## Loop Over List
 
 **loop_over_list.sop**
@@ -75,6 +91,14 @@ Talaabo (step) la doortay:
 kuceli (i 0 ilaa numbers.dherer() - 1) {
     qor("Element " + i + ": " + numbers[i])
 }`}/>
+
+## Range with `baaxad()`
+
+`baaxad()` waxay soo saartaa liis tirooyin ah (sida Python `range`). Dhamaadku **kuma jiro** liiska.
+
+<SoplangCodeWindow title="baaxad_range.sop" code={`qor(baaxad(5))          // [0, 1, 2, 3, 4]
+qor(baaxad(2, 6))       // [2, 3, 4, 5]
+qor(baaxad(1, 10, 2))   // [1, 3, 5, 7, 9]`}/>
 
 ## Nested Loops
 

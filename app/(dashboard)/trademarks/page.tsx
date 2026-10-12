@@ -2,13 +2,15 @@ import { Icon } from "@iconify/react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Trademarks - Soplang",
+  title: "Trademark Guidelines",
   description:
-    "Trademark guidelines and policies for Soplang programming language.",
+    "How to use the Soplang name and logo correctly, and when you need permission.",
+  alternates: { canonical: "/trademarks" },
   openGraph: {
-    title: "Soplang Trademarks",
+    title: "Trademark Guidelines",
     description:
-      "Learn how to correctly use the Soplang name and logo, and review our official trademark guidelines and policies.",
+      "How to use the Soplang name and logo correctly, and when you need permission.",
+    url: "/trademarks",
     images: "/og.png",
   },
 };
@@ -155,7 +157,7 @@ export default function TrademarksPage() {
                       icon="lucide:at-sign"
                       className="w-4 h-4 text-primary"
                     />
-                    trademarks@soplang.org
+                    info@soplang.org
                   </p>
                 </div>
                 <div>
@@ -164,7 +166,7 @@ export default function TrademarksPage() {
                   </p>
                   <p className="text-sm text-muted-foreground flex items-center gap-2">
                     <Icon icon="lucide:flag" className="w-4 h-4 text-primary" />
-                    legal@soplang.org
+                    info@soplang.org
                   </p>
                 </div>
               </div>
