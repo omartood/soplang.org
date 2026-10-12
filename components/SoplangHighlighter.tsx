@@ -24,36 +24,46 @@ const tokenStyles: Record<string, TokenStyle> = {
 };
 
 // Keywords for Soplang language
+// Keep in sync with the lexer keyword table in soplang/src/frontend/lexer.rs
 const keywords = [
+  // Declarations
   'door',
-  'tiro',
-  'qoraal',
-  'labadaran',
-  'shey',
-  'liis',
-  'waxba',
-  'haddii',
-  'haddii_kale',
-  'haddii_kalena',
-  'ku_celi',
-  'inta_ay',
-  'jooji',
-  'sii_wad',
-  'min',
-  'ilaa',
+  'madoor',
   'hawl',
   'celi',
-  'isku_day',
+  // Static types
+  'abn',
+  'jajab',
+  'qoraal',
+  'bool',
+  'teed',
+  'walax',
+  // Control flow
+  'haddii',
+  'haddii_kale',
+  'ugudambeyn',
+  'dooro',
+  'xaalad',
+  'kuceli',
+  'ilaa',
+  'intay',
+  'jooji',
+  'soco',
+  // Error handling, modules, classes
+  'fasax',
   'qabo',
-  'fasalka',
-  'nafta',
-  'ka_dhaxal',
+  'keen',
+  'qaab',
+  'dhaxal',
   'cusub',
+  'nafta',
+  // Literals
+  'run',
+  'been',
+  'null',
+  // Built-in I/O
   'qor',
-  'akhri',
-  'ka_keen',
   'gelin',
-  'nuuc',
 ];
 
 function tokenizeSoplangCode(code: string): Token[] {

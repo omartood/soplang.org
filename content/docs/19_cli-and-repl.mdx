@@ -1,0 +1,101 @@
+---
+title: CLI & REPL
+description: "Sida loo isticmaalo amarka soplang: fulinta faylal, REPL-ka, -c, dhisidda binary (--build), strict mode, iyo qalabka debug-ka."
+---
+
+# Soplang CLI & REPL
+
+Amarka `soplang` wuxuu fuliyaa faylasha `.sop`, wuxuu furaa REPL (interactive shell), wuxuuna dhisi karaa binary keligiis shaqeeya.
+
+## Running a File
+
+```bash
+soplang hello.sop
+```
+
+Faylka waxaa lagu fuliyaa Cranelift JIT — waa la compile-gareeyaa kadibna isla markiiba waa la socodsiiyaa.
+
+## The REPL
+
+`soplang` oo aan lahayn wax doodo ah wuxuu furaa REPL-ka. Qor amar kasta, natiijaduna isla markiiba way soo baxaysaa:
+
+```text
+$ soplang
+Soplang 0.1.0 — Luuqadda barnaamijka ee Soomaaliyeed.
+  /caawi  = caawimo   /bixi = bixi   /akhrifayl <fayl> = akhri oo orod
+  Ctrl+D ama /bixi = bixi
+```
+
+| Amar | Macnaha |
+| --- | --- |
+| `/caawi` ama `/help` | Caawimo (help) |
+| `/akhrifayl <fayl>` | Akhri oo fuli fayl `.sop` ah |
+| `/ast` | Muuji AST-ga |
+| `/hir` | Muuji HIR-ka |
+| `/bixi`, `/exit`, ama `Ctrl+D` | Ka bax REPL-ka |
+
+Haddii aad geliso expression keliya (tusaale `1 + 2`), natiijada si toos ah ayaa loo muujinayaa.
+
+Si aad fayl u fuliso kadibna u sii wadato REPL-ka (doorsoomayaasha faylka oo diyaar ah), isticmaal `-i`:
+
+```bash
+soplang -i hello.sop
+```
+
+## Run a Snippet – `-c`
+
+```bash
+soplang -c 'qor("Salaan!")'
+soplang -c '2 + 3'        # 5
+```
+
+## Build a Standalone Binary – `--build`
+
+`--build` wuxuu faylka u beddelaa binary keligiis shaqeeya (AOT), kaas oo aan u baahnayn `soplang` si loo socodsiiyo:
+
+```bash
+soplang --build hello.sop -o hello
+./hello
+```
+
+| Option | Macnaha |
+| --- | --- |
+| `-o, --output <fayl>` | Magaca binary-ga la dhisayo |
+| `--opt-level <0-3>` | Heerka optimization-ka (default: `2`) |
+| `-q, --quiet` | Ha muujin fariinta dhisidda |
+
+<Callout title="Rust toolchain">
+  `--build` hadda wuxuu isticmaalaa Rust compiler-ka si uu u dhiso binary-ga, sidaa darteed `cargo` waa inuu kuu rakiban yahay. Dhisidda ugu horreysa waxay qaadan kartaa daqiiqad.
+</Callout>
+
+## Strict Mode – `--strict`
+
+`--strict` wuxuu diidaa doorsoomayaal dynamic ah (`door`); doorsoome kasta waa inuu yeeshaa nooc cad (`abn`, `jajab`, `qoraal`, `bool`, `teed`, `walax`).
+
+```bash
+soplang --strict app.sop
+```
+
+```text
+Khalad nooc: 'x' waa dynamic laakiin 'strict mode' waa shidan yahay [E022] safka 1, tiirka 1
+```
+
+## All Options
+
+| Option | Macnaha |
+| --- | --- |
+| `soplang <fayl>` | Fuli fayl |
+| `soplang` | Fur REPL-ka |
+| `-i, --interactive` | Fuli faylka kadibna fur REPL-ka |
+| `-c, --command <code>` | Fuli koodh gaaban |
+| `-f, --file <fayl>` | Fuli fayl |
+| `--build` | Dhis binary (AOT); waxay u baahan tahay fayl |
+| `-o, --output <fayl>` | Magaca binary-ga (`--build`) |
+| `--opt-level <0-3>` | Heerka optimization-ka (`--build`) |
+| `-q, --quiet` | Aamusnaan marka la dhisayo (`--build`) |
+| `--strict` | Strict static typing |
+| `--ast` | Daabac AST-ga halkii la fulin lahaa |
+| `--hir` | Daabac HIR (intermediate representation) halkii la fulin lahaa |
+| `--no-color` | Dami midabada fariimaha khaladka (sidoo kale `NO_COLOR=1`) |
+| `-V, --version` | Muuji version-ka |
+| `-h, --help` | Muuji caawimada |

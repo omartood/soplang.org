@@ -1,13 +1,13 @@
 ---
 title: Data Types
-description: "Noocyada xogta ee Soplang: primitives (abn, jajab, qoraal, bool), ururinta (teed, walax), iyo sida loo adeegsado."
+description: "Noocyada xogta ee Soplang: primitives (abn, jajab, qoraal, bool), ururinta (teed, walax), null, iyo sida loo adeegsado."
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Data Types in Soplang
 
-Soplang waxa uu leeyahay noocyo xog oo kala duwan si uu u metelo qiimeyaal kala geddisan. Boggan waxa uu daboolayaa noocyada aasaasiga ah (primitives) iyo ururinta (collections) iyo sida ugu habboon ee loo isticmaalo.
+Soplang waxa uu leeyahay noocyo xog oo kala duwan si uu u metelo qiimeyaal kala geddisan. Boggan waxa uu daboolayaa noocyada aasaasiga ah (primitives), ururinta (collections), iyo sida ugu habboon ee loo isticmaalo.
 
 ## Primitive Types
 
@@ -15,26 +15,26 @@ Kuwaani waa noocyada ugu aasaasiga ah ee dhisaya noocyada kale ee adag.
 
 ### Numbers
 
-Soplang waxa uu taageeraa tirooyinka dhan iyo jajab. Waxa aad isticmaali kartaa `door` (dynamic) ama `abn` (static).
+Soplang waxa uu taageeraa tirooyinka dhan (`abn`) iyo jajab (`jajab`). Waxa aad isticmaali kartaa `door` (dynamic) ama `abn`/`jajab` (static). Faahfaahin dheeraad ah: [Numbers](/docs/11_numbers).
 
 **numbers.sop**
 
 <SoplangCodeWindow title="numbers.sop" code={`// Dynamic typing
-door lambarka1 = 42       // Integer
-door lambarka2 = 3.14     // Floating-point
+door lambarka1 = 42       // abn
+door lambarka2 = 3.14     // jajab
 
 // Static typing
-abn lambarka3 = 100       // Integer
-abn lambarka4 = -25       // Negative integer
+abn lambarka3 = 100
+abn lambarka4 = -25
 
 // Arithmetic
 qor(lambarka1 + lambarka2)   // 45.14
 qor(lambarka1 * lambarka3)   // 4200
-qor(lambarka3 / lambarka1)   // 2.38...`}/>
+qor(lambarka3 / lambarka1)   // 2.380952380952381`}/>
 
 ### Strings
 
-_Strings_ waa taxane xarfo ah. Waxaad adeegsan kartaa q-double ama q-single, ka dibna ku shaqayn karaan habab kala duwan.
+_Strings_ (`qoraal`) waa taxane xarfo ah. Waxaad adeegsan kartaa xigasho labalaab (`"..."`) ama mid keliya (`'...'`). Ma jiro string interpolation — isticmaal `+`. Faahfaahin dheeraad ah: [Strings](/docs/10_strings).
 
 **strings.sop**
 
@@ -46,21 +46,22 @@ door magac2 = 'Programming Language'
 qoraal magac3 = "Soplang: Luuqadda Barnaamijyada ee Afka Soomaaliga"
 
 // Concatenation
-qor(magac1 + " - " + magac2)   // Soplang - Programming Language
+qor(magac1 + " - " + magac2)    // Soplang - Programming Language
 
 // Dherer & habab
-qor(magac1.dherer())           // 7
-qor(magac1.sareyn())           // SOPLANG
-qor(magac1.hooseyn())          // soplang
-qor(magac3.qayb(0, 7))         // Soplang
+qor(dherer(magac1))             // 7
+qor(magac1.xarafaha_weyn())     // SOPLANG
+qor(magac1.xarfaha_yaryar())    // soplang
+qor(magac3.jar(0, 7))           // Soplang
+qor(magac1[0])                  // S
 
-// Interpolation (haddii ay taageerto f-strings)
-door version = 2.0
-qor(f"{magac1} v{version}")    // Soplang v2.0`}/>
+// Tiro iyo qoraal isku dar
+door version = 2
+qor(magac1 + " v" + version)    // Soplang v2`}/>
 
 ### Booleans
 
-Qiimayaasha run/been: `run` iyo `been`. Waxaad adeegsan kartaa `door` ama `bool`.
+Qiimayaasha run/been: `run` (true) iyo `been` (false). Waxaad adeegsan kartaa `door` ama `bool`. Marka la daabaco, waxay u muuqdaan `run` iyo `been`.
 
 **booleans.sop**
 
@@ -73,17 +74,27 @@ bool waa_arday = run
 bool waa_macalin = been
 
 // Logical
-qor(waa_sax && waa_qalad)  // false
-qor(waa_sax || waa_qalad)  // true
-qor(!waa_sax)              // false
+qor(waa_sax && waa_qalad)  // been
+qor(waa_sax || waa_qalad)  // run
+qor(!waa_sax)              // been
 
 // Comparison
 door x = 10
 door y = 20
-qor(x > y)     // false
-qor(x <= y)    // true
-qor(x == 10)   // true
-qor(x != y)    // true`}/>
+qor(x > y)     // been
+qor(x <= y)    // run
+qor(x == 10)   // run
+qor(x != y)    // run`}/>
+
+### Null
+
+`null` waxay metelaysaa qiime la'aan. Marka la daabaco, ama `nooc()` lagu baaro, waxay u muuqataa `maran`. Hawl aan waxba soo celin waxay soo celisaa `null`.
+
+**null.sop**
+
+<SoplangCodeWindow title="null.sop" code={`door natiijo = null
+qor(natiijo)         // maran
+qor(nooc(natiijo))   // maran`}/>
 
 ## Collection Types
 
@@ -91,7 +102,7 @@ Ururinta waxa ay kuu oggolaanayaan in aad isku kaydiso qiimeyaal badan.
 
 ### Lists
 
-Liisaska waa ururin leh amar (ordered). Waad abuuri kartaa adigoo adeegsanaya `teed` (static) ama `door` oo leh `[]`.
+Liisaska (`teed`) waa ururin leh amar (ordered). Waad abuuri kartaa adigoo adeegsanaya `teed` (static) ama `door` oo leh `[]`. Faahfaahin dheeraad ah: [Arrays](/docs/12_arrays).
 
 **lists.sop**
 
@@ -101,61 +112,66 @@ teed magacyada = ["Cabdi", "Caasha", "Xasan", "Hodan"]
 teed isku_dhafan = [1, "Soplang", run, 3.14]
 
 // Helidda walxaha (zero-indexed)
-qor(tiro[0])         // 1
-qor(magacyada[2])    // Xasan
+qor(tiro[0])          // 1
+qor(magacyada[2])     // Xasan
+qor(magacyada[-1])    // Hodan (index taban: dhamaadka ka tiri)
 
 // Beddelid
 tiro[0] = 10
-qor(tiro)            // [10, 2, 3, 4, 5]
+qor(tiro)             // [10, 2, 3, 4, 5]
 
 // Hababka liisaska
-tiro.kudar(6)        // ku dar dhamaadka
-qor(tiro)            // [10, 2, 3, 4, 5, 6]
+tiro.kudar(6)         // ku dar dhamaadka
+qor(tiro)             // [10, 2, 3, 4, 5, 6]
 
-magacyada.saar(1)    // ka saar index 1
-qor(magacyada)       // ["Cabdi", "Xasan", "Hodan"]
+door ugu_dambeeyay = magacyada.kasaar()   // ka saar kan ugu dambeeya
+qor(ugu_dambeeyay)    // Hodan
+qor(magacyada)        // [Cabdi, Caasha, Xasan]
 
 // Dherer
-qor(magacyada.dherer())  // 3`}/>
+qor(magacyada.dherer())   // 3
+qor(dherer(isku_dhafan))  // 4`}/>
 
-### Objects (Dictionaries)
+### Objects
 
-_Objects_ waa lammaane fure–qiime ah. Waxaad ku abuuri kartaa `door` adigoo adeegsanaya `{}` ama nooca static ee `walax`.
+_Objects_ (`walax`) waa lammaane fure–qiime ah. Waxaad ku abuuri kartaa `door` adigoo adeegsanaya `{}` ama nooca static ee `walax`. Faahfaahin dheeraad ah: [Objects](/docs/13_objects).
 
 **objects.sop**
 
 <SoplangCodeWindow title="objects.sop" code={`// Abuurista objects
 door qof = {
-  "magac": "Cabdilaahi",
-  "da": 25,
-  "waa_arday": run
+    magac: "Cabdilaahi",
+    da: 25,
+    waa_arday: run
 }
 
 walax luuqad = {
-  "magac": "Soplang",
-  "version": 2.0,
-  "sanadka": 2023,
-  "features": ["OOP", "Dynamic Typing", "Easy Syntax"]
+    magac: "Soplang",
+    sanadka: 2023,
+    features: ["OOP", "Dynamic Typing", "Easy Syntax"]
 }
 
-// Helidda qiimeyaal
-qor(qof["magac"])       // Cabdilaahi
-qor(luuqad["version"])  // 2.0
-
-// Dot-notation (haddii la taageero)
+// Helidda qiimeyaal (dot-notation)
 qor(qof.magac)          // Cabdilaahi
-qor(luuqad.features)    // ["OOP", "Dynamic Typing", "Easy Syntax"]
+qor(luuqad.features)    // [OOP, Dynamic Typing, Easy Syntax]
 
-// Beddelid
-qof["da"] = 26
-qof["degaan"] = "Muqdisho"
-qor(qof)
+// Bracket-notation (fure qoraal ah)
+qor(qof["magac"])       // Cabdilaahi
+
+// Beddelid iyo ku darid
+qof.da = 26
+qof.degaan = "Muqdisho"
+qor(qof)                // {da: 26, degaan: Muqdisho, magac: Cabdilaahi, waa_arday: run}
 
 // Hubi furaha
-qor("magac" ku dhex jira qof)   // true
-qor("luuqad" ku dhex jira qof)  // false
+qor(qof.leeyahay("magac"))    // run
+qor(qof.leeyahay("luuqad"))   // been
 
 // Habab
-qor(qof.fureyaasha())    // ["magac", "da", "waa_arday", "degaan"]
-qor(qof.qiimeyaasha())   // ["Cabdilaahi", 26, true, "Muqdisho"]
-qor(luuqad.dherer())     // 4`}/>
+qor(qof.fure())          // [da, degaan, magac, waa_arday]
+qor(qof.qiime())         // [26, Muqdisho, Cabdilaahi, run]
+qor(dherer(luuqad))      // 3`}/>
+
+## Checking Types
+
+Isticmaal `nooc()` si aad u ogaato nooca qiime kasta: `abn`, `jajab`, `qoraal`, `bool`, `teed`, `walax`, `hawl`, ama `maran`. Eeg [Type Conversion](/docs/04_type-conversion).

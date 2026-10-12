@@ -1,0 +1,60 @@
+---
+title: Modules
+description: "Sida koodhka loogu kala qaybiyo faylal badan oo loo isticmaalo keen (import) ee Soplang."
+---
+
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
+# Modules in Soplang
+
+Marka barnaamijku weynaado, waxaad u kala qaybin kartaa faylal `.sop` ah oo badan. Erayga `keen` (import) wuxuu soo raraa fayl kale, wuxuuna kuu oggolaanayaa inaad isticmaasho hawlaha, doorsoomayaasha, iyo classes-ka uu qeexay.
+
+## Importing a File – `keen`
+
+`keen` waxaa raaca waddada faylka oo string ah:
+
+<SoplangCodeWindow title="utils/xisaab.sop" code={`madoor PI = 3.14159
+
+hawl labajibbaar(x) {
+    celi x * x
+}
+
+qaab Goob {
+    hawl dhaw(r) {
+        nafta.r = r
+    }
+
+    hawl bed() {
+        celi PI * labajibbaar(nafta.r)
+    }
+}`}/>
+
+<SoplangCodeWindow title="main.sop" code={`keen "utils/xisaab.sop"
+
+qor(labajibbaar(4))   // 16
+qor(PI)               // 3.14159
+
+door g = cusub Goob(2)
+qor(g.bed())          // 12.56636`}/>
+
+```bash
+soplang main.sop
+```
+
+## How `keen` Works
+
+- **Waddada faylka** waxaa laga xisaabiyaa galka (folder) uu ku jiro faylka `keen` qoray — ma aha galka aad terminal-ka ka socodsiisay. `soplang main.sop` iyo `soplang project/main.sop` labaduba si isku mid ah ayay u shaqeeyaan.
+- **Wax kasta oo top-level ah** — hawlo, doorsoomayaal, `madoor`, iyo classes — waxay noqonayaan kuwo laga heli karo faylka soo raray.
+- **Koodhka top-level ah waa la fuliyaa** marka faylka la soo raro (tusaale `qor(...)` ku jira faylka la soo rarayo).
+- **Hal mar oo keliya** ayaa fayl la soo raraa, xitaa haddii `keen` lagu qoro dhowr jeer ama faylal kala duwan ay isku soo rarayaan (circular imports).
+- Haddii faylka la waayo, waxaa dhacaya khalad import:
+
+```text
+Khalad import: Faylka 'nope.sop' ma helin [E021] safka 0, tiirka 0
+```
+
+## Tips
+
+- Dhig `keen` bilowga faylka si loo arko waxa uu ku tiirsan yahay.
+- Faylasha caawinta ah (helpers) sii magacyo cad, sida `utils/xisaab.sop` ama `_math_lib.sop`.
+- Iska ilaali in laba fayl ay qeexaan magac isku mid ah — qeexidda faylkaaga (`keen` kadib) ayaa beddelaysa tan faylka la soo raray, taasoo keeni karta khaladaad aan la dareemin.

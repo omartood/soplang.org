@@ -1,0 +1,106 @@
+---
+title: Error Handling
+description: "Sida loo qabto khaladaadka Soplang: fasax iyo qabo (try/catch), qaabka fariimaha khaladka, iyo error codes-ka."
+---
+
+import SoplangCodeWindow from "../../components/SoplangCodeWindow";
+
+# Error Handling in Soplang
+
+Marka khalad runtime ah dhaco (tusaale qaybinta eber), barnaamijku wuu joogsadaa. Si aad u qabato khaladka oo barnaamijku u sii socdo, isticmaal `fasax` iyo `qabo`.
+
+## `fasax` iyo `qabo` – Try / Catch
+
+Koodhka khatarta leh geli block-ga `fasax`. Haddii khalad dhaco, fulintu waxay u boodaysaa block-ga `qabo`, fariinta khaladkana (`qoraal`) waxaa lagu kaydiyaa doorsoomaha ku jira `qabo (...)`.
+
+<SoplangCodeWindow title="try_catch.sop" code={`hawl qaybi(a, b) {
+    celi a / b
+}
+
+fasax {
+    qor(qaybi(10, 2))      // 5
+    qor(qaybi(10, 0))      // khalad: waxay u boodaysaa qabo
+    qor("Tan lama gaaro")
+} qabo (khalad) {
+    qor("Qabtay: " + khalad)   // Qabtay: Qaybinta eber ma jirto
+    qor(nooc(khalad))          // qoraal
+}
+
+qor("Barnaamijku wuu sii socdaa")`}/>
+
+- `qabo` waa qasab — `fasax` mar walba waa inuu leeyahay `qabo (magac)`.
+- Haddii aan khalad dhicin, block-ga `qabo` lama fuliyo.
+- `fasax` waa la isku dhex dhigi karaa (nest). Khaladka waxaa qabanaya `qabo`-ga ugu dhow.
+
+<SoplangCodeWindow title="nested_try.sop" code={`fasax {
+    fasax {
+        qor(1 / 0)
+    } qabo (gudaha) {
+        qor("gudaha: " + gudaha)
+    }
+    qor("kadib")
+} qabo (dibadda) {
+    qor("dibadda")
+}`}/>
+
+<Callout type="warn" title="Khaladaadka methods-ka">
+  Hadda `fasax` wuxuu si kalsooni leh u qabtaa khaladaadka hawlaha ku-dhexjira (sida `abn()`, `daji()`, `xul()`) iyo qaybinta eber. Khaladaadka ka yimaada methods-ka (tusaale `t.kasaar()` liis madhan, ama method aan jirin) hadda waxay burburin karaan barnaamijka xitaa gudaha `fasax`. Hubi xaaladda ka hor intaadan wicin method-ka — tusaale `haddii (dherer(t) > 0) { t.kasaar() }`.
+</Callout>
+
+## Signalling Failure from a Function
+
+Soplang ma laha keyword `throw`. Si hawl u sheegto in ay fashilantay, inta badan waxaa la soo celiyaa `null` kadibna waa la hubiyaa:
+
+<SoplangCodeWindow title="return_null.sop" code={`hawl hubi_da(da) {
+    haddii (da < 0) {
+        celi null
+    }
+    celi da
+}
+
+door natiijo = hubi_da(-5)
+haddii (natiijo == null) {
+    qor("Da' khaldan")
+}`}/>
+
+## Error Messages
+
+Fariimaha khaladka Soplang waxay ku qoran yihiin Af-Soomaali, waxayna leeyihiin qaabkan:
+
+```text
+Khalad <nooc>: <fariin> [<code>] safka <sadar>, tiirka <tiir>
+```
+
+Tusaale, marka `madoor` la beddelo:
+
+```text
+Khalad nooc: Ma bedeli kartid qiimaha doorsamaha madoor 'luqad' [E020] safka 2, tiirka 1
+   2 │   luqad = "English"
+     │   ^
+     └─ Doorsamaha madoor ma beddeli karaan qiimahooda. Isticmaal 'door' haddii aad rabto mid beddeli kara.
+```
+
+Noocyada khaladka (`<nooc>`):
+
+| Nooc | Goorta uu dhaco |
+| --- | --- |
+| `lexer` | Xaraf aan la aqoon, string ama faallo aan la xirin |
+| `parser` | Syntax khaldan, tusaale `)` maqan ama `;` |
+| `nooc` | Nooc aan is-waafaqsanayn (type error) |
+| `runtime` | Khalad inta barnaamijku socdo, tusaale qaybinta eber |
+| `import` | Fayl `keen` lagu sheegay oo aan la helin |
+
+Colors-ka waxaa lagu dami karaa `--no-color` ama `NO_COLOR=1`.
+
+## Error Codes
+
+Khaladaadka qaarkood waxay wataan code gaaban oo kaa caawinaya inaad raadiso:
+
+| Code | Macnaha |
+| --- | --- |
+| `E001` | Xaraf aan la filayn |
+| `E002` | String aan la xirin |
+| `E003` | Faallo `/* */` aan la xirin |
+| `E020` | Dib-u-qeexid, ama beddelid doorsoome `madoor` ah |
+| `E021` | Wax aan la helin, tusaale fayl `keen` lagu sheegay |
+| `E022` | Nooc aan is-waafaqsanayn (static type, doodaha hawl, ama nooca celinta) |

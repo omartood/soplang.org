@@ -19,9 +19,16 @@ Adeegso `qor()` si aad u muujiso qiimayaal ama xarfo (strings) shaashadda.
 door magaca = "Aamina"
 qor("Magaca: " + magaca)`}/>
 
+`qor()` waxay qaadataa **hal qiime**. Si aad u daabacdo dhowr qiime, isku xir adigoo adeegsanaya `+`:
+
+<SoplangCodeWindow title="print_multiple.sop" code={`door da = 19
+qor("Magaca: " + "Aamina" + ", Da'da: " + da)
+qor([1, 2, 3])          // [1, 2, 3]
+qor(run)                // run`}/>
+
 ### `gelin()` – Read from User Input
 
-Adeegso `gelin()` si aad u weydiiso isticmaalaha gelin. Qiimaha wuxuu had iyo jeer kusoo noqdaa _string_.
+Adeegso `gelin()` si aad u weydiiso isticmaalaha gelin. Qoraalka aad siiso (prompt) waa ikhtiyaari. Qiimaha wuxuu had iyo jeer kusoo noqdaa _string_ (`qoraal`).
 
 **read_input.sop**
 

@@ -5,7 +5,7 @@ import { HomeLayout } from "fumadocs-ui/layouts/home";
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <HomeLayout {...baseOptions()}>
-      <div className="w-full h-full px-10">
+      <div className="w-full">
         {children}
         <Footer />
       </div>

@@ -1,32 +1,56 @@
 ---
-title: Faq Quesions
-description: Find here all faq questions about soplang
+title: FAQ
+description: Frequently asked questions about Soplang
 ---
 
 ## General
 
 ### What is Soplang?
 
-Soplang is a programming language designed to be intuitive and powerful, with a focus on simplicity and readability. It allows you to write code in Somali.
+Soplang is the Somali programming language. Its keywords and built-ins are in Somali (`door`, `hawl`, `haddii`, `qor`, …), so Somali speakers can learn programming in their own language. It supports both dynamic (`door`) and static (`abn`, `qoraal`, …) typing.
+
+### How does Soplang run my code?
+
+Soplang is implemented in Rust. `soplang file.sop` compiles your program with a Cranelift JIT and runs it immediately. `soplang --build file.sop -o app` produces a standalone native binary. See [CLI & REPL](/docs/19_cli-and-repl).
 
 ### Is it open source?
 
-Yes, Soplang is open source and released under the MIT License.
+Yes. Soplang is open source under the MIT License. The source is at [github.com/soplang/soplang](https://github.com/soplang/soplang).
 
 ## Installation & Setup
 
 ### How do I install Soplang?
 
-You can install Soplang using npm or by downloading the binaries from our website.
+Download a prebuilt release from the [downloads page](/downloads), build it from source with Cargo, or run it with Docker. See the [installation guide](/docs/00_installation).
+
+### What file extension does Soplang use?
+
+`.sop`
 
 ## Language Features
 
 ### Does it support classes?
 
-Yes, Soplang supports object-oriented programming with classes and interfaces.
+Yes. Classes are defined with `qaab`, created with `cusub`, can inherit with `dhaxal`, and use `nafta` for the current instance. See [Classes](/docs/16_classes). There are no interfaces.
+
+### Can I handle errors?
+
+Yes, with `fasax { ... } qabo (khalad) { ... }`. See [Error Handling](/docs/17_error-handling).
+
+### Can I split my program into multiple files?
+
+Yes, with `keen "file.sop"`. See [Modules](/docs/18_modules).
+
+### Do I need semicolons?
+
+No. Each statement ends at the end of its line, and a `;` is a syntax error.
+
+### Does Soplang have string interpolation?
+
+No. Join values with `+`: `qor("Da'da: " + da)`.
 
 ## Community & Support
 
 ### Where can I get help?
 
-You can join our community discord or check the documentation for help.
+Visit the [Discord](https://discord.gg/n296G4dd7x), or open an issue on [GitHub](https://github.com/soplang/soplang/issues).
