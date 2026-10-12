@@ -1,34 +1,53 @@
-import { Metadata } from "next";
+import { siteStructure } from "@/constants/sitemap";
+import { source } from "@/lib/source";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sitemap - Soplang",
-  description: "Complete sitemap of Soplang programming language website.",
+  title: "Sitemap",
+  description: "Every page on the Soplang website, grouped by section.",
+  alternates: { canonical: "/site-map" },
+  openGraph: {
+    title: "Sitemap",
+    description: "Every page on the Soplang website, grouped by section.",
+    url: "/site-map",
+    images: "/og.png",
+  },
 };
 
-import { siteStructure } from "@/constants/sitemap";
+const cleanName = (name: string) => name.replace(/ Home$/, "");
 
 export default function SitemapPage() {
-  return (
-    <div className="container-custom py-12">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">
-          Sitemap
-        </h1>
+  const sections = [
+    ...siteStructure
+      .filter((section) => section.title !== "Docs")
+      .map((section) => ({
+        title: section.title,
+        links: section.links.map((link) => ({ name: cleanName(link.name), href: link.href })),
+      })),
+    {
+      title: "Documentation",
+      links: source.getPages().map((page) => ({ name: page.data.title, href: page.url })),
+    },
+  ];
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {siteStructure.map((section) => (
-            <div key={section.title} className="mb-8">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                {section.title}
-              </h2>
-              <ul className="space-y-2">
+  return (
+    <div className="min-h-screen bg-surface">
+      <section className="page-hero">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="eyebrow">Sitemap</p>
+          <h1 className="type-title mt-5">Every page on the site</h1>
+        </div>
+      </section>
+      <section className="section-tight pb-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+          {sections.map((section) => (
+            <div key={section.title} className={section.title === "Documentation" ? "lg:col-span-2" : undefined}>
+              <h2 className="text-sm font-bold text-ink">{section.title}</h2>
+              <ul className="mt-4 space-y-2.5">
                 {section.links.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
-                    >
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary">
                       {link.name}
                     </Link>
                   </li>
@@ -37,16 +56,7 @@ export default function SitemapPage() {
             </div>
           ))}
         </div>
-
-        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Can't find what you're looking for?{" "}
-            <Link href="/contact" className="text-primary hover:underline">
-              Contact us
-            </Link>
-          </p>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }

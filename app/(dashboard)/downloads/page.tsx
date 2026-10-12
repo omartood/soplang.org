@@ -1,213 +1,196 @@
-import Link from "next/link";
-import type { Metadata } from "next";
-
-import CommonBadge from "@/components/CommonBadge";
+import { InstallTabs } from "@/components/downloads/InstallTabs";
+import { JsonLd, breadcrumbSchema, softwareSchema } from "@/components/JsonLd";
 import CodeWindow from "@/components/SoplangCodeWindow";
-import { platforms } from "@/constants/downloadData";
-import { packageManagers } from "@/constants/packageManagersData";
+import { platforms } from "@/constants/installData";
+import { GITHUB_URL, getLatestRelease, getReleases, type ReleaseAsset } from "@/lib/github";
 import { Icon } from "@iconify/react";
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Download Soplang - Install the Somali Programming Language",
+  title: "Download for Windows, macOS and Linux",
   description:
-    "Download Soplang, the first Somali programming language, for your preferred platform, or install it via your favorite package manager.",
+    "Download Soplang, the first Somali programming language, for Windows, macOS or Linux, or install it from the command line with winget, Cargo or Docker.",
+  alternates: { canonical: "/downloads" },
   openGraph: {
     title: "Download Soplang",
     description:
-      "Download Soplang for your operating system or install it via your favorite package manager to start coding in Somali.",
+      "Install Soplang on Windows, macOS or Linux and start writing code in Somali.",
+    url: "/downloads",
     images: "/og.png",
   },
 };
 
-export default function DownloadsPage() {
+function formatSize(bytes: number): string {
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+
+function formatDate(value: string | null): string {
+  if (!value) return "";
+  return new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(value));
+}
+
+function fileType(asset: ReleaseAsset): string {
+  const match = asset.name.match(/\.(tar\.gz|[a-z0-9]+)$/i);
+  return match ? `.${match[1]}` : asset.name;
+}
+
+export default async function DownloadsPage() {
+  const [release, releases] = await Promise.all([getLatestRelease(), getReleases()]);
+
   return (
-    <div className="min-h-screen pb-24 overflow-hidden bg-background transition-colors duration-300">
-      {/* Background Ambience */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-blob" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-blob animation-delay-2000" />
-      </div>
-
-      <div className="container-custom pt-10 md:pt-16">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
-          <CommonBadge text="v2.0.0 is Now Stable" />
-
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6">
-            Install <span className="text-gradient-primary">Soplang</span>
-          </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            Get started with the first programming language designed for the
-            Somali community. Choose your platform below.
+    <div className="min-h-screen bg-surface">
+      <JsonLd
+        data={[
+          softwareSchema(release.tag),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Downloads", path: "/downloads" },
+          ]),
+        ]}
+      />
+      <section className="page-hero">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="eyebrow">
+            {release.tag} is the latest release
+            {release.publishedAt && ` · ${formatDate(release.publishedAt)}`}
+          </p>
+          <h1 className="type-title mt-5 max-w-3xl">Install Soplang</h1>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            Download an installer for your system, or install from the command
+            line. Every download comes from the official{" "}
+            <a href={release.url} className="font-semibold text-primary hover:text-primary-hover">
+              GitHub release
+            </a>
+            .
           </p>
         </div>
+      </section>
 
-        {/* Platform Cards */}
-        <div className="flex flex-wrap justify-center gap-8 mb-24 relative z-10 items-start">
-          {platforms.map((platform) => (
-            <div
-              key={platform.id}
-              className={`group relative p-8 rounded-2xl bg-card backdrop-blur-xl border border-border  transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl shadow-sm overflow-hidden w-full md:max-w-md`}
-            >
-              {/* Hover Gradient */}
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${platform.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-              />
+      <section className="section-tight" aria-labelledby="manual-download">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <h2 id="manual-download" className="sr-only">
+            Manual download
+          </h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            {platforms.map((platform) => {
+              const files = release.assets.filter((asset) => platform.assetPattern.test(asset.name));
+              return (
+                <div key={platform.id} className="panel flex flex-col p-7 sm:p-8">
+                  <Icon icon={platform.icon} className="h-9 w-9 text-ink" aria-hidden="true" />
+                  <h3 className="mt-5 text-2xl font-semibold tracking-tight text-ink">
+                    {platform.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {platform.requirements.join(" · ")}
+                  </p>
 
-              <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="p-4 rounded-2xl bg-muted/50 border border-border mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {platform.icon}
-                </div>
-
-                <h3 className="text-2xl font-bold text-foreground mb-2">
-                  {platform.name}
-                </h3>
-                <p className="text-muted-foreground mb-1">
-                  {platform.version} • {platform.type}
-                </p>
-                <p className="text-xs text-muted-foreground/60 mb-8">
-                  {platform.size}
-                </p>
-
-                <div className="w-full space-y-3">
-                  {
-                    platform.files && platform.files.length > 0 ?
-                      platform.files.map((file: any, idx: number) => (
-                        <Link
-                          key={idx}
-                          href={file.url}
-                          className="flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-gradient-primary hover:opacity-95 text-primary-foreground font-semibold transition-all shadow-lg shadow-primary/20"
-                        >
-                          <Icon icon="lucide:download" className="w-5 h-5" />
-                          Download {file.extension}
-                        </Link>
+                  <div className="mt-6 flex flex-1 flex-col justify-end gap-3">
+                    {files.length > 0 ? (
+                      files.map((file) => (
+                        <a key={file.url} href={file.url} className="btn-primary w-full">
+                          <Icon icon="lucide:download" className="h-4 w-4" aria-hidden="true" />
+                          Download {fileType(file)}
+                          <span className="font-normal opacity-80">{formatSize(file.size)}</span>
+                        </a>
                       ))
-                      // Fallback button if no files array (legacy or empty)
-                    : <Link
-                        href={platform.downloadUrl || "#"}
-                        className="flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-gradient-primary hover:opacity-95 text-primary-foreground font-semibold transition-all shadow-lg shadow-primary/20"
-                      >
-                        <Icon icon="lucide:download" className="w-5 h-5" />
-                        Download
-                      </Link>
-
-                  }
-
-                  <div className="flex flex-col gap-2 pt-6 border-t border-gray-100 dark:border-white/5">
-                    {platform.requirements.map((req: any, i: number) => (
-                      <div
-                        key={i}
-                        className="flex items-start gap-2 text-sm text-gray-600 dark:text-muted-foreground"
-                      >
-                        <Icon
-                          icon={req.icon}
-                          className="w-4 h-4 mt-0.5 text-primary shrink-0"
-                        />
-                        <span>{req.text}</span>
-                      </div>
-                    ))}
-
-                    {platform.instructions.map((inst: string, i: number) => (
-                      <div
-                        key={i}
-                        className="flex items-start gap-2 text-sm text-gray-600 dark:text-muted-foreground"
-                      >
-                        <Icon
-                          icon="lucide:check"
-                          className="w-4 h-4 mt-0.5 text-primary shrink-0"
-                        />
-                        <span>{inst}</span>
-                      </div>
-                    ))}
+                    ) : (
+                      <>
+                        <p className="text-sm leading-relaxed text-ink/70">
+                          No {platform.name} installer in {release.tag} yet. Install
+                          with Cargo or Docker instead.
+                        </p>
+                        <a href="#command-line" className="btn-ghost w-full">
+                          <Icon icon="lucide:terminal" className="h-4 w-4" aria-hidden="true" />
+                          Command-line install
+                        </a>
+                      </>
+                    )}
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
+          <p className="mt-6 text-sm text-muted-foreground">
+            After installing, check it works:{" "}
+            <code className="rounded-md bg-surface2 px-2 py-1 font-mono text-[13px] text-ink">
+              soplang --version
+            </code>
+          </p>
         </div>
+      </section>
 
-        {/* Other Ways to Download */}
-        <div className="relative container-custom mx-auto mb-24 pb-24">
-          {/* Gradient Border Bottom */}
-          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-primary opacity-50" />
+      <section id="command-line" className="section scroll-mt-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="eyebrow">Command line</p>
+          <h2 className="type-section mt-3">Install from the terminal</h2>
+          <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
+            winget installs the stable release. Cargo builds the newest
+            compiler from the main branch, which is what the docs describe.
+          </p>
+          <div className="mt-8">
+            <InstallTabs />
+          </div>
+        </div>
+      </section>
 
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Other Ways to Download
+      {releases.length > 0 && (
+        <section className="section-tight" aria-labelledby="release-history">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6">
+            <p className="eyebrow">Releases</p>
+            <h2 id="release-history" className="type-section mt-3">
+              Release history
             </h2>
-            <p className="text-muted-foreground">
-              Install via command line for quick setup.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-6">
-            {packageManagers.map((pm, idx) => (
-              <div
-                key={idx}
-                className="w-full md:w-[calc(50%-1.5rem)] lg:max-w-2xl p-6 rounded-xl bg-card border border-border transition-all flex flex-col h-full"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  {pm.icon}
+            <ul className="mt-8 divide-y divide-line border-y border-line">
+              {releases.map((item) => (
+                <li key={item.tag} className="flex flex-wrap items-center justify-between gap-3 py-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-foreground">
-                      {pm.name}
-                    </h3>
-                    <p className="text-xs text-muted-foreground">{pm.desc}</p>
+                    <span className="font-semibold text-ink">{item.name}</span>
+                    {item.publishedAt && (
+                      <span className="ml-3 text-sm text-muted-foreground">
+                        {formatDate(item.publishedAt)}
+                      </span>
+                    )}
                   </div>
-                </div>
-                <div className="flex-grow flex flex-col">
-                  <CodeWindow
-                    code={pm.command}
-                    title="Terminal"
-                    className="h-full"
-                  />
-                </div>
-              </div>
-            ))}
+                  <a href={item.url} className="text-sm font-bold text-primary hover:text-primary-hover">
+                    Release notes
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        </section>
+      )}
 
-        {/* Source Code CTA */}
-        <div className="max-w-5xl mx-auto rounded-3xl bg-card border border-border p-6 md:p-12 relative overflow-hidden shadow-sm">
-          <div className="absolute top-0 right-0 p-12 bg-primary/5 rounded-bl-full blur-3xl" />
-
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
-            <div className="space-y-4 max-w-xl text-center md:text-left">
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground flex items-center justify-center md:justify-start gap-3">
-                <Icon icon="lucide:github" className="w-8 h-8" />
-                Open Source
-              </h2>
-              <p className="text-muted-foreground text-base md:text-lg">
-                Soplang is built for the community. Contributing is simple and
-                encouraged.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-2">
-                <a
-                  href="https://github.com/soplang/soplang"
-                  target="_blank"
-                  className="text-sm text-primary hover:underline flex items-center gap-1"
-                >
-                  View Repository{" "}
-                  <Icon icon="lucide:arrow-right" className="w-4 h-4" />
-                </a>
-                <a
-                  href="/contribute"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Contribution Guide
-                </a>
-              </div>
-            </div>
-
-            <div className="w-full md:w-[450px]">
-              <CodeWindow
-                code="git clone https://github.com/soplang/soplang.git"
-                title="Terminal"
-              />
+      <section className="section-tight pb-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-2">
+          <div>
+            <p className="eyebrow">Source</p>
+            <h2 className="type-section mt-3">Build from source</h2>
+            <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
+              Soplang is open source under the MIT license. Clone the
+              repository and build it with Cargo on any system.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                View repository
+              </a>
+              <Link href="/docs/00_installation" className="btn-ghost">
+                Installation guide
+              </Link>
             </div>
           </div>
+          <CodeWindow
+            code={`git clone https://github.com/soplang/soplang.git
+cd soplang
+cargo build --release
+./target/release/soplang --version`}
+            title="Terminal"
+          />
         </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,13 +1,46 @@
-import { source } from '@/lib/source';
+import { source } from "@/lib/source";
+import { CONTACT_EMAIL, CREATOR, MAINTAINER, REPOSITORY_URL, SITE_DESCRIPTION, absoluteUrl } from "@/lib/site";
 
 export const revalidate = false;
 
 export async function GET() {
-  const lines: string[] = [];
-  lines.push('# Documentation');
-  lines.push('');
-  for (const page of source.getPages()) {
-    lines.push(`- [${page.data.title}](${page.url}): ${page.data.description}`);
-  }
-  return new Response(lines.join('\n'));
+  const docs = source
+    .getPages()
+    .map((page) => `- [${page.data.title}](${absoluteUrl(`${page.url}.mdx`)}): ${page.data.description ?? ""}`);
+
+  const lines = [
+    "# Soplang",
+    "",
+    `> ${SITE_DESCRIPTION}`,
+    "",
+    "Soplang (Somali Programming Language) is the first programming language with Somali keywords.",
+    `It was created by ${CREATOR.name} (${CREATOR.url}) and first released in October 2023.`,
+    `It is developed and maintained by ${MAINTAINER.name} (${MAINTAINER.url}). License: MIT.`,
+    "",
+    "## Key facts",
+    "",
+    "- Keywords are Somali: qor (print), door (variable), hawl (function), celi (return), haddii (if), ugudambeyn (else), intay (while), kuceli (for), qaab (class), fasax/qabo (try/catch), keen (import).",
+    "- Supports dynamic typing (door) and static typing (abn, jajab, qoraal, bool, teed, walax).",
+    "- Error messages are written in Somali.",
+    "- The current compiler is written in Rust and uses Cranelift for JIT and standalone builds.",
+    `- Source code: ${REPOSITORY_URL}`,
+    `- Contact: ${CONTACT_EMAIL}`,
+    "",
+    "## Pages",
+    "",
+    `- [Home](${absoluteUrl("/")}): What Soplang is and how to start`,
+    `- [Downloads](${absoluteUrl("/downloads")}): Install on Windows, macOS, or Linux`,
+    `- [About](${absoluteUrl("/about")}): History, mission, creator, and maintainer`,
+    `- [Contribute](${absoluteUrl("/contribute")}): How to help build Soplang`,
+    `- [Full documentation as one file](${absoluteUrl("/llms-full.txt")})`,
+    "",
+    "## Documentation",
+    "",
+    ...docs,
+    "",
+  ];
+
+  return new Response(lines.join("\n"), {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
 }

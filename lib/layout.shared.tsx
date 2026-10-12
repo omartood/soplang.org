@@ -6,12 +6,13 @@ export function baseOptions(): BaseLayoutProps {
     nav: {
       title: <NavLogo />,
     },
+    themeSwitch: {
+      enabled: false,
+    },
     links: [
       { text: "Home", url: "/", active: "nested-url" },
       { text: "Downloads", url: "/downloads", active: "nested-url" },
       { text: "Documentation", url: "/docs", active: "nested-url" },
-      { text: "Community", url: "/community", active: "nested-url" },
-      { text: "Blog", url: "/blog", active: "nested-url" },
       { text: "About", url: "/about", active: "nested-url" },
     ],
   };
@@ -23,5 +24,8 @@ export function docsOptions(): BaseLayoutProps {
   return {
     nav,
     links: [],
+    themeSwitch: {
+      enabled: false,
+    },
   };
 }

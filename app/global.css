@@ -2,46 +2,248 @@
 @import "fumadocs-ui/css/ocean.css";
 @import "fumadocs-ui/css/preset.css";
 
-@custom-variant dark (&:is(.dark *));
-
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 @theme {
-  --color-fd-background: hsl(210, 40%, 98%);
-  --color-fd-foreground: hsl(222, 47%, 11%);
-  --color-fd-muted: hsl(210, 40%, 96%);
-  --color-fd-muted-foreground: hsl(215, 16%, 45%);
-  --color-fd-popover: hsl(0, 0%, 100%);
-  --color-fd-popover-foreground: hsl(222, 47%, 11%);
-  --color-fd-card: hsl(210, 40%, 99%);
-  --color-fd-card-foreground: hsl(222, 47%, 11%);
-  --color-fd-border: hsl(213, 25%, 84%);
-  --color-fd-primary: hsl(210, 100%, 50%);
-  --color-fd-primary-foreground: hsl(0, 0%, 100%);
-  --color-fd-secondary: hsl(190, 80%, 92%);
-  --color-fd-secondary-foreground: hsl(210, 50%, 20%);
-  --color-fd-accent: hsl(160, 60%, 35%);
-  --color-fd-accent-foreground: hsl(160, 25%, 20%);
-  --color-fd-ring: hsl(210, 100%, 50%);
+  --color-ink: #171a1f;
+  --color-muted: #f3f6f9;
+  --color-surface: #ffffff;
+  --color-surface2: #f3f6f9;
+  --color-line: #e6edf3;
+  --color-primary: #4b8bc9;
+  --color-primary-hover: #3a73a8;
+  --color-primary-soft: #e7f2fa;
+  --color-on-primary: #ffffff;
+
+  --color-background: #ffffff;
+  --color-foreground: #171a1f;
+  --color-muted-foreground: #5f6874;
+  --color-card: #ffffff;
+  --color-card-foreground: #171a1f;
+  --color-border: #e6edf3;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f3f6f9;
+  --color-secondary-foreground: #171a1f;
+  --color-accent: #e7f2fa;
+  --color-accent-foreground: #171a1f;
+  --color-ring: #4b8bc9;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #171a1f;
+
+  --color-fd-background: #ffffff;
+  --color-fd-foreground: #171a1f;
+  --color-fd-muted: #f3f6f9;
+  --color-fd-muted-foreground: #5f6874;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #171a1f;
+  --color-fd-card: #ffffff;
+  --color-fd-card-foreground: #171a1f;
+  --color-fd-border: #e6edf3;
+  --color-fd-primary: #4b8bc9;
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: #f3f6f9;
+  --color-fd-secondary-foreground: #171a1f;
+  --color-fd-accent: #e7f2fa;
+  --color-fd-accent-foreground: #171a1f;
+  --color-fd-ring: #4b8bc9;
 }
 
-.dark {
-  --color-fd-background: hsl(222, 47%, 7%);
-  --color-fd-foreground: hsl(210, 40%, 98%);
-  --color-fd-muted: hsl(222, 47%, 13%);
-  --color-fd-muted-foreground: hsl(215, 20%, 70%);
-  --color-fd-popover: hsl(222, 47%, 10%);
-  --color-fd-popover-foreground: hsl(210, 40%, 98%);
-  --color-fd-card: hsl(222, 47%, 9%);
-  --color-fd-card-foreground: hsl(210, 40%, 98%);
-  --color-fd-border: hsla(215, 30%, 30%, 0.3);
-  --color-fd-primary: hsl(210, 100%, 65%);
-  --color-fd-primary-foreground: hsl(222, 47%, 10%);
-  --color-fd-secondary: hsl(190, 60%, 24%);
-  --color-fd-secondary-foreground: hsl(210, 40%, 96%);
-  --color-fd-accent: hsl(160, 60%, 35%);
-  --color-fd-accent-foreground: hsl(160, 70%, 90%);
-  --color-fd-ring: hsl(210, 100%, 65%);
+body {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+#nd-home-layout {
+  --fd-layout-width: 80rem;
+}
+
+#nd-nav > div {
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  border-bottom-color: var(--color-line);
+}
+
+.container-custom {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding-inline: 1.5rem;
+  }
+}
+
+.page-hero {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.section-tight {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .page-hero {
+    padding-top: 4rem;
+    padding-bottom: 5rem;
+  }
+
+  .section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .section-tight {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.type-title,
+.type-section {
+  font-family: var(--font-sans), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.type-title {
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  line-height: 1.18;
+}
+
+.type-section {
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  line-height: 1.22;
+}
+
+.eyebrow {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  line-height: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 0.375rem;
+  height: 0.375rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.panel {
+  border-radius: 2rem;
+  background: var(--color-surface2);
+}
+
+.panel-sm {
+  border-radius: 1.5rem;
+  background: var(--color-surface2);
+}
+
+.btn-primary,
+.btn-ghost {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn-ghost {
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.btn-ghost:hover {
+  border-color: color-mix(in srgb, var(--color-ink) 30%, transparent);
+  background: var(--color-surface2);
+}
+
+.btn-ghost-dark {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  padding: 0 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.btn-ghost-dark:hover {
+  border-color: rgb(255 255 255 / 0.4);
+  background: rgb(255 255 255 / 0.08);
+}
+
+/* Fills the active feature tab; when it ends the next tab is selected. */
+.feature-progress {
+  width: 100%;
+  transform-origin: left;
+  animation-name: feature-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes feature-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-progress {
+    display: none;
+  }
+}
+
+.text-gradient-primary {
+  color: var(--color-primary);
+}
+
+.bg-gradient-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
 }

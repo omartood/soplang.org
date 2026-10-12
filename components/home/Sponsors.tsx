@@ -1,16 +1,12 @@
 export const Sponsors = () => {
   return (
-    <section className="py-12 border-y border-border/40">
-      <div className="container-custom text-center">
-        <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-8">
-          Proudly supported by
-        </p>
-        <div className="flex flex-wrap justify-center gap-8 md:gap-16 items-center opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-          <img
-            src="/sponsors/Docker.svg"
-            alt="Docker"
-            className="h-12 md:h-16"
-          />
+    <section className="pb-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-y border-line py-6">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.04em] text-muted-foreground">
+            Supported by
+          </p>
+          <img src="/sponsors/Docker.svg" alt="Docker" className="h-8" />
         </div>
       </div>
     </section>

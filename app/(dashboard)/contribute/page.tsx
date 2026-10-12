@@ -1,254 +1,278 @@
+import { JsonLd, breadcrumbSchema } from "@/components/JsonLd";
 import CodeWindow from "@/components/SoplangCodeWindow";
-import { contributors } from "@/constants/contributorsData";
+import { GITHUB_URL, formatCount, getContributors, getRepoStats } from "@/lib/github";
 import { Icon } from "@iconify/react";
 import type { Metadata } from "next";
+import Link from "next/link";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Contribute to Soplang - Join the Community",
+  title: "Contribute",
   description:
-    "Learn how to contribute to Soplang, an open-source Somali programming language. Find guidelines, development setup instructions, and join our community of contributors.",
-  keywords:
-    "Soplang, contribute, open-source, Somali programming language, coding, development, community",
+    "Help build Soplang, the open-source Somali programming language. Fix bugs in the Rust compiler, improve the docs, write examples, or proofread Somali text.",
+  alternates: { canonical: "/contribute" },
   openGraph: {
     title: "Contribute to Soplang",
     description:
-      "Discover how to contribute code, documentation, and community support to Soplang, the first Somali programming language.",
+      "Code, documentation, examples and Somali proofreading: ways to help build the first Somali programming language.",
+    url: "/contribute",
     images: "/og.png",
   },
 };
 
-export default function ContributePage() {
-  return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]" />
-      </div>
+const GOOD_FIRST_ISSUES_URL = `${GITHUB_URL}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22`;
 
-      <div className="container-custom py-8 md:py-16">
-        {/* Hero Section */}
-        <div className="text-center mb-20 relative">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-primary text-sm font-medium mb-6 animate-fade-in-up">
-            <Icon icon="lucide:heart" className="w-4 h-4" />
-            <span>Open Source & Community Driven</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 tracking-tight animate-fade-in-up animation-delay-100">
-            Contribute to <span className="text-gradient-primary">Soplang</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8 animate-fade-in-up animation-delay-200">
-            Soplang is built by people like you. Whether you write code, improve
-            documentation, or help others, every contribution makes a
-            difference.
+const ways = [
+  {
+    icon: "lucide:cpu",
+    title: "Compiler",
+    body: "Fix bugs and add features in the Rust compiler: the lexer, parser, type checker, and Cranelift backend.",
+    href: GOOD_FIRST_ISSUES_URL,
+    label: "Good first issues",
+  },
+  {
+    icon: "lucide:book-open",
+    title: "Documentation",
+    body: "Correct examples, explain concepts more clearly, and add pages for parts of the language that are missing.",
+    href: "https://github.com/soplang/soplang-site",
+    label: "Website repository",
+  },
+  {
+    icon: "lucide:languages",
+    title: "Somali language",
+    body: "Proofread Somali text in the docs and error messages, and suggest clearer words for keywords and terms.",
+    href: `${GITHUB_URL}/issues/new`,
+    label: "Suggest a change",
+  },
+  {
+    icon: "lucide:bug",
+    title: "Bug reports",
+    body: "Found a program that behaves wrongly? Open an issue with the code, what you expected, and what happened.",
+    href: `${GITHUB_URL}/issues/new`,
+    label: "Open an issue",
+  },
+];
+
+const workflow = [
+  ["Fork and clone", "Fork soplang/soplang on GitHub, then clone your fork."],
+  ["Create a branch", "Keep each change on its own branch, named after what it does."],
+  ["Build and test", "Run cargo test and the pre-commit hooks before you commit."],
+  ["Open a pull request", "Target the main branch and describe what changed and why."],
+];
+
+export default async function ContributePage() {
+  const [stats, contributors] = await Promise.all([getRepoStats(), getContributors()]);
+
+  const metrics = [
+    { label: "GitHub stars", value: formatCount(stats.stars) },
+    { label: "Forks", value: formatCount(stats.forks) },
+    { label: "Contributors", value: formatCount(stats.contributors) },
+    { label: "Downloads", value: formatCount(stats.downloads) },
+    { label: "Open issues", value: formatCount(stats.openIssues) },
+  ];
+
+  return (
+    <div className="min-h-screen bg-surface">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contribute", path: "/contribute" },
+        ])}
+      />
+      <section className="page-hero">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="eyebrow">Open source · {stats.license} license</p>
+          <h1 className="type-title mt-5 max-w-3xl">Help build Soplang</h1>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            Soplang is built in the open by students, teachers, and developers.
+            Code, documentation, examples, and Somali proofreading all move the
+            language forward.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up animation-delay-300">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="https://github.com/soplang/soplang/blob/main/docs/CONTRIBUTING.md"
+              href={`${GITHUB_URL}/blob/main/docs/CONTRIBUTING.md`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-primary-foreground bg-gradient-primary hover:opacity-95 text-lg font-medium shadow-lg shadow-primary/20 transition-all duration-300"
+              className="btn-primary"
             >
-              <Icon icon="lucide:book-open" className="w-5 h-5" />
-              Read Guidelines
+              Read the contributing guide
             </a>
-            <a
-              href="https://github.com/soplang/soplang"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-card border border-border  text-foreground font-semibold transition-all shadow-sm hover:shadow-md hover:-translate-y-1"
-            >
-              <Icon icon="lucide:github" className="w-5 h-5" />
-              Visit Repository
+            <a href={GOOD_FIRST_ISSUES_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+              {stats.goodFirstIssues > 0
+                ? `${stats.goodFirstIssues} good first issues`
+                : "Browse open issues"}
             </a>
           </div>
         </div>
+      </section>
 
-        {/* Ways to Contribute */}
-        <section className="mb-24">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Ways to Contribute
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Code",
-                desc: "Fix bugs, optimize performance, or build new features for the compiler and interpreter.",
-                icon: "lucide:code-2",
-                color: "text-primary",
-                bg: "bg-primary/10",
-                link: "https://github.com/soplang/soplang/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22",
-              },
-              {
-                title: "Documentation",
-                desc: "Improve guides, fix typos, and write tutorials to help new users learn Soplang.",
-                icon: "lucide:file-text",
-                color: "text-primary",
-                bg: "bg-primary/10",
-                link: "https://github.com/soplang/soplang/tree/main/docs",
-              },
-              {
-                title: "Community",
-                desc: "Answer questions, help beginners, and share your Soplang projects with the world.",
-                icon: "lucide:users",
-                color: "text-primary",
-                bg: "bg-primary/10",
-                link: "/community",
-              },
-            ].map((way, i) => (
-              <a
-                key={i}
-                href={way.link}
-                className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/20 hover:shadow-lg transition-all"
-              >
-                <div
-                  className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${way.bg} ${way.color}`}
+      <section className="section-tight" aria-label="Project statistics">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <dl className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            {metrics.map((metric) => (
+              <div key={metric.label} className="panel-sm p-6">
+                <dt className="text-[13px] text-muted-foreground">{metric.label}</dt>
+                <dd className="mt-1 text-3xl font-semibold tracking-tight text-ink">
+                  {metric.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-4 text-[13px] text-muted-foreground">
+            Live from GitHub, updated every hour.
+          </p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="eyebrow">Ways to help</p>
+          <h2 className="type-section mt-3">Pick what suits you</h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            {ways.map((way) => (
+              <div key={way.title} className="panel-sm flex flex-col p-7">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                  <Icon icon={way.icon} className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <h3 className="mt-5 text-lg font-semibold text-ink">{way.title}</h3>
+                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink/70">{way.body}</p>
+                <a
+                  href={way.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex text-sm font-bold text-primary hover:text-primary-hover"
                 >
-                  <Icon icon={way.icon} className="w-7 h-7" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                  {way.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {way.desc}
-                </p>
-              </a>
+                  {way.label}
+                </a>
+              </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Hall of Fame - Contributors Grid */}
-        <section className="mb-24">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Hall of Fame</h2>
-            <p className="text-muted-foreground text-lg">
-              A huge thanks to our amazing contributors who make Soplang
-              possible.
+      <section className="section-tight">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <p className="eyebrow">Development setup</p>
+            <h2 className="type-section mt-3">Build it locally</h2>
+            <p className="mt-4 text-[17px] leading-relaxed text-ink/70">
+              The compiler is written in Rust. Install the toolchain from{" "}
+              <a href="https://rustup.rs/" className="font-semibold text-primary hover:text-primary-hover">
+                rustup.rs
+              </a>
+              , or use the Docker setup if you would rather not install
+              anything.
+            </p>
+            <ol className="mt-8 space-y-5">
+              {workflow.map(([title, body], index) => (
+                <li key={title} className="flex gap-4">
+                  <span className="font-mono text-sm font-semibold text-primary">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-semibold text-ink">{title}</h3>
+                    <p className="mt-1 text-[15px] leading-relaxed text-ink/70">{body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className="min-w-0 lg:col-span-7">
+            <CodeWindow
+              title="Local (Rust)"
+              code={`git clone https://github.com/soplang/soplang.git
+cd soplang
+
+cargo build --release
+cargo test
+
+# Run a program, or open the REPL
+make run FILE=examples/hello.sop
+make shell`}
+            />
+            <CodeWindow
+              title="Docker"
+              code={`docker-compose build
+docker-compose up -d
+
+docker-compose exec soplang soplang -i
+docker-compose exec soplang cargo test`}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="eyebrow">Contributors</p>
+          <h2 className="type-section mt-3">
+            {contributors.length} people have contributed
+          </h2>
+          <ul className="mt-8 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+            {contributors.map((contributor) => (
+              <li key={contributor.login}>
+                <a
+                  href={contributor.profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col items-center rounded-2xl p-3 text-center transition-colors hover:bg-surface2"
+                >
+                  <img
+                    src={`${contributor.avatarUrl}&s=128`}
+                    alt=""
+                    width={64}
+                    height={64}
+                    loading="lazy"
+                    className="h-16 w-16 rounded-full border border-line"
+                  />
+                  <span className="mt-2 w-full truncate text-[13px] font-semibold text-ink group-hover:text-primary">
+                    {contributor.login}
+                  </span>
+                  <span className="text-[12px] text-muted-foreground">
+                    {contributor.contributions} {contributor.contributions === 1 ? "commit" : "commits"}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section-tight pb-20">
+        <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-2">
+          <div className="panel-sm p-7">
+            <h2 className="text-lg font-semibold text-ink">Report a security issue</h2>
+            <p className="mt-2 text-[15px] leading-relaxed text-ink/70">
+              Please do not open a public issue for a vulnerability. Email{" "}
+              <a href="mailto:info@soplang.org" className="font-semibold text-primary hover:text-primary-hover">
+                info@soplang.org
+              </a>{" "}
+              and read the{" "}
+              <Link href="/contribute/security" className="font-semibold text-primary hover:text-primary-hover">
+                security policy
+              </Link>
+              .
             </p>
           </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {contributors.map((contributor) => (
+          <div className="panel-sm p-7">
+            <h2 className="text-lg font-semibold text-ink">Code of conduct</h2>
+            <p className="mt-2 text-[15px] leading-relaxed text-ink/70">
+              Be kind and patient, especially with people writing their first
+              program. Read the{" "}
               <a
-                key={contributor.login}
-                href={contributor.html_url}
+                href={`${GITHUB_URL}/blob/main/CODE_OF_CONDUCT.md`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center p-4 rounded-xl bg-card border border-border hover:border-primary/30 hover:shadow-md transition-all hover:-translate-y-1"
+                className="font-semibold text-primary hover:text-primary-hover"
               >
-                <div className="relative mb-3">
-                  <img
-                    src={contributor.avatar_url}
-                    alt={contributor.login}
-                    className="w-20 h-20 rounded-full border-4 border-background group-hover:border-primary/20 transition-colors"
-                  />
-                  <div className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">
-                    {contributor.contributions}
-                  </div>
-                </div>
-                <span className="font-semibold text-sm truncate w-full text-center group-hover:text-primary transition-colors">
-                  {contributor.login}
-                </span>
+                code of conduct
               </a>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-muted-foreground">
-              Want to see your face here?{" "}
-              <a
-                href="https://github.com/soplang/soplang"
-                className="text-primary hover:underline font-medium"
-              >
-                Start contributing!
-              </a>
+              .
             </p>
           </div>
-        </section>
-
-        {/* Getting Started Steps */}
-        <section className="max-w-6xl mx-auto mb-20">
-          <div className="bg-gradient-to-br from-card to-background rounded-3xl border border-border p-8 md:p-12 shadow-sm">
-            <h2 className="text-3xl font-bold mb-8 text-center">
-              Development Setup
-            </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              There are two recommended ways to set up your development
-              environment. We recommend using Docker to eliminate "works on my
-              machine" issues.
-            </p>
-
-            {/* Option 1: Docker */}
-            <div className="mb-16">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="bg-primary/10 text-primary font-bold px-4 py-1.5 rounded-full text-sm uppercase tracking-wide">
-                  Option 1 (Recommended)
-                </div>
-                <h3 className="text-2xl font-bold">Docker Setup</h3>
-              </div>
-
-              <div className="space-y-6">
-                <div>
-                  <p className="text-muted-foreground mb-3 font-medium">
-                    1. Clone the repository:
-                  </p>
-                  <CodeWindow
-                    code={`git clone https://github.com/soplang/soplang.git\ncd soplang\ndocker-compose build\ndocker-compose up -d`}
-                    title="Terminal"
-                  />
-                </div>
-                <div>
-                  <p className="text-muted-foreground mb-3 font-medium">
-                    2. Run commands inside the container:
-                  </p>
-                  <CodeWindow
-                    code={`# Run the shell\ndocker-compose exec soplang python main.py\n\n# Run tests\ndocker-compose exec soplang python -m unittest discover tests`}
-                    title="Terminal"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Option 2: Local */}
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="bg-muted text-muted-foreground font-bold px-4 py-1.5 rounded-full text-sm uppercase tracking-wide">
-                  Option 2
-                </div>
-                <h3 className="text-2xl font-bold">Local Setup</h3>
-              </div>
-
-              <div className="space-y-6">
-                <div>
-                  <p className="text-muted-foreground mb-3 font-medium">
-                    Prerequisites: Python 3.6+, Git
-                  </p>
-                  <CodeWindow
-                    code={`git clone https://github.com/soplang/soplang.git\ncd soplang\n\n# Create virtual env (Recommended)\npython -m venv env\nsource env/bin/activate  # On Windows: env\\Scripts\\activate\n\n# Install dependencies\npip install -r requirements-dev.txt`}
-                    title="Terminal"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Security Alert */}
-        <section className="max-w-3xl mx-auto text-center p-8 rounded-2xl bg-red-500/5 border border-red-500/20">
-          <h3 className="text-xl font-bold text-red-600 dark:text-red-400 mb-2 flex items-center justify-center gap-2">
-            <Icon icon="lucide:shield-alert" className="w-5 h-5" />
-            Security Policy
-          </h3>
-          <p className="text-muted-foreground mb-4">
-            Found a vulnerability? Please do NOT open a GitHub issue.
-          </p>
-          <a
-            href="mailto:security@soplang.org"
-            className="text-primary font-medium hover:underline"
-          >
-            Report to security@soplang.org
-          </a>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

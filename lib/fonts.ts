@@ -1,32 +1,7 @@
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-// export const roboto = Bricolage_Grotesque({
-//   weight: ["400", "500", "700"],
-//   subsets: ["latin"],
-//   display: "block",
-//   variable: "--font-roboto",
-//   preload: true,
-//   fallback: [
-//     "system-ui",
-//     "-apple-system",
-//     "BlinkMacSystemFont",
-//     "Segoe UI",
-//     "Roboto",
-//     "Arial",
-//     "sans-serif",
-//   ],
-// });
-
-export const inter = Inter({
+export const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  display: "block",
-  preload: true,
-  fallback: [
-    "system-ui",
-    "-apple-system",
-    "BlinkMacSystemFont",
-    "Segoe UI",
-    "Arial",
-    "sans-serif",
-  ],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
