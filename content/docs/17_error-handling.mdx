@@ -1,17 +1,20 @@
 ---
 title: Error Handling
-description: "Sida loo qabto khaladaadka Soplang: tijaabi iyo qabo (try/catch), qaabka fariimaha khaladka, iyo error codes-ka."
+description: Catch runtime errors with tijaabi and qabo, understand Somali diagnostics, and look up error codes and source locations.
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Error Handling in Soplang
 
-Marka khalad runtime ah dhaco (tusaale qaybinta eber), barnaamijku wuu joogsadaa. Si aad u qabato khaladka oo barnaamijku u sii socdo, isticmaal `tijaabi` iyo `qabo`.
+An uncaught runtime error, such as division by zero, stops the program. Use
+`tijaabi` and `qabo` to catch an error and continue execution.
 
-## `tijaabi` iyo `qabo` – Try / Catch
+## `tijaabi` and `qabo` – Try / Catch
 
-Koodhka khatarta leh geli block-ga `tijaabi`. Haddii khalad dhaco, fulintu waxay u boodaysaa block-ga `qabo`, fariinta khaladkana (`qoraal`) waxaa lagu kaydiyaa doorsoomaha ku jira `qabo (...)`.
+Place code that may fail inside a `tijaabi` block. If an error occurs, execution
+transfers to `qabo`. The variable in `qabo (...)` receives the error message
+as a string (`qoraal`).
 
 <SoplangCodeWindow title="try_catch.sop" code={`hawl qaybi(a, b) {
     celi a / b
@@ -19,7 +22,7 @@ Koodhka khatarta leh geli block-ga `tijaabi`. Haddii khalad dhaco, fulintu waxay
 
 tijaabi {
     qor(qaybi(10, 2))      // 5
-    qor(qaybi(10, 0))      // khalad: waxay u boodaysaa qabo
+    qor(qaybi(10, 0))      // Error: transfers control to qabo
     qor("Tan lama gaaro")
 } qabo (khalad) {
     qor("Qabtay: " + khalad)   // Qabtay: Tiro looma qaybin karo eber.
@@ -28,9 +31,9 @@ tijaabi {
 
 qor("Barnaamijku wuu sii socdaa")`}/>
 
-- `qabo` waa qasab — `tijaabi` mar walba waa inuu leeyahay `qabo (magac)`.
-- Haddii aan khalad dhicin, block-ga `qabo` lama fuliyo.
-- `tijaabi` waa la isku dhex dhigi karaa (nest). Khaladka waxaa qabanaya `qabo`-ga ugu dhow.
+- `qabo` is required: every `tijaabi` block must have a `qabo (name)` block.
+- If no error occurs, the `qabo` block is skipped.
+- Try blocks can be nested. The nearest enclosing `qabo` catches an error.
 
 <SoplangCodeWindow title="nested_try.sop" code={`tijaabi {
     tijaabi {
@@ -43,13 +46,14 @@ qor("Barnaamijku wuu sii socdaa")`}/>
     qor("dibadda")
 }`}/>
 
-<Callout title="Khaladaadka methods-ka">
-  `tijaabi` wuxuu qabtaa khaladaadka runtime-ka ee hawlaha ku-dhexjira, methods-ka, callbacks-ka iyo qaybinta eber. Khalad callback ah wuxuu joojiyaa ku-celcelinta, wuxuuna u gudbaa `qabo`-ga ugu dhow. Khaladaadka lexer-ka, parser-ka iyo falanqaynta waxay dhacaan ka hor fulinta.
+<Callout title="Catchable runtime errors">
+  `tijaabi` catches errors from built-ins, methods, callbacks, and division by zero. A callback error stops iteration and propagates to the nearest `qabo`. Lexer, parser, and analysis errors occur before execution and cannot be caught this way.
 </Callout>
 
 ## Signalling Failure from a Function
 
-Soplang ma laha keyword `throw`. Si hawl u sheegto in ay fashilantay, inta badan waxaa la soo celiyaa `maran` kadibna waa la hubiyaa:
+Soplang does not have a `throw` keyword. A function can return `maran` to
+signal failure, leaving the caller to check the result:
 
 <SoplangCodeWindow title="return_maran.sop" code={`hawl hubi_da(da) {
     haddii (da < 0) {
@@ -65,14 +69,15 @@ haddii (natiijo == maran) {
 
 ## Error Messages
 
-Fariimaha khaladka Soplang waxay ku qoran yihiin Af-Soomaali, waxayna leeyihiin qaabkan:
+Soplang's diagnostic output is in Somali. The following examples preserve
+the actual message format:
 
 ```text
 Khalad <nooc>: <fariin> [<code>] safka <sadar>, tiirka <tiir>
      --> <fayl>:<sadar>:<tiir>
 ```
 
-Tusaale, marka `madoor` la beddelo:
+For example, reassigning a `madoor` constant produces:
 
 ```text
 Khalad nooc: Ma bedeli kartid qiimaha doorsamaha madoor 'luqad' [E020] safka 2, tiirka 1
@@ -82,32 +87,32 @@ Khalad nooc: Ma bedeli kartid qiimaha doorsamaha madoor 'luqad' [E020] safka 2, 
      └─ Doorsamaha madoor ma beddeli karaan qiimahooda. Isticmaal 'door' haddii aad rabto mid beddeli kara.
 ```
 
-Noocyada khaladka (`<nooc>`):
+Diagnostic categories (`<nooc>` in the format above) identify the phase:
 
-| Nooc | Goorta uu dhaco |
+| Category | Meaning |
 | --- | --- |
-| `ereyayn` | Xaraf aan la aqoon, string ama faallo aan la xirin |
-| `naxwe` | Syntax khaldan, tusaale `)` ama `}` maqan |
-| `nooc` | Nooc aan is-waafaqsanayn (type error) |
-| `fulin` | Khalad inta barnaamijku socdo, tusaale qaybinta eber |
-| `soo-dejin` | Fayl `keen` lagu sheegay oo aan la helin |
+| `ereyayn` | Lexing: an unknown character, unclosed string, or unclosed comment |
+| `naxwe` | Parsing: invalid syntax, such as a missing `)` or `}` |
+| `nooc` | A type or declaration error |
+| `fulin` | A runtime error, such as division by zero |
+| `soo-dejin` | An import error, such as a missing file named by `keen` |
 
-Colors-ka waxaa lagu dami karaa `--no-color` ama `NO_COLOR=1`.
+Disable diagnostic colors with `--no-color` or `NO_COLOR=1`.
 
 ## Error Codes
 
-Khaladaadka qaarkood waxay wataan code gaaban oo kaa caawinaya inaad raadiso:
+Some diagnostics include a short code:
 
-| Code | Macnaha |
+| Code | Meaning |
 | --- | --- |
-| `E001` | Xaraf aan la filayn |
-| `E002` | String aan la xirin |
-| `E003` | Faallo `/* */` aan la xirin |
-| `E020` | Dib-u-qeexid, ama beddelid doorsoome `madoor` ah |
-| `E021` | Wax aan la helin, tusaale fayl `keen` lagu sheegay |
-| `E022` | Nooc aan is-waafaqsanayn (static type, doodaha hawl, ama nooca celinta) |
+| `E001` | Unexpected character |
+| `E002` | Unclosed string |
+| `E003` | Unclosed `/* */` comment |
+| `E020` | Redeclaration or reassignment of a `madoor` constant |
+| `E021` | Missing item, such as an imported file |
+| `E022` | Type mismatch in an assignment, function argument, or return value |
 
-## Source context and exit status
+## Source Context and Exit Status
 
 Uncaught failures write Somali diagnostics to stderr and exit with status 1.
 Diagnostics include the source file, line, column, source line and caret. Columns

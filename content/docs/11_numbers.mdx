@@ -1,17 +1,20 @@
 ---
 title: Numbers
-description: Learn the two numeric types in Soplang—abn (integers) and jajab (decimals)—with literals, arithmetic, comparisons, and conversions.
+description: Learn Soplang integers (abn) and floating-point numbers (jajab), including arithmetic, comparisons, conversions, and rounding.
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Numbers in Soplang
 
-Soplang waxa uu leeyahay laba nooc oo tiro ah: **abn** (integers) iyo **jajab** (decimals). Boggan waxa uu muujinayaa sida loo qoro, loo xisaabiyo, loona is-beddelo labadan nooc.
+Soplang has two numeric types: **abn** (signed 64-bit integers) and **jajab**
+(64-bit binary floating-point numbers). This guide covers literals, arithmetic,
+comparisons, and conversions.
 
 ## Integers — `abn`
 
-`abn` waxa uu metelaa tirooyin dhan (…,-2,-1,0,1,2,…). Waxaad qeexi kartaa si _dynamic_ (`door`) ama si _static_ (`abn`).
+`abn` represents whole numbers such as −2, −1, 0, 1, and 2. Use `door` for a
+dynamic variable or `abn` for an explicitly typed declaration.
 
 <SoplangCodeWindow title="integers.sop" code={`// Literals & declaration
 abn da = 21
@@ -23,7 +26,7 @@ abn b = 3
 qor(a + b)   // 13
 qor(a - b)   // 7
 qor(a * b)   // 30
-qor(a / b)   // 3.3333333333333335 (natiijo jajab ah)
+qor(a / b)   // 3.3333333333333335 (floating-point result)
 qor(a % b)   // 1         (remainder)
 
 // Comparisons
@@ -31,13 +34,15 @@ qor(a > b)    // run
 qor(a == 10)  // run
 qor(a != b)   // run`}/>
 
-Qaybintu (`/`) waxay bixin kartaa natiijo _jajab_ haddii aysan si buuxda u qaybsamin—haddii aad rabto integer oo keliya, isticmaal `abn()` si aad u _truncation_ sameyso.
+Division (`/`) can produce a fractional result. Use `abn()` to truncate a
+result toward zero when you need an integer.
 
 <SoplangCodeWindow title="integer_truncation.sop" code={`abn natiijo_dhan = abn(10 / 3)  // 3 (truncation)`}/>
 
-## Decimals — `jajab`
+## Floating-Point Numbers — `jajab`
 
-`jajab` waxa uu metelaa tirooyinka leh meel-dhaaf (floating/decimal). Waxaa ku habboon xisaab sax ah oo leh jajab.
+`jajab` represents binary floating-point values. It supports fractional
+calculations but does not provide exact decimal arithmetic.
 
 <SoplangCodeWindow title="decimals.sop" code={`// Literals & declaration
 jajab pi = 3.14159
@@ -53,38 +58,39 @@ qor(x / y)   // 2.5
 
 // Comparisons
 qor(pi > 3)        // run
-qor(2.0 == 2)      // run (labaduba waxay loo turjumi karaa qiime isu eg)`}/>
+qor(2.0 == 2)      // run (numeric values compare equally)`}/>
 
-<Callout title="Sida jajab loo daabaco">
-  Marka `jajab` uu yahay tiro dhan (sida `14.0`), `qor()` waxay u daabacdaa `14` iyadoon `.0` lahayn. Noociisu weli waa `jajab` — hubi `nooc()`.
+<Callout title="Printing floating-point values">
+  When a `jajab` value is integral, such as `14.0`, `qor()` displays `14` without `.0`. Its type is still `jajab`; use `nooc()` to inspect it.
 </Callout>
 
-Haddii aad ka timid `door` oo aadan hubin nooca, waxaad ka fiirsan kartaa `nooc()` si aad u xaqiijiso.
+Use `nooc()` when you need to check the type held by a dynamic variable.
 
 <SoplangCodeWindow title="check_decimal_type.sop" code={`door n = 2.75
 qor(nooc(n))  // "jajab"`}/>
 
-## Isku-darka abn & jajab
+## Mixing `abn` and `jajab`
 
-Marka aad isku qasto `abn` iyo `jajab`, natiijadu inta badan waxay noqotaa `jajab`. Waxaad si cad u qasbi kartaa nooca adigoo adeegsanaya `abn()` ama `jajab()`.
+Arithmetic that mixes `abn` and `jajab` generally produces a `jajab` result.
+Use `abn()` or `jajab()` for an explicit conversion.
 
 <SoplangCodeWindow title="mixing_abn_jajab.sop" code={`abn a = 5
 jajab b = 2.0
 
-// Natiijo jajab
+// Floating-point result
 door c = a + b
 qor(c)          // 7
 qor(nooc(c))    // "jajab"
 
-// Qasbi integer (truncation)
+// Convert to an integer (truncate)
 abn d = abn(a / b)
 qor(d)          // 2
 
-// Qasbi decimal
+// Convert to floating point
 jajab e = jajab(a * 2)
 qor(e)          // 10`}/>
 
-## Beddel & xaqiijin degdeg ah
+## Conversion Examples
 
 <SoplangCodeWindow title="numbers_quick_check.sop" code={`// From input → number
 door gelin_da = gelin("Da'daada qor: ")
@@ -99,9 +105,10 @@ qor(qiime + 0.25)                    // 13
 qoraal s = qoraal(2025)
 qor("Sanad: " + s)`}/>
 
-## Rounding — `daji()` iyo `kor()`
+## Rounding — `daji()` and `kor()`
 
-`daji()` waxay hoos ugu soo koobtaa (floor), `kor()` waxay kor ugu qaaddaa (ceil). Labaduba waxay soo celiyaan `abn`.
+`daji()` rounds down toward negative infinity (floor). `kor()` rounds up toward
+positive infinity (ceiling). Both return `abn`.
 
 <SoplangCodeWindow title="rounding.sop" code={`qor(daji(4.8))         // 4
 qor(kor(4.2))          // 5

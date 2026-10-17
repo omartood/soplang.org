@@ -1,13 +1,15 @@
 ---
 title: Lists (teed)
-description: "Liisaska Soplang 3: geli, saar, midee, hel, dhig, hore, dambe, jar, iyo callbacks."
+description: "Soplang lists: indexing, insertion, removal, copying, slicing, sorting, search, and callbacks."
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
-Liis (`teed`) waa ururin qiimayaal ah oo kala horraysa. Qiimayaashu waxay yeelan karaan noocyo kala duwan. `teed` waa nooca la qoro, `door`-na wuxuu qaadan karaa liis dynamic ah.
+A list (`teed`) is an ordered collection of values. Items may have different
+types. Use `teed` for an explicitly typed declaration, or `door` for a dynamic
+variable holding a list.
 
-## Abuuridda iyo akhrinta liiska
+## Creating and Reading Lists
 
 <SoplangCodeWindow title="lists_lookup.sop" code={`teed tirooyin = [10, 20, 30]
 qor(tirooyin.dherer())     // 3
@@ -17,22 +19,21 @@ qor(tirooyin.hore())       // 10
 qor(tirooyin.dambe())      // 30
 qor(tirooyin.hel(9, 0))    // 0`}/>
 
-Index-ku wuxuu ka bilaabmaa `0`; index taban wuxuu ka tiriyaa dhammaadka.
-Akhrin ka baxsan liiska waxay soo celisaa `maran`. `hel(index, default?)`
-wuxuu soo celiyaa qiimaha beddelka ah marka booska la waayo. Qiime `maran`
-ah oo liiska ku jira lama beddelo. `hore()` iyo `dambe()` waxay liis madhan
-ka soo celiyaan `maran`.
+Indexes start at `0`; negative indexes count from the end. An out-of-range
+read returns `maran`. `hel(index, default?)` returns the supplied default
+only when the position is absent. A stored `maran` value is returned unchanged.
+`hore()` and `dambe()` return `maran` for an empty list.
 
-## Wax ku darid, beddelid iyo saarid
+## Adding, Replacing, and Removing Items
 
-| Habka | Shaqada |
+| Method | Description |
 | --- | --- |
-| `geli(value)` | Ku dar hal qiime dhammaadka liiska, xitaa haddii qiimuhu yahay liis kale |
-| `geli(index, value)` | Geli hal qiime boos la cayimay |
-| `dhig(index, value)` | Beddel boos jira; ma abuuro boos cusub |
-| `saar()` | Ka saar oo soo celi qiimaha ugu dambeeya |
-| `saar(index)` | Ka saar oo soo celi qiimaha booskaas |
-| `nadiifi()` | Ka saar dhammaan qiimayaasha |
+| `geli(value)` | Append one value, including when that value is another list |
+| `geli(index, value)` | Insert one value at the specified position |
+| `dhig(index, value)` | Replace an existing item without creating a new position |
+| `saar()` | Remove and return the last item |
+| `saar(index)` | Remove and return the item at that position |
+| `nadiifi()` | Remove all items |
 
 <SoplangCodeWindow title="lists_mutation.sop" code={`door tirooyin = [10, 20]
 tirooyin.geli(30)
@@ -42,14 +43,14 @@ qor(tirooyin)             // [5, 30]
 tirooyin.geli([40, 50])
 qor(tirooyin)             // [5, 30, [40, 50]]`}/>
 
-`saar()` ee liis madhan iyo qorista boos aan jirin waa khaladaad la qaban
-karo. Hababka kale ee liiska beddela waxay soo celiyaan isla liiska.
+Calling `saar()` on an empty list or writing to an out-of-range position
+produces a catchable error. Other mutating list methods return the original list.
 
-## Isku darid iyo nuqul
+## Combining and Copying
 
-`midee(other)` wuxuu soo celiyaa **liis cusub**. `nuqul()` iyo `jar()` sidoo
-kale waxay abuuraan liisas cusub. Kuwani waa nuqullo aan qoto dheerayn:
-liis ama walax gudaha ku jira weli waa lala wadaagaa asalka.
+`midee(other)` returns a **new list**. `nuqul()` and `jar()` also create new
+lists. These copies are shallow: nested lists and objects remain shared with
+the original.
 
 <SoplangCodeWindow title="lists_copy.sop" code={`door asal = [10, 20, 30]
 door natiijo = asal.midee([40])
@@ -58,19 +59,19 @@ qor(natiijo)                // [10, 20, 30, 40]
 qor(asal.jar(1, 3))       // [20, 30]
 qor(asal.jar(-2))         // [20, 30]`}/>
 
-Xadka dambe ee `jar(start?, end?)` kuma jiro natiijada. Xadadku waa tirooyin
-dhan, waxaa lagu xaddidaa dhererka liiska, xadad is rogayna waxay keenaan
-liis madhan. `jar()` wuxuu nuqul ka sameeyaa liiska oo dhan.
+The end bound of `jar(start?, end?)` is excluded. Bounds must be integers and
+are clamped to the list's length. Reversed bounds produce an empty list.
+`jar()` without arguments copies the entire list.
 
-## Raadin, tirin iyo kala habayn
+## Search, Counting, and Sorting
 
-| Habka | Natiijada |
+| Method | Result |
 | --- | --- |
-| `leeyahay(value)` | `run` haddii qiimuhu jiro |
-| `raadi(value)` | Index-ka koowaad, ama `maran` marka la waayo |
-| `tiri(value)` | Tirada qiimayaasha la midka ah |
-| `rog()` | Rog kala horraynta liiska laftiisa |
-| `habee()` | U kala hormari qiimayaasha liiska laftiisa |
+| `leeyahay(value)` | `run` when the value is present |
+| `raadi(value)` | The first matching index, or `maran` when absent |
+| `tiri(value)` | The number of matching items |
+| `rog()` | Reverse the original list in place |
+| `habee()` | Sort the original list in place |
 
 <SoplangCodeWindow title="lists_sort.sop" code={`door tirooyin = [10, 2, 3, 2]
 tirooyin.habee()
@@ -79,21 +80,21 @@ qor(tirooyin.raadi(2))    // 0
 qor(tirooyin.raadi(99))   // maran
 qor(tirooyin.tiri(2))     // 2`}/>
 
-Tirooyinka waxaa loo kala hormariyaa tiro ahaan. Liis ka kooban noocyo isku
-dhafan wuxuu isticmaalaa isbarbardhigga runtime-ka; ha ku tiirsanaan inuu noqdo
-kala horrayn af-Soomaali ama kala horrayn tiro oo isku nooc ah. Raadin guulaysata
-waxay soo celin kartaa `0`, sidaa darteed si cad u hubi `maran` markaad raadinayso
-qiime maqan. Isbarbardhigga ururintu wuxuu kala saaraa `abn` iyo `jajab`.
+Numbers are sorted numerically. Lists containing mixed types use the runtime's
+comparison rules; do not assume Somali collation or a uniform numeric ordering
+across types. A successful search may return `0`, so test explicitly for
+`maran` when checking for a missing item. Collection equality distinguishes
+`abn` from `jajab`.
 
-## Hawlaha callback-ka
+## Callback Methods
 
-| Habka | Shaqada |
+| Method | Description |
 | --- | --- |
-| `aaddin(callback)` | U beddel qiime kasta, soo celi liis cusub |
-| `shaandhee(callback)` | Soo celi qiimayaasha buuxiya shuruudda |
-| `ururi(callback, initial)` | Isku ururi bidix ilaa midig; callback-ku wuxuu helaa natiijada iyo qiimaha xiga |
-| `dhammaan(callback)` | Hubi in dhammaan qiimayaashu shuruudda buuxiyaan |
-| `qaar(callback)` | Hubi in ugu yaraan hal qiime shuruudda buuxiyo |
+| `aaddin(callback)` | Transform each item and return a new list |
+| `shaandhee(callback)` | Return the items that satisfy the condition |
+| `ururi(callback, initial)` | Fold left; the callback receives the accumulated result and next item |
+| `dhammaan(callback)` | Check whether all items satisfy the condition |
+| `qaar(callback)` | Check whether at least one item satisfies the condition |
 
 <SoplangCodeWindow title="lists_callbacks.sop" code={`door tirooyin = [1, 2, 3, 4]
 qor(tirooyin.aaddin(hawl(x) { celi x * 2 }))       // [2, 4, 6, 8]
@@ -102,11 +103,11 @@ qor(tirooyin.ururi(hawl(a, b) { celi a * b }, 1)) // 24
 qor(tirooyin.dhammaan(hawl(x) { celi x > 0 }))    // run
 qor(tirooyin.qaar(hawl(x) { celi x > 3 }))        // run`}/>
 
-Ku-celcelintu waxay isticmaashaa nuqul aan qoto dheerayn oo laga qaaday
-liiska markii la bilaabay. Callback-ku wuu beddeli karaa liiska asalka ah;
-qiimayaashii ku-celcelintu raacaysay isma beddelaan. Khalad callback ah wuxuu
-joojiyaa hawsha oo u gudbaa `qabo`. `dhammaan()` iyo `qaar()` waxay joojiyaan
-marka natiijadu caddaato; liis madhan waxay ka soo celiyaan `run` iyo `been`.
+Iteration uses a shallow snapshot taken at the start. A callback may change
+the original list without changing the remaining iteration sequence. A callback
+error stops the operation and propagates to `qabo`. `dhammaan()` and `qaar()`
+stop as soon as the result is known; on an empty list they return `run` and
+`been`, respectively.
 
-Magacyadii hore ee la taageero iyo kala duwanaanshaha `kudar()` waxaa lagu
-sharaxay [tixraaca](/docs/14_keywords-reference#compatibility-spellings).
+Supported earlier names and the different overloads of `kudar()` are explained
+in the [reference](/docs/14_keywords-reference#compatibility-spellings).

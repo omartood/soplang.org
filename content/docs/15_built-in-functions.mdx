@@ -1,6 +1,6 @@
 ---
 title: Built-in Functions in Soplang
-description: Tixraac degdeg ah oo ku saabsan hawlaha ku-dhexjira Soplang (qor, gelin, nooc, abn, jajab, qoraal, bool, teed, walax, daji, kor, dherer, xul, baaxad).
+description: "Reference for Soplang built-ins: console input and output, type conversion, collection creation, ranges, randomness, and numeric helpers."
 ---
 
 import {
@@ -18,7 +18,9 @@ import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Built-in Functions in Soplang
 
-Soplang waxa uu leeyahay hawlo muhiim ah oo si joogto ah u diyaar ah—daabacaad, akhris, beddel-nooc, leex-leexin tiro (rounding), abuuris liis/obj, iyo in ka badan—dhammaantood magacyo Soomaali ah.
+Built-in functions are available without imports. They cover printing, user
+input, type inspection and conversion, collection creation, numeric operations,
+and ranges.
 
 ## Built-in Function Reference
 
@@ -145,14 +147,14 @@ Soplang waxa uu leeyahay hawlo muhiim ah oo si joogto ah u diyaar ah—daabacaad
 
 ## Notes
 
-- **`walax()`** waxay qaadataa lammaanayaal fure–qiime ah oo isku xiga: `walax("magac", "Ali", "da", 20)`. Inta badan waa ka fudud tahay in la qoro object literal: `{magac: "Ali", da: 20}`.
-- **`dherer()`** waxay ka shaqaysaa strings, liisas, iyo objects. Liisaska, strings-ka iyo objects-ku sidoo kale waxay leeyihiin habka `.dherer()`.
-- **`xul()`** waxay leedahay saddex qaab:
-  - `xul()` — jajab random ah oo u dhexeeya `0` iyo `1`
-  - `xul(a, b)` — jajab random ah oo u dhexeeya `a` iyo `b`. Haddii aad rabto tiro dhan, isticmaal `daji(xul(1, 7))` (`1`–`6`).
-  - `xul(liis)` — hal walax oo random ah oo liiska ka mid ah
-- **`baaxad()`** waxay soo saartaa liis tirooyin ah; dhamaadku kuma jiro: `baaxad(5)` → `[0, 1, 2, 3, 4]`, `baaxad(2, 6)` → `[2, 3, 4, 5]`, `baaxad(1, 10, 2)` → `[1, 3, 5, 7, 9]`.
-- **`daji()` / `kor()`** waxay soo celiyaan `abn`.
+- **`walax()`** accepts alternating key-value arguments, such as `walax("magac", "Ali", "da", 20)`. An object literal is often simpler: `{magac: "Ali", da: 20}`.
+- **`dherer()`** works on strings, lists, and objects. All three also support a `.dherer()` method.
+- **`xul()`** supports three forms:
+  - `xul()` returns a random floating-point number in `[0, 1)`.
+  - `xul(a, b)` returns a random floating-point number in `[a, b)`. For an integer from `1` through `6`, use `daji(xul(1, 7))`.
+  - `xul(list)` returns one randomly chosen list item.
+- **`baaxad()`** creates a list of integers, excluding the stop bound: `baaxad(5)` produces `[0, 1, 2, 3, 4]`, `baaxad(2, 6)` produces `[2, 3, 4, 5]`, and `baaxad(1, 10, 2)` produces `[1, 3, 5, 7, 9]`.
+- **`daji()` / `kor()`** return `abn` values.
 
 ## Examples
 
@@ -191,18 +193,16 @@ qor("Random: " + r)
 qor(xul(["Cas", "Buluug", "Cagaar"]))
 qor(baaxad(1, 5))   // [1, 2, 3, 4]`}/>
 
-**Gunaanad:** built-ins-ka Soplang waxay ka dhigaan koodhka mid kooban, muujin leh, isla markaana si dabiici ah ugu qoran Af-Soomaali.
+## Numeric Helpers in Soplang 3
 
-## Numeric helpers in Soplang 3
-
-| Hawsha | Shaqada | Tusaale |
+| Function | Description | Example |
 | --- | --- | --- |
-| `duub(x)` | U soo koob integer-ka ugu dhow; kala-bar wuxuu ka fogaadaa eber | `duub(-2.5)` waa `-3` |
-| `sugan(x)` | Qiimaha aan tabanayn (absolute value) | `sugan(-5)` waa `5` |
-| `yar(...)` | Qiimaha ugu yar ee doodaha tirooyinka ah | `yar(4, 2, 8)` waa `2` |
-| `weyn(...)` | Qiimaha ugu weyn ee doodaha tirooyinka ah | `weyn(4, 2, 8)` waa `8` |
-| `jibbaar(a, b)` | Kor-u-qaad awood | `jibbaar(2, 3)` waa `8` |
-| `xidid(x)` | Xididka laba-jibbaaran | `xidid(9)` waa `3` |
+| `duub(x)` | Round to the nearest integer, with ties away from zero | `duub(-2.5)` returns `-3` |
+| `sugan(x)` | Return the absolute value | `sugan(-5)` returns `5` |
+| `yar(...)` | Return the smallest numeric argument | `yar(4, 2, 8)` returns `2` |
+| `weyn(...)` | Return the largest numeric argument | `weyn(4, 2, 8)` returns `8` |
+| `jibbaar(a, b)` | Raise a number to a power | `jibbaar(2, 3)` returns `8` |
+| `xidid(x)` | Return the square root | `xidid(9)` returns `3` |
 
 <SoplangCodeWindow title="numeric_helpers.sop" code={`qor(duub(-2.5))       // -3
 qor(sugan(-5))         // 5
@@ -211,7 +211,7 @@ qor(weyn(4, 2, 8))     // 8
 qor(jibbaar(2, 3))     // 8
 qor(xidid(9))          // 3`}/>
 
-`xul()` iyo `xul(a, b)` waxay ka reebaan xadka sare natiijada. Liis madhan
-looma gudbin karo `xul(liis)`. `baaxad()` waxay aqbashaa tirooyin dhan oo
-keliya; tallaabo eber ah waa khalad. Tirada doodaha hawl kasta waa la hubiyaa.
-General file I/O, HTTP and network functions remain planned work.
+`xul()` and `xul(a, b)` exclude the upper bound. Passing an empty list to
+`xul(list)` produces an error. `baaxad()` accepts integers only and rejects
+a zero step. Each function validates its argument count.
+General file I/O, HTTP, and network functions remain planned work.

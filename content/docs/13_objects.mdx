@@ -1,15 +1,15 @@
 ---
 title: Objects (walax)
-description: "Walxaha Soplang 3: furayaal, qiimayaal, lammaanayaal, hel, dhig, saar, midee iyo computed keys."
+description: "Soplang objects: string keys, property access, lookup, mutation, removal, copying, merging, and entries."
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
-Walax (`walax`) waxay kaydisaa lammaanayaal fure iyo qiime ah. Furayaashu waa
-qoraal, qiimayaashuna waxay noqon karaan nooc kasta. Fure waxaa loo qori karaa
-magac caadi ah ama qoraal xigasho ku jira.
+An object (`walax`) stores key-value pairs. Keys are strings, and values may
+have any type. In an object literal, write a key as an identifier or a quoted
+string.
 
-## Abuurid iyo gelitaanka qiimayaasha
+## Creating and Accessing Objects
 
 <SoplangCodeWindow title="objects_access.sop" code={`walax qof = {magac: "Ayaan", da: 25}
 qor(qof.magac)               // Ayaan
@@ -20,23 +20,23 @@ qor(qof.hel(fure))           // Hargeysa
 qor(qof.hel("shaqo", "ma jiro")) // ma jiro
 qor(qof.dherer())            // 3`}/>
 
-Dot-notation iyo bracket-notation labaduba way akhriyaan oo qoraan.
-`hel(key, default?)` wuxuu isticmaalaa qiimaha beddelka ah keliya marka fure
-maqan yahay. Qiime `maran` ah oo fure jira leeyahay weli waa `maran`.
-Akhrinta fure maqan waxay soo celisaa `maran`.
+Both dot notation and bracket notation support reads and writes.
+`hel(key, default?)` uses the default only when the key is absent. A present
+key storing `maran` still returns `maran`. Reading a missing key without a
+default returns `maran`.
 
-## Hababka la wadaago
+## Shared Methods
 
-| Habka | Natiijada |
+| Method | Result |
 | --- | --- |
-| `dherer()` | Tirada furayaasha; `dherer(obj)` sidoo kale waa sax |
-| `leeyahay(key)` | Hubi jiritaanka furaha |
-| `hel(key, default?)` | Soo celi qiimaha ama beddelkiisa |
-| `dhig(key, value)` | Qor qiime, soo celi isla walaxda |
-| `saar(key)` | Ka saar oo soo celi qiimaha; `maran` haddii fure maqan yahay |
-| `nadiifi()` | Ka saar dhammaan furayaasha, soo celi isla walaxda |
-| `nuqul()` | Soo celi nuqul aan qoto dheerayn |
-| `midee(other)` | Soo celi walax cusub oo isku darsan |
+| `dherer()` | The number of keys; `dherer(obj)` is also valid |
+| `leeyahay(key)` | Check whether the key exists |
+| `hel(key, default?)` | Return the value or the supplied default |
+| `dhig(key, value)` | Set a value and return the original object |
+| `saar(key)` | Remove and return the value, or `maran` when the key is absent |
+| `nadiifi()` | Remove all keys and return the original object |
+| `nuqul()` | Return a shallow copy |
+| `midee(other)` | Return a new merged object |
 
 <SoplangCodeWindow title="objects_mutation.sop" code={`door qof = {magac: "Ayaan", da: 25}
 qof.dhig("da", 26)
@@ -44,24 +44,23 @@ qor(qof.saar("da"))          // 26
 qor(qof.leeyahay("da"))      // been
 qor(qof.saar("maqan"))       // maran`}/>
 
-Magacii hore `tir(key)` weli waa la taageeraa, laakiin wuxuu soo celiyaa
-walaxda lafteeda. `saar(key)` wuxuu soo celiyaa qiimaha laga saaray.
+The earlier method `tir(key)` remains supported, but returns the object itself.
+`saar(key)` returns the removed value instead.
 
-## Furayaasha, qiimayaasha iyo lammaanayaasha
+## Keys, Values, and Pairs
 
-`furayaal()`, `qiimayaal()` iyo `lammaanayaal()` dhammaantood waxay raacaan
-kala horraynta furayaasha ee la kala habeeyey.
+`furayaal()`, `qiimayaal()`, and `lammaanayaal()` all follow sorted-key order.
 
 <SoplangCodeWindow title="objects_entries.sop" code={`door qof = {magac: "Ayaan", da: 25}
 qor(qof.furayaal())          // [da, magac]
 qor(qof.qiimayaal())         // [25, Ayaan]
 qor(qof.lammaanayaal())      // [[da, 25], [magac, Ayaan]]`}/>
 
-## Isku darid iyo nuqul
+## Merging and Copying
 
-`midee()` ma beddelo labada walxood ee la siiyey. Fure isku mid ah wuxuu
-qaataa qiimaha walaxda midigta. Nuqulku ma aha mid qoto dheer; ururinta gudaha
-ku jirta weli waa lala wadaagaa asalka.
+`midee()` leaves both inputs unchanged. When a key appears in both objects,
+the right-hand object's value wins. The result is a shallow copy; nested
+collections remain shared with the inputs.
 
 <SoplangCodeWindow title="objects_merge.sop" code={`door asal = {magac: "Ayaan", da: 25}
 door natiijo = asal.midee({da: 26, magaalo: "Hargeysa"})
@@ -69,5 +68,6 @@ qor(asal.da)                 // 25
 qor(natiijo.da)                // 26
 qor(natiijo.magaalo)           // Hargeysa`}/>
 
-Objects ma laha `hore()` ama `dambe()`. Hababkaas waxay khuseeyaan liisaska
-iyo strings-ka. Eeg [tixraaca](/docs/14_keywords-reference#object-methods).
+Objects do not have built-in `hore()` or `dambe()` methods. Those methods
+apply to lists and strings. See the
+[reference](/docs/14_keywords-reference#object-methods).

@@ -1,6 +1,6 @@
 ---
 title: Variables
-description: "Baro sida loo isticmaalo variables: door (dynamic), noocyada static (abn, jajab, qoraal, bool, teed, walax), iyo constants (madoor) ee Soplang."
+description: "Declare dynamic variables with door, static types with abn, jajab, qoraal, bool, teed, and walax, and constants with madoor."
 ---
 
 import {
@@ -18,11 +18,11 @@ import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Soplang Variables
 
-Soplang variables waxaa lagu qeexaa erayo Somali-first ah oo ka tarjumaya doorka ama nooca. Tani waxay ka dhigtaa koodhka mid muujin leh oo u fudud barayaasha Af-Soomaaliga.
+Soplang supports dynamic variables, explicitly typed variables, and constants. The declaration determines whether the variable can change type or be reassigned.
 
 ## Dynamic Variables – `door`
 
-`door` waa soo gaabinta _doorsoome_ oo loo adeegsado doorsoomayaal _dynamically typed_.
+Use `door` to declare a dynamically typed variable. Its name is associated with the Somali word *doorsoome* (variable).
 
 **dynamic_variables.sop**
 
@@ -30,23 +30,23 @@ Soplang variables waxaa lagu qeexaa erayo Somali-first ah oo ka tarjumaya doorka
 door da = 19
 door xaqiiqo = run`}/>
 
-Doorsoome `door` ah wuxuu qaadan karaa qiime nooc kasta ah, xitaa marka dambe:
+A variable declared with `door` can hold a value of any type, including a different type after reassignment:
 
 <SoplangCodeWindow title="dynamic_reassign.sop" code={`door x = 10
-x = "hadda waa qoraal"   // waa la oggol yahay
+x = "hadda waa qoraal"   // Allowed: a dynamic variable can change type
 qor(x)`}/>
 
 ### Declare Once
 
-Magac waxaa la qeexi karaa hal mar oo keliya — xitaa gudaha block (`haddii`, `intay`, …). Si aad qiimaha u beddesho, ha ku celin `door`; si toos ah u qor `magac = qiime`.
+A name can be declared only once in its scope, including inside a block such as `haddii` or `intay`. To update the value, write `magac = qiime` without repeating `door`.
 
 <SoplangCodeWindow title="declare_once.sop" code={`door a = 1
-a = 2          // sax: beddelid
+a = 2          // Valid reassignment
 door a = 3     // Khalad nooc: Magaca 'a' mar hore ayaa la qeexay [E020]`}/>
 
 ## Static Variables
 
-Doorsoomayaasha _static_ waa kuwa si cad loo noocqeeyo (explicit types) si loo helo hufnaan iyo badbaado nooc (type safety).
+Static variables have an explicit type annotation. The compiler and runtime enforce that type on assignments.
 
 <Table>
   <TableHeader>
@@ -99,30 +99,30 @@ Doorsoomayaasha _static_ waa kuwa si cad loo noocqeeyo (explicit types) si loo h
 
 ### Type Checking
 
-Doorsoome nooc leh wuxuu xafidaa noociisa. Khaladaadka la ogaan karo waxaa qabta falanqaynta ka hor fulinta; qiimayaasha dynamic-ka ahna waxaa la hubiyaa marka la qoro. Qoraal aan sax ahayn wuxuu reebaa qiimihii hore. Jajab tiro dhan ah waa loo rogi karaa `abn`; jajab leh qayb tobanle ah lama aqbalo.
+A typed variable keeps its declared type. The analyzer rejects mismatches it can detect before execution; assignments from dynamic values are checked at runtime. A rejected assignment preserves the previous value. An integral floating-point value can be converted to `abn`, but a fractional value is rejected.
 
 <SoplangCodeWindow title="static_type_error.sop" code={`abn tirada = 10
-tirada = 20            // sax: weli waa abn
+tirada = 20            // Valid: the value is still abn
 tirada = "labaatan"    // Khalad nooc: 'tirada' waa abn laakin qiimaheeda 'qoraal' ma ahan abn [E022]`}/>
 
-Haddii aad rabto in doorsoome kasta uu yeesho nooc cad, isticmaal `soplang --strict file.sop`. Strict mode wuxuu diidaa `door`. Eeg [CLI & REPL](/docs/19_cli-and-repl).
+To require explicit variable types, run `soplang --strict file.sop`. Strict mode rejects `door` declarations. See [CLI & REPL](/docs/19_cli-and-repl).
 
 ## Constants – `madoor`
 
-`madoor` (soo gaabinta _madoorsoome_) wuxuu mamnuucaa in doorsoomaha qiime cusub loo qoondeeyo. Liis ama walax uu hayo weli waxaa beddeli kara hababka wax beddela; ma aha xannibaad qoto dheer oo xogta oo dhan ah.
+Use `madoor` to prevent reassignment. Its name is associated with *madoorsoome*. A list or object held by a constant can still be changed through mutating methods; the constant does not deeply freeze its contents.
 
 **constants_basic.sop**
 
 <SoplangCodeWindow title="constants_basic.sop" code={`madoor magaca = "Soplang"`}/>
 
-Constants lama u wareejin karo (reassign):
+Reassigning a constant produces an error:
 
 **constants_reassign_error.sop**
 
 <SoplangCodeWindow title="constants_reassign_error.sop" code={`madoor luqad = "Somali"
 luqad = "English"  // Khalad nooc: Ma bedeli kartid qiimaha doorsamaha madoor 'luqad' [E020]`}/>
 
-`madoor` waxaa sidoo kale lagu dari karaa nooc static ah, si nooca qiimaha loo hubiyo:
+Combine `madoor` with a static type to check the value's type as well:
 
 **constants_typed.sop**
 

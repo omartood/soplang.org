@@ -74,7 +74,7 @@ try {
       if (normalizeRandom(jit.stdout, example) !== normalizeRandom(native.stdout, example)) throw new Error(`Backend output mismatch: ${key}`);
       for (const line of example.code.split("\n")) {
         const match = line.match(/^\s*qor\(.*\)\s*\/\/\s*(.+?)\s*$/);
-        if (!match || /^(khalad|waxay |faallo |\[E\d)/i.test(match[1])) continue;
+        if (!match || /^(error\b|prints\b|comment:|khalad|waxay |faallo |\[E\d)/i.test(match[1])) continue;
         const expected = match[1].replace(/\s+\([^)]*\)$/, "").replace(/^"(.*)"$/, "$1");
         if (!jit.stdout.includes(expected)) throw new Error(`${key}: documented output missing: ${expected}`);
       }
