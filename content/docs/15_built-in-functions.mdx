@@ -146,13 +146,13 @@ Soplang waxa uu leeyahay hawlo muhiim ah oo si joogto ah u diyaar ah—daabacaad
 ## Notes
 
 - **`walax()`** waxay qaadataa lammaanayaal fure–qiime ah oo isku xiga: `walax("magac", "Ali", "da", 20)`. Inta badan waa ka fudud tahay in la qoro object literal: `{magac: "Ali", da: 20}`.
-- **`dherer()`** waxay ka shaqaysaa strings, liisas, iyo objects. Liisasku sidoo kale waxay leeyihiin habka `.dherer()`; strings iyo objects ma laha.
+- **`dherer()`** waxay ka shaqaysaa strings, liisas, iyo objects. Liisaska, strings-ka iyo objects-ku sidoo kale waxay leeyihiin habka `.dherer()`.
 - **`xul()`** waxay leedahay saddex qaab:
   - `xul()` — jajab random ah oo u dhexeeya `0` iyo `1`
   - `xul(a, b)` — jajab random ah oo u dhexeeya `a` iyo `b`. Haddii aad rabto tiro dhan, isticmaal `daji(xul(1, 7))` (`1`–`6`).
   - `xul(liis)` — hal walax oo random ah oo liiska ka mid ah
 - **`baaxad()`** waxay soo saartaa liis tirooyin ah; dhamaadku kuma jiro: `baaxad(5)` → `[0, 1, 2, 3, 4]`, `baaxad(2, 6)` → `[2, 3, 4, 5]`, `baaxad(1, 10, 2)` → `[1, 3, 5, 7, 9]`.
-- **`daji()` / `kor()`** waxay soo celiyaan `jajab`. Isticmaal `abn()` haddii aad u baahan tahay `abn`.
+- **`daji()` / `kor()`** waxay soo celiyaan `abn`.
 
 ## Examples
 
@@ -192,3 +192,26 @@ qor(xul(["Cas", "Buluug", "Cagaar"]))
 qor(baaxad(1, 5))   // [1, 2, 3, 4]`}/>
 
 **Gunaanad:** built-ins-ka Soplang waxay ka dhigaan koodhka mid kooban, muujin leh, isla markaana si dabiici ah ugu qoran Af-Soomaali.
+
+## Numeric helpers in Soplang 3
+
+| Hawsha | Shaqada | Tusaale |
+| --- | --- | --- |
+| `duub(x)` | U soo koob integer-ka ugu dhow; kala-bar wuxuu ka fogaadaa eber | `duub(-2.5)` waa `-3` |
+| `sugan(x)` | Qiimaha aan tabanayn (absolute value) | `sugan(-5)` waa `5` |
+| `yar(...)` | Qiimaha ugu yar ee doodaha tirooyinka ah | `yar(4, 2, 8)` waa `2` |
+| `weyn(...)` | Qiimaha ugu weyn ee doodaha tirooyinka ah | `weyn(4, 2, 8)` waa `8` |
+| `jibbaar(a, b)` | Kor-u-qaad awood | `jibbaar(2, 3)` waa `8` |
+| `xidid(x)` | Xididka laba-jibbaaran | `xidid(9)` waa `3` |
+
+<SoplangCodeWindow title="numeric_helpers.sop" code={`qor(duub(-2.5))       // -3
+qor(sugan(-5))         // 5
+qor(yar(4, 2, 8))      // 2
+qor(weyn(4, 2, 8))     // 8
+qor(jibbaar(2, 3))     // 8
+qor(xidid(9))          // 3`}/>
+
+`xul()` iyo `xul(a, b)` waxay ka reebaan xadka sare natiijada. Liis madhan
+looma gudbin karo `xul(liis)`. `baaxad()` waxay aqbashaa tirooyin dhan oo
+keliya; tallaabo eber ah waa khalad. Tirada doodaha hawl kasta waa la hubiyaa.
+General file I/O, HTTP and network functions remain planned work.

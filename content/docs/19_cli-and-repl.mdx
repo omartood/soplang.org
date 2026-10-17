@@ -21,7 +21,7 @@ Faylka waxaa lagu fuliyaa Cranelift JIT — waa la compile-gareeyaa kadibna isla
 
 ```text
 $ soplang
-Soplang 0.1.0 — Luuqadda barnaamijka ee Soomaaliyeed.
+Soplang 3.0.0 — Luuqadda barnaamijka ee Soomaaliyeed.
   /caawi  = caawimo   /bixi = bixi   /akhrifayl <fayl> = akhri oo orod
   Ctrl+D ama /bixi = bixi
 ```
@@ -51,7 +51,7 @@ soplang -c '2 + 3'        # 5
 
 ## Build a Standalone Binary – `--build`
 
-`--build` wuxuu faylka u beddelaa binary keligiis shaqeeya (AOT), kaas oo aan u baahnayn `soplang` si loo socodsiiyo:
+`--build` wuxuu soo saaraa LLVM IR, kadibna clang iyo rustc ayaa isku xira binary keligiis shaqeeya (AOT), kaas oo aan u baahnayn `soplang` si loo socodsiiyo:
 
 ```bash
 soplang --build hello.sop -o hello
@@ -64,8 +64,8 @@ soplang --build hello.sop -o hello
 | `--opt-level <0-3>` | Heerka optimization-ka (default: `2`) |
 | `-q, --quiet` | Ha muujin fariinta dhisidda |
 
-<Callout title="Rust toolchain">
-  `--build` hadda wuxuu isticmaalaa Rust compiler-ka si uu u dhiso binary-ga, sidaa darteed `cargo` waa inuu kuu rakiban yahay. Dhisidda ugu horreysa waxay qaadan kartaa daqiiqad.
+<Callout title="Qalabka dhisidda">
+  Xirmooyinka v3.0.0 waxay u baahan yihiin Rust 1.94.0, clang 15+ iyo linker/SDK-ga madasha marka la isticmaalayo `--build`. Xirmada oo dhan isku hay. `--build` ee la rakibay ma waco Cargo. JIT iyo REPL uma baahna Rust ama clang. Eeg [rakibidda](/docs/00_installation#building-standalone-programs).
 </Callout>
 
 ## Strict Mode – `--strict`

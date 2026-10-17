@@ -2,7 +2,7 @@ const questions = [
   {
     question: "What is Soplang?",
     answer:
-      "Soplang (Somali Programming Language) is a free, open-source programming language whose keywords are Somali words. qor prints to the screen, haddii means if, intay means while, and hawl defines a function. It supports both dynamic and static typing, classes and inheritance, modules, and error handling with fasax and qabo.",
+      "Soplang (Somali Programming Language) is a free, open-source programming language whose keywords are Somali words. qor prints to the screen, haddii means if, intay means while, and hawl defines a function. It supports both dynamic and static typing, classes and inheritance, modules, and error handling with tijaabi and qabo.",
   },
   {
     question: "Who created Soplang?",
@@ -22,7 +22,7 @@ const questions = [
   {
     question: "Which systems does Soplang run on?",
     answer:
-      "Windows has an installer and a winget package. On macOS and Linux you can install it with Cargo, and it runs on any system through Docker.",
+      "Soplang 3 has packages for Windows x64, macOS Apple Silicon, and Linux x86_64. A Linux amd64 Docker image includes the native build tools. See Downloads for system requirements.",
   },
   {
     question: "How do I write my first program?",

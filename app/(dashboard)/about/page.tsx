@@ -25,7 +25,7 @@ door wadarta = qiimo + (qiimo * canshuur)
 
 haddii (wadarta > 100) {
     qor("Qiimaha wuu sareeyaa: " + wadarta)
-} ugudambeyn {
+} kale {
     qor("Qiimuhu waa macquul: " + wadarta)
 }`;
 
@@ -42,7 +42,7 @@ export default async function AboutPage() {
     },
     {
       title: "Built with",
-      body: "The v2.0.0 release runs on a Python interpreter. The next release is a compiler written in Rust, already on the main branch.",
+      body: "Soplang 3 is a Rust compiler with Cranelift JIT execution and LLVM standalone builds. Soplang 2 used a Python interpreter.",
     },
     {
       title: "Ecosystem",
@@ -202,13 +202,13 @@ export default async function AboutPage() {
 
       <section className="section-tight">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <p className="eyebrow">Coming soon</p>
-          <h2 className="type-section mt-3">The future of Soplang</h2>
+          <p className="eyebrow">Soplang 3</p>
+          <h2 className="type-section mt-3">A compiled foundation</h2>
           <p className="mt-5 text-[17px] leading-relaxed text-ink/70">
-            The next release replaces the interpreter with a compiler written
-            in Rust: faster programs, standalone binaries, and type checks
-            before your code runs. More of the language is being documented in
-            Somali and English.
+            Soplang 3 is available now with native execution, standalone builds,
+            captured closures, consistent collection APIs, and Somali source
+            diagnostics. The 3.x roadmap covers runtime memory management,
+            richer errors, iteration, file I/O, and networking.
           </p>
         </div>
       </section>

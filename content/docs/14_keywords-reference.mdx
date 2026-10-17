@@ -1,458 +1,497 @@
 ---
-title: Soplang Keywords Reference
-description: Tixraac dhamaystiran ee ereyada (keywords) Soplang (door, madoor, haddii, kuceli, hawl, celi, qaab, fasax, keen, iwm).
+title: Soplang 3 Language Reference
+description: "The Soplang 3.0.0 reference: Somali keywords, types, functions, collection methods, classes, closures and compatibility names."
 ---
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../../components/ui/table";
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
-# Soplang Keywords Reference
+This reference targets **Soplang 3.0.0**. Prefer the canonical names in new programs; supported earlier spellings are listed under Compatibility spellings.
 
-Dukumeentigani waxa uu soo koobayaa ereyada (keywords) ee Soplang, macnahooda, u dhigmaha Ingiriisiga, iyo tusaalooyin isticmaal. Ereyadan looma isticmaali karo magac doorsoome ama hawl.
+This document provides a reference for all keywords in the Soplang programming language, along with their meanings and examples of usage.
+
+The [terminology review](https://github.com/soplang/soplang/blob/v3.0.0/docs/language/terminology.md) records current names, source evidence,
+and naming decisions. This reference uses implemented canonical spellings;
+compatibility names are listed below. The collection design record explains shared operation contracts.
 
 ## Variable Declaration Keywords
 
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Keyword</TableHead>
-      <TableHead>Meaning</TableHead>
-      <TableHead>English Equivalent</TableHead>
-      <TableHead>Example</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>`door`</TableCell>
-      <TableCell>Dynamic variable declaration</TableCell>
-      <TableCell>`var/let`</TableCell>
-      <TableCell>`door magac = "Sharafdin"`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`madoor`</TableCell>
-      <TableCell>Constant variable declaration</TableCell>
-      <TableCell>`const`</TableCell>
-      <TableCell>`madoor PI = 3.14159`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`abn`</TableCell>
-      <TableCell>Integer type</TableCell>
-      <TableCell>`int`</TableCell>
-      <TableCell>`abn da = 25`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`jajab`</TableCell>
-      <TableCell>Decimal/float type</TableCell>
-      <TableCell>`float/double`</TableCell>
-      <TableCell>`jajab qiimo = 3.14`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`qoraal`</TableCell>
-      <TableCell>String type</TableCell>
-      <TableCell>`string`</TableCell>
-      <TableCell>`qoraal magac = "Sharafdin"`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`bool`</TableCell>
-      <TableCell>Boolean type</TableCell>
-      <TableCell>`bool`</TableCell>
-      <TableCell>`bool waaRun = run`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`walax`</TableCell>
-      <TableCell>Object type</TableCell>
-      <TableCell>`object`</TableCell>
-      <TableCell>`walax qof = { magac: "Sharafdin" }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`teed`</TableCell>
-      <TableCell>List/array type</TableCell>
-      <TableCell>`array`</TableCell>
-      <TableCell>`teed numbers = [1, 2, 3]`</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-`abn`, `jajab`, `qoraal`, `bool`, `teed`, iyo `walax` waxay sidoo kale yihiin hawlo beddel-nooc ah (`abn(4.9)`, `qoraal(25)`). Eeg [Built-in Functions](/docs/15_built-in-functions).
+| Keyword  | Meaning                       | English Equivalent | Example                                |
+| -------- | ----------------------------- | ------------------ | -------------------------------------- |
+| `door`   | Dynamic variable declaration  | `var`/`let`        | `door magac = "Sharafdin"`             |
+| `madoor` | Constant variable declaration | `const`            | `madoor PI = 3.14159`                  |
+| `abn`    | Integer type                  | `int`               | `abn da = 25`                          |
+| `jajab`  | Binary floating-point type            | `float`/`double`   | `jajab qiimo = 3.14`                   |
+| `qoraal` | String type                   | `string`           | `qoraal magac = "Sharafdin"`           |
+| `bool`   | Boolean type                  | `bool`             | `bool waaRun = run`                    |
+| `walax`  | Object type                   | `object`           | `walax person = { name: "Sharafdin" }` |
+| `teed`   | List/array type               | `array`            | `teed numbers = [1, 2, 3]`             |
+| `maran`  | Null value                    | `null`             | `door a = maran`                       |
 
 ## Control Flow Keywords
 
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Keyword</TableHead>
-      <TableHead>Meaning</TableHead>
-      <TableHead>English Equivalent</TableHead>
-      <TableHead>Example</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>`haddii`</TableCell>
-      <TableCell>If statement</TableCell>
-      <TableCell>`if`</TableCell>
-      <TableCell>`haddii (x > 10) { qor("Weyn") }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`haddii_kale`</TableCell>
-      <TableCell>Else if statement</TableCell>
-      <TableCell>`else if`</TableCell>
-      <TableCell>`haddii_kale (x == 10) { qor("Dhexe") }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`ugudambeyn`</TableCell>
-      <TableCell>Else / default case</TableCell>
-      <TableCell>`else` / `default`</TableCell>
-      <TableCell>`ugudambeyn { qor("Yar") }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`dooro`</TableCell>
-      <TableCell>Switch statement</TableCell>
-      <TableCell>`switch`</TableCell>
-      <TableCell>`dooro (x) { xaalad 1 { qor("Hal") } }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`xaalad`</TableCell>
-      <TableCell>Case clause</TableCell>
-      <TableCell>`case`</TableCell>
-      <TableCell>`xaalad "A" { qor("Case A") }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`kuceli`</TableCell>
-      <TableCell>For loop (inclusive range)</TableCell>
-      <TableCell>`for`</TableCell>
-      <TableCell>`kuceli (i 1 ilaa 5) { qor(i) }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`ilaa`</TableCell>
-      <TableCell>Loop range end (only inside `kuceli`)</TableCell>
-      <TableCell>`to`</TableCell>
-      <TableCell>`kuceli (i 1 ilaa 5) { qor(i) }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`::`</TableCell>
-      <TableCell>Loop step</TableCell>
-      <TableCell>`step`</TableCell>
-      <TableCell>`kuceli (i 1 ilaa 10 :: 2) { qor(i) }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`intay`</TableCell>
-      <TableCell>While loop</TableCell>
-      <TableCell>`while`</TableCell>
-      <TableCell>`intay (x < 5) { qor(x) }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`jooji`</TableCell>
-      <TableCell>Break statement</TableCell>
-      <TableCell>`break`</TableCell>
-      <TableCell>`haddii (x == 3) { jooji }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`soco`</TableCell>
-      <TableCell>Continue statement</TableCell>
-      <TableCell>`continue`</TableCell>
-      <TableCell>`haddii (x == 3) { soco }`</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+| Keyword       | Meaning            | English Equivalent | Example                                      |
+| ------------- | ------------------ | ------------------- | --------------------------------------------- |
+| `haddii`      | If statement       | `if`                | `haddii (x > 10) { qor("Weyn") }`             |
+| `kale` | Else if statement  | `else if`           | `kale (x == 10) { qor("Dhexe") }`      |
+| `kale`  | Else/default statement     | `else`              | `kale { qor("Yar") }`                   |
+| `dooro`       | Switch statement   | `switch`            | `dooro (x) { xaalad 1 { qor("Hal") } }`       |
+| `xaalad`      | Case clause        | `case`              | `xaalad "A" { qor("Case A") }`                |
+| `kuceli`      | For loop           | `for`               | `kuceli (i 1 ilaa 5) { qor(i) }`              |
+| `ilaa`        | Loop range end     | `to`                | `kuceli (i 1 ilaa 5) { qor(i) }`              |
+| `::`          | Loop step/increment amount (optional, follows the range) | `step` | `kuceli (i 1 ilaa 10 :: 2) { qor(i) }` — loops from 1 to 10, incrementing `i` by 2 each time |
+| `intay`       | While loop         | `while`             | `intay (x < 5) { qor(x) }`                    |
+| `jooji`       | Break statement    | `break`             | `haddii (x == 3) { jooji }`                   |
+| `soco`        | Continue statement | `continue`          | `haddii (x == 3) { soco }`                    |
+
+`kale` is contextual. After an `haddii` branch, `kale (condition) { ... }`
+adds another conditional branch, while `kale { ... }` is the fallback. Inside
+`dooro`, `kale { ... }` supplies the default case. Existing names such as
+`hawl kale(x)` and calls such as `kale(1)` remain valid; a conditional branch
+header must be followed by `{`.
+
+<SoplangCodeWindow title="reference-1.sop" code={`abn da = 21
+haddii (da < 18) {
+    qor("Ilmo")
+} kale (da < 60) {
+    qor("Qof weyn")
+} kale {
+    qor("Waayeel")
+}`}/>
 
 ## Function Keywords
 
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Keyword</TableHead>
-      <TableHead>Meaning</TableHead>
-      <TableHead>English Equivalent</TableHead>
-      <TableHead>Example</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>`hawl`</TableCell>
-      <TableCell>Function declaration</TableCell>
-      <TableCell>`function`</TableCell>
-      <TableCell>`hawl isuGee(a, b) { celi a + b }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`celi`</TableCell>
-      <TableCell>Return statement</TableCell>
-      <TableCell>`return`</TableCell>
-      <TableCell>`celi x * 2`</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-## Class Keywords
-
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Keyword</TableHead>
-      <TableHead>Meaning</TableHead>
-      <TableHead>English Equivalent</TableHead>
-      <TableHead>Example</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>`qaab`</TableCell>
-      <TableCell>Class definition</TableCell>
-      <TableCell>`class`</TableCell>
-      <TableCell>`qaab Bisad { ... }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`dhaxal`</TableCell>
-      <TableCell>Inherit from a parent class</TableCell>
-      <TableCell>`extends`</TableCell>
-      <TableCell>`qaab Bisad dhaxal Xayawaan { ... }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`cusub`</TableCell>
-      <TableCell>Create a new instance</TableCell>
-      <TableCell>`new`</TableCell>
-      <TableCell>`door b = cusub Bisad("Mia")`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`nafta`</TableCell>
-      <TableCell>The current instance</TableCell>
-      <TableCell>`this` / `self`</TableCell>
-      <TableCell>`nafta.magac = magac`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`dhaw`</TableCell>
-      <TableCell>Constructor method name (called by `cusub`)</TableCell>
-      <TableCell>`constructor`</TableCell>
-      <TableCell>`hawl dhaw(magac) { nafta.magac = magac }`</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-`dhaw` ma aha keyword la xafiday — waa magaca hawsha constructor-ka. Eeg [Classes](/docs/16_classes).
-
-## Error Handling and Module Keywords
-
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Keyword</TableHead>
-      <TableHead>Meaning</TableHead>
-      <TableHead>English Equivalent</TableHead>
-      <TableHead>Example</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>`fasax`</TableCell>
-      <TableCell>Protected (try) block</TableCell>
-      <TableCell>`try`</TableCell>
-      <TableCell>`fasax { ... } qabo (k) { ... }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`qabo`</TableCell>
-      <TableCell>Catch block with error variable</TableCell>
-      <TableCell>`catch`</TableCell>
-      <TableCell>`qabo (khalad) { qor(khalad) }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`keen`</TableCell>
-      <TableCell>Import another `.sop` file</TableCell>
-      <TableCell>`import`</TableCell>
-      <TableCell>`keen "utils.sop"`</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-Eeg [Error Handling](/docs/17_error-handling) iyo [Modules](/docs/18_modules).
+| Keyword | Meaning              | English Equivalent | Example                            |
+| ------- | -------------------- | ------------------- | ----------------------------------- |
+| `hawl`  | Function declaration | `function`          | `hawl isuGee(a, b) { celi a + b }` |
+| `celi`  | Return statement     | `return`            | `celi x * 2`                       |
 
 ## Special Values
 
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Somali Value</TableHead>
-      <TableHead>English Equivalent</TableHead>
-      <TableHead>Description</TableHead>
-      <TableHead>Example</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>`run`</TableCell>
-      <TableCell>`true`</TableCell>
-      <TableCell>Boolean true value</TableCell>
-      <TableCell>`haddii (run) { ... }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`been`</TableCell>
-      <TableCell>`false`</TableCell>
-      <TableCell>Boolean false value</TableCell>
-      <TableCell>`haddii (!been) { ... }`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`null`</TableCell>
-      <TableCell>`null`</TableCell>
-      <TableCell>No value — prints as `maran`, and `nooc(null)` is `"maran"`</TableCell>
-      <TableCell>`door val = null`</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+| Somali Value | English Equivalent | Description         | Example                  |
+| ------------ | ------------------- | -------------------- | ------------------------- |
+| `run`        | `true`              | Boolean true value   | `haddii (run) { ... }`   |
+| `been`       | `false`             | Boolean false value  | `haddii (!been) { ... }` |
+| `maran`      | `null`              | Empty/null value     | `door val = maran`       |
+
+`maran` is the canonical null literal. `null` remains accepted as a compatibility spelling. An empty string, list, or object is a value of its own type, distinct from `maran`.
+
+## Data Types
+
+| Somali Type | English Equivalent | Description       | Example                          |
+| ----------- | -------------------- | ------------------ | ---------------------------------- |
+| `abn`       | `int`        | Integer numbers    | `abn age = 25`                    |
+| `jajab`     | `float`/`double`     | Binary floating-point numbers    | `jajab pi = 3.14`                  |
+| `qoraal`    | `string`              | Text values         | `qoraal name = "Ahmed"`            |
+| `bool`      | `boolean`             | Truth values        | `bool isValid = run`               |
+| `teed`      | `list`/`array`        | List of items       | `teed numbers = [1, 2, 3]`         |
+| `walax`     | `object`              | Key-value pairs     | `walax person = { name: "Ali" }`   |
+
+`abn` uses signed 64-bit integers. `jajab` uses 64-bit binary floating-point
+values; it does not provide exact decimal arithmetic. `qoraal` is a string,
+`teed` is a mutable list, and `walax` stores string keys and values.
+
+`door`, `madoor`, and `abn` are Soplang short identifiers. The terminology
+review relates them to *doorsoome*, *madoorsoome*, and *abyoone*, respectively;
+these explanations do not establish a historical abbreviation or SLS approval.
 
 ## Operators
 
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Somali Operator</TableHead>
-      <TableHead>English Equivalent</TableHead>
-      <TableHead>Description</TableHead>
-      <TableHead>Example</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>`+`</TableCell>
-      <TableCell>`+`</TableCell>
-      <TableCell>Addition / string concatenation</TableCell>
-      <TableCell>`x = a + b`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`-`</TableCell>
-      <TableCell>`-`</TableCell>
-      <TableCell>Subtraction / negation</TableCell>
-      <TableCell>`x = a - b`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`*`</TableCell>
-      <TableCell>`*`</TableCell>
-      <TableCell>Multiplication</TableCell>
-      <TableCell>`x = a * b`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`/`</TableCell>
-      <TableCell>`/`</TableCell>
-      <TableCell>Division</TableCell>
-      <TableCell>`x = a / b`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`%`</TableCell>
-      <TableCell>`%`</TableCell>
-      <TableCell>Modulo</TableCell>
-      <TableCell>`x = a % b`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`==`</TableCell>
-      <TableCell>`==`</TableCell>
-      <TableCell>Equal to</TableCell>
-      <TableCell>`haddii (a == b) {...}`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`!=`</TableCell>
-      <TableCell>`!=`</TableCell>
-      <TableCell>Not equal to</TableCell>
-      <TableCell>`haddii (a != b) {...}`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`>`</TableCell>
-      <TableCell>`>`</TableCell>
-      <TableCell>Greater than</TableCell>
-      <TableCell>`haddii (a > b) {...}`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`<`</TableCell>
-      <TableCell>`<`</TableCell>
-      <TableCell>Less than</TableCell>
-      <TableCell>`haddii (a < b) {...}`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`>=`</TableCell>
-      <TableCell>`>=`</TableCell>
-      <TableCell>Greater than or equal to</TableCell>
-      <TableCell>`haddii (a >= b) {...}`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`<=`</TableCell>
-      <TableCell>`<=`</TableCell>
-      <TableCell>Less than or equal to</TableCell>
-      <TableCell>`haddii (a <= b) {...}`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`&&`</TableCell>
-      <TableCell>`&&`</TableCell>
-      <TableCell>Logical AND</TableCell>
-      <TableCell>`haddii (a && b) {...}`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`||`</TableCell>
-      <TableCell>`||`</TableCell>
-      <TableCell>Logical OR</TableCell>
-      <TableCell>`haddii (a || b) {...}`</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>`!`</TableCell>
-      <TableCell>`!`</TableCell>
-      <TableCell>Logical NOT</TableCell>
-      <TableCell>`haddii (!a) {...}`</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+| Somali Operator | English Equivalent | Description              | Example                   |
+| --------------- | -------------------- | -------------------------- | --------------------------- |
+| `+`             | `+`                  | Addition                   | `x = a + b`                |
+| `-`             | `-`                  | Subtraction                | `x = a - b`                |
+| `*`             | `*`                  | Multiplication             | `x = a * b`                |
+| `/`             | `/`                  | Division                   | `x = a / b`                |
+| `%`             | `%`                  | Modulo                     | `x = a % b`                |
+| `==`            | `==`                 | Equal to                   | `haddii (a == b) {...}`    |
+| `!=`            | `!=`                 | Not equal to               | `haddii (a != b) {...}`    |
+| `>`             | `>`                  | Greater than               | `haddii (a > b) {...}`     |
+| `<`             | `<`                  | Less than                  | `haddii (a < b) {...}`     |
+| `>=`            | `>=`                 | Greater than or equal to   | `haddii (a >= b) {...}`    |
+| `<=`            | `<=`                 | Less than or equal to      | `haddii (a <= b) {...}`    |
+| `&&`            | `&&`                 | Logical AND                | `haddii (a && b) {...}`    |
+| `\|\|`          | `\|\|`               | Logical OR                 | `haddii (a \|\| b) {...}`  |
+| `!`             | `!`                  | Logical NOT                | `haddii (!a) {...}`        |
 
-`&&` iyo `||` waa isku heer (bidix ilaa midig) — isticmaal qaansooyin `()` marka aad isku darayso. Eeg [Operators](/docs/05_operators).
+> **Note:** Soplang supports the use of comparison operators directly in expressions without requiring additional parentheses. For example, `door x = a > b` is valid syntax to store the result of a comparison in a variable.
 
-## Quick Examples
+## Built-in Functions
 
-**keywords_quick_examples.sop**
+| Function | Meaning                                    | English Equivalent | Example                                  |
+| -------- | -------------------------------------------- | -------------------- | ------------------------------------------ |
+| `qor`    | Print to console                             | `print`              | `qor("Salaan, Adduunka!")`                |
+| `gelin`  | Read input from user                         | `input`              | `door magac = gelin("Magacaaga geli: ")`  |
+| `nooc`   | Get type of variable                         | `typeof`             | `qor(nooc(magac))`                        |
+| `abn`    | Convert value to an integer (also the `int` type keyword above) | `int` | `door n = abn("5")`                 |
+| `jajab`  | Convert a number or numeric string to floating point | `float` | `door n = jajab("3.5")`             |
+| `qoraal` | Convert to string                            | `str`                | `door s = qoraal(25)`                     |
+| `bool`   | Convert to boolean                           | `bool`               | `door b = bool(1)`                        |
+| `teed`   | Create a list                                | `list/array`         | `door list = teed(1, 2, 3)`               |
+| `walax`  | Create an object                             | `object/dict`        | `door obj = walax("name", "Ali", "age", 25)` |
+| `daji`   | Round down to integer                        | `Math.floor()`       | `door n = daji(4.7)`                      |
+| `kor`    | Round up to integer                          | `Math.ceil()`        | `door n = kor(4.2)`                       |
+| `dherer` | Count list items, object keys, or string characters | `len()`/`.length` | `door n = dherer(qoraal)`             |
+| `xul`    | Get random value                             | `random()`           | `door n = xul(1, 6)`                      |
+| `baaxad` | Create an integer range                      | `range()`            | `door n = baaxad(1, 5)`                   |
+| `duub` | Round to the nearest integer            | `round()`            | `door n = duub(4.6)`               |
+| `sugan`  | Get the absolute value                       | `abs()`              | `door n = sugan(-5)`                      |
+| `yar` | Get the smallest numeric argument           | `min()`              | `door n = yar(4, 2, 8)`               |
+| `weyn` | Get the largest numeric argument           | `max()`              | `door n = weyn(4, 2, 8)`              |
+| `jibbaar`  | Raise a number to a power                    | `pow()`              | `door n = jibbaar(2, 3)`                    |
+| `xidid`  | Calculate a square root                      | `sqrt()`             | `door n = xidid(9)`                       |
 
-<SoplangCodeWindow title="keywords_quick_examples.sop" code={`// Variables
-door magac = "Sharafdin"
-madoor PI = 3.14159
-abn da = 25
-jajab qiimo = 3.14
-qoraal qora = "Salaan"
-bool sax = run
-teed numbers = [1, 2, 3]
-walax qof = { magac: "Ayaan" }
-door wax = null
+`daji()` rounds toward negative infinity and `kor()` toward positive infinity.
+`duub()` rounds to the nearest integer, with halfway values rounded away
+from zero. `xidid()` computes only a square root, not an arbitrary root.
 
-// Control flow
-haddii (da >= 18) { qor("Qof weyn") } ugudambeyn { qor("Ilmo") }
+`xul()` returns a floating-point number in `[0, 1)`. `xul(a, b)` returns a floating-point number in `[a, b)`. `xul(teed)` returns one item and reports an error for an empty list.
 
-dooro (qora) {
-  xaalad "Salaan" { qor("Hello!") }
-  ugudambeyn { qor("Unknown") }
+> **Note:** `abn`, `qoraal`, `bool`, `teed`, and `walax` are used both as static **type keywords** (see Variable Declaration Keywords / Data Types above) and as **built-in conversion/constructor functions** here. The meaning depends on context: e.g. `abn age = 25` declares a typed variable, while `abn("5")` converts a string to a number.
+
+## baaxad (Range)
+
+`baaxad()` waa hawl ku dhex jirta Soplang oo soo saarta teed abn ah.
+
+Unlike a lazy range iterator, it creates a list containing all the requested
+integers. The stop bound is excluded.
+
+**Isticmaalka:**
+
+<SoplangCodeWindow title="reference-2.sop" code={`// baaxad(stop): 0 ilaa stop-1
+qor(baaxad(5))  // [0, 1, 2, 3, 4]
+
+// baaxad(start, stop): start ilaa stop-1
+qor(baaxad(2, 6))  // [2, 3, 4, 5]
+
+// baaxad(start, stop, step): dhammaadka kuma jiro; tallaabadu waa step
+qor(baaxad(1, 10, 2))  // [1, 3, 5, 7, 9]`}/>
+
+`baaxad` accepts integers only. A zero step reports an error that can be caught with `tijaabi` and `qabo`.
+
+## Shared collection operations
+
+Lists and objects share `dherer`, `leeyahay`, `hel`, `dhig`, `saar`, `nadiifi`,
+and `nuqul` where applicable. Strings share `dherer`, `leeyahay`, and `hel`;
+strings remain immutable.
+
+- `hel(position, default?)` reads a list item or Unicode character;
+  `hel(key, default?)` reads an object value. Missing entries return the supplied
+  default or `maran`. A present `maran` value is returned unchanged. Defaults
+  are evaluated normally even when an entry exists.
+- List and string positions must be integers and may be negative. Object keys
+  must be strings. Invalid argument types report catchable errors.
+- `dhig(index, value)` replaces an existing list item; `dhig(key, value)` inserts
+  or replaces an object entry. Both mutate and return the receiver. An invalid
+  list position reports an error before mutation; use `geli` for insertion.
+- List `saar()` removes the last item; `saar(index)` removes an indexed item.
+  Both return the removed value and reject empty or out-of-range removals.
+  Object `saar(key)` returns the removed value or `maran` for a missing key.
+- `nadiifi()` mutates and returns the receiver. `nuqul()` returns a shallow copy.
+
+<SoplangCodeWindow title="reference-3.sop" code={`door tirooyin = [10, 20, 30]
+door qof = { magac: "Ayaan", da: 25 }
+qor(tirooyin.hel(-1))
+qor(qof.dherer())
+tirooyin.dhig(0, 15)
+qof.dhig("da", 26)
+qor(tirooyin.saar())
+qor(qof.saar("da"))`}/>
+
+### Slicing, endpoints, counting, and search
+
+Lists and strings accept `jar()`, `jar(start)`, or `jar(start, end)`. Bounds
+must be integers. The default start is zero and the default end is the length;
+negative bounds count from the end. Bounds are clamped to the collection. The
+start is included and the end excluded. Equal or reversed normalized bounds
+produce an empty result. Slicing leaves the receiver unchanged; list slices are
+shallow copies. String positions count Unicode characters.
+
+`hore()`/`dambe()` return the first/last item or character, or `maran` when
+empty. List `tiri(value)` counts matching values using the same equality rules
+as list membership and search, including structural collection equality and
+distinct integer/float values. String `tiri(sub)` counts non-overlapping matches
+and rejects an empty substring.
+
+Search has one compatibility exception: missing list `raadi`/`muuji` results
+are `maran`, while string `raadi`/`raadi_dambe` results are `-1`. A successful
+search returns an integer position, including zero. Test misses explicitly
+rather than relying on the truthiness of a search result.
+
+## List Methods
+
+| Method            | English Equivalent        | Description                     | Example                                 |
+| ------------------ | --------------------------- | ---------------------------------- | ------------------------------------------ |
+| `dherer()`         | `length()`                  | Get list length                    | `numbers.dherer()`                        |
+| `hel(index, default?)` | `get()` | Read by index or return a default | `numbers.hel(-1, maran)` |
+| `dhig(index, value)` | indexed assignment | Replace an existing item and return the list | `numbers.dhig(0, 5)` |
+| `geli(item)`      | `push()` or `append()`      | Add item to the original list      | `numbers.geli(5)`                        |
+| `saar()`           | `pop()`                      | Remove and return last item        | `door last = numbers.saar()`            |
+| `midee(teed)`      | `concat()`                   | Concatenate lists                  | `door all = list1.midee(list2)`           |
+| `leeyahay(x)`      | `contains()`/`includes()`   | Check if item exists               | `haddii (list.leeyahay(x)) {...}`         |
+| `nuqul()`          | `copy()`                     | Create a shallow copy              | `door copy = list.nuqul()`                |
+| `nadiifi()`        | `clear()`                    | Remove all items from the original list | `list.nadiifi()`                     |
+| `rog()`            | `reverse()`                  | Reverse the original list          | `list.rog()`                              |
+| `habee()`          | `sort()`                     | Sort the original list in ascending order | `list.habee()`                    |
+| `jar(start?, end?)`        | `slice(a, b)`                | Return a new list; start included, end excluded         | `door subset = numbers.jar(1, 3)`         |
+| `aaddin(func)`     | `map(func)`                   | Transform items with function      | `door doubled = nums.aaddin(hawl(x) { celi x * 2 })` |
+| `shaandhee(func)`  | `filter(func)`                | Filter items with function         | `door evens = nums.shaandhee(hawl(x) { celi x % 2 == 0 })` |
+| `raadi(item)`      | `indexOf(item)`               | Find index of item                 | `door idx = nums.raadi(5)`                |
+| `tiri(value)` | `count()` | Count equal list items | `numbers.tiri(5)` |
+| `geli(index, item)` | `insert(index, item)`         | Insert into the original list      | `numbers.geli(1, 5)`                      |
+| `saar(index)`   | `remove(index)`                | Remove and return an indexed item  | `door item = numbers.saar(1)`          |
+| `hore()`        | `first()`                      | Return first item or `maran`       | `door item = numbers.hore()`           |
+| `dambe()`   | `last()`                       | Return last item or `maran`        | `door item = numbers.dambe()`      |
+| `ururi(func, bilow)` | `reduce(func, initial)`  | Fold with an arbitrary callback, not only addition          | `nums.ururi(hawl(a, b) { celi a + b }, 0)` |
+| `dhammaan(func)`   | `every(func)`                  | Test whether every item matches    | `nums.dhammaan(hawl(x) { celi x > 0 })`   |
+| `qaar(func)`       | `some(func)`                   | Test whether any item matches      | `nums.qaar(hawl(x) { celi x == 5 })`      |
+
+`midee(teed)` returns a concatenated copy without mutating either input. `geli(item)` always appends one item, including a nested list. `nuqul()` and `jar()` also return new lists. `saar()` and `saar(index)` return the removed value. Methods that otherwise mutate a list return the original list after changing it. Nested lists and objects remain shared when copied.
+
+`hore()` and `dambe()` return the first and last list items without modifying
+the list. Strings use the same names for Unicode characters. Both return
+`maran` for an empty receiver. Objects have no built-in
+positional first/last methods.
+
+`raadi(item)` returns the first matching index or `maran` when no item matches.
+`ururi(func, bilow)` is a general left fold: its callback receives the
+accumulated value and the next item. It can multiply values, construct text, or
+perform other accumulation; its behavior is not restricted to summation.
+
+Map, filter, fold, every, and some validate callbacks even on empty lists.
+Each iterates a shallow snapshot, allowing callbacks to modify the original
+list without changing the remaining iteration sequence. Callback errors stop
+the operation and propagate to `qabo`. `dhammaan` and `qaar` stop at the first
+decisive result; on an empty list they return `run` and `been`, respectively.
+
+## Object Methods
+
+| Method        | English Equivalent   | Description             | Example                               |
+| -------------- | ---------------------- | -------------------------- | ---------------------------------------- |
+| `dherer()` | `length()` | Count keys | `obj.dherer()` |
+| `furayaal()`      | `keys()`               | Get all keys              | `door keys = obj.furayaal()`               |
+| `qiimayaal()`     | `values()`             | Get all values             | `door values = obj.qiimayaal()`            |
+| `lammaanayaal()`   | `entries()`            | Get key-value pairs        | `door pairs = obj.lammaanayaal()`           |
+| `leeyahay(x)` | `hasOwnProperty()`     | Check if key exists        | `haddii (obj.leeyahay("name")) {...}`  |
+| `midee(obj)`  | `merge()`/`assign()`   | Return a merged copy       | `door merged = obj1.midee(obj2)`       |
+| `nuqul()`     | `copy()`               | Create a shallow copy      | `door copy = obj.nuqul()`              |
+| `nadiifi()`   | `clear()`              | Remove all original properties | `obj.nadiifi()`                    |
+| `hel(key, default?)` | `get()`            | Get a key or optional default  | `obj.hel("name", "Unknown")`     |
+| `dhig(key, value)` | `set()`              | Set a computed key             | `obj.dhig("name", "Ali")`        |
+| `saar(key)` | `remove()`              | Remove and return a value      | `door old = obj.saar("name")`  |
+
+Objects also support computed bracket access: `obj["name"]` and `obj["name"] = "Ali"`. Object `nuqul()` is shallow: nested lists and objects remain shared. `tir(key)` returns the object, whereas `saar(key)` returns the removed value or `maran`.
+
+Object key, value, and pair lists follow sorted-key order. `midee` returns a
+new shallow object; the right input wins overlapping keys. Neither input is
+mutated.
+
+## String Methods
+
+| Method             | English Equivalent | Description                             | Example                                  |
+| -------------------- | --------------------- | ------------------------------------------ | ------------------------------------------- |
+| `hore()` | first character | First Unicode character or `maran` | `text.hore()` |
+| `dambe()` | last character | Last Unicode character or `maran` | `text.dambe()` |
+| `hel(index, default?)` | character lookup | Read a Unicode character or return a default | `text.hel(-1, "")` |
+| `qeybi(xad)`        | `split()`             | Split string by delimiter                  | `door parts = text.qeybi(",")`             |
+| `leeyahay(sub)`     | `includes()`          | Check if string contains substring         | `haddii (text.leeyahay("search")) {...}`   |
+| `dhammaad(sub)`      | `endsWith()`          | Check if string ends with substring        | `haddii (text.dhammaad("ing")) {...}`       |
+| `bilow(sub)`        | `startsWith()`        | Check if string starts with substring      | `haddii (text.bilow("http")) {...}`        |
+| `beddel(x, y, count?)`      | `replace()`           | Replace first match, a limited count, or all with `maran` | `door new = text.beddel("old", "new")`     |
+| `xiriiri(teed)`       | `join()`               | Join string representations with separator        | `door text = ", ".xiriiri(names)`            |
+| `jar(start?, end?)`   | `slice()`              | Slice by character position                 | `door sub = text.jar(0, 3)`                |
+| `weynee()` | `toUpperCase()`        | Convert string to uppercase                | `door n = q.weynee()`             |
+| `yaree()`  | `toLowerCase()`        | Convert string to lowercase                | `door n = q.yaree()`              |
+| `masax(direction?)`           | `trim()`               | Trim both ends, or `"hore"`/`"dambe"` | `door n = q.masax()`                       |
+| `raadi(sub, direction?)`        | `indexOf()`            | Find first/last character index | `door n = q.raadi("pro")`                  |
+| `dherer()`          | `length`              | Count Unicode characters                    | `door n = q.dherer()`                       |
+| `tiri(sub)`         | `count()`             | Count non-overlapping occurrences           | `door n = q.tiri("ab")`                    |
+| `kuceli(n)`        | `repeat()`            | Repeat the string                           | `door n = q.kuceli(3)`                     |
+
+String positions and bracket indexes count characters rather than UTF-8 bytes. `jar()` and bracket indexing accept negative positions from the end. Missing indexes return `maran`; `raadi()` returns `-1` when it finds no match. Calls with the wrong number of arguments report an error that can be caught with `tijaabi` and `qabo`.
+
+### weynee (Uppercase)
+**Isticmaal:**
+
+<SoplangCodeWindow title="reference-4.sop" code={`door q = "soplang"
+door natiijo = q.weynee()
+qor(natiijo)  // SOPLANG`}/>
+
+### yaree (Lowercase)
+**Isticmaal:**
+
+<SoplangCodeWindow title="reference-5.sop" code={`door q = "SOPLANG"
+door natiijo = q.yaree()
+qor(natiijo)  // soplang`}/>
+
+### masax (Trim Whitespace)
+**Isticmaal:**
+
+<SoplangCodeWindow title="reference-6.sop" code={`door q = "  soplang  "
+door natiijo = q.masax()
+qor(natiijo)  // soplang`}/>
+
+### raadi (Find Substring)
+**Isticmaal:**
+
+<SoplangCodeWindow title="reference-7.sop" code={`door q = "soplang programming"
+door natiijo = q.raadi("pro")
+qor(natiijo)  // 8`}/>
+
+### beddel (Replace All)
+**Isticmaal:**
+
+<SoplangCodeWindow title="reference-8.sop" code={`door q = "abaaba"
+door natiijo = q.beddel("a", "x", maran)
+qor(natiijo)  // xbxxbx`}/>
+
+`masax()` trims both ends; `masax("hore")` trims only leading whitespace and
+`masax("dambe")` only trailing whitespace. `raadi(sub)` and `raadi(sub, "hore")`
+search from the beginning; `raadi(sub, "dambe")` returns the last match.
+Unsupported direction values report catchable errors.
+
+`beddel(old, new)` replaces the first occurrence. A third nonnegative integer
+limits replacements; zero leaves the text unchanged. Passing `maran` as the
+third argument replaces all occurrences. Empty search text matches character
+boundaries. `xiriiri(list)` joins the string representations of values, including
+non-string values. `weynee` and `yaree` use Unicode case conversion. `kuceli`
+requires a nonnegative integer count and is accepted after a dot without changing
+the numeric loop syntax.
+
+## Object-Oriented Programming (OOP)
+
+| Keyword / concept | Meaning | English | Example |
+| -------------------- | ---------- | ---------- | ---------- |
+| `qaab`   | Class definition                            | `class`          | `qaab Bisad { ... }`                        |
+| `dhaxal` | Inherit from parent class                   | `extends`        | `qaab Bisad dhaxal Xayawaan { ... }`        |
+| `cusub`  | Create a new instance                       | `new`             | `door b = cusub Bisad("Mia")`               |
+| `nafta`  | Current instance (self)                     | `this` / `self`  | `nafta.magac = magac`                       |
+| `waalid` | Call a method on the parent class           | `super`          | `celi waalid.cod()`                         |
+| `dhis`   | Constructor method (auto-called by `cusub`) | `constructor`    | `hawl dhis(magac) { nafta.magac = magac }`  |
+
+**Class example:**
+
+<SoplangCodeWindow title="reference-9.sop" code={`qaab Xayawaan {
+    hawl cod() {
+        celi "xayawaan"
+    }
 }
 
-kuceli (i 1 ilaa 5 :: 2) { qor(i) }
-
-abn x = 1
-intay (x < 3) {
-  qor(x)
-  x = x + 1
+qaab Bisad dhaxal Xayawaan {
+    hawl dhis(magac) {
+        nafta.magac = magac
+    }
+    hawl salaam() {
+        qor("Salaan, " + nafta.magac)
+    }
 }
 
-// Functions
-hawl isuGee(a, b) { celi a + b }
-qor(isuGee(2, 3))
+door bisad = cusub Bisad("Mia")
+Bisad b = cusub Bisad("Mia")
+bisad.salaam()
+qor(bisad.magac)`}/>
 
-// Classes
-qaab Qof {
-  hawl dhaw(magac) { nafta.magac = magac }
-  hawl salaam() { celi "Salaan, " + nafta.magac }
-}
-door q = cusub Qof("Aamina")
-qor(q.salaam())
+Notes:
+- Class bodies may contain only `hawl` (method) definitions.
+- `nafta` is injected automatically as the first parameter of every class method.
+- Instance fields are stored as object properties; read them with `obj.field`.
+- Method lookup walks the inheritance chain (child overrides parent).
 
-// Error handling
-fasax {
-  qor(10 / 0)
+## Modules and error handling
+
+| Keyword | Meaning | English | Example |
+| --------- | ---------- | ---------- | ---------- |
+| `keen`  | Import another `.sop` file       | `import` | `keen "lib.sop"`                          |
+| `tijaabi` | Start a protected try block      | `try`    | `tijaabi { ... } qabo (e) { ... }`          |
+| `qabo`  | Catch block with error variable  | `catch`  | `qabo (khalad) { qor(khalad) }`           |
+
+**Import example:**
+
+<SoplangCodeWindow title="reference/_math_lib.sop" code={`hawl laba() { celi 2 }
+hawl afar() { celi 4 }`}/>
+
+<SoplangCodeWindow title="reference/main.sop" code={`keen "_math_lib.sop"
+qor(laba() + afar())   // 6`}/>
+
+Imported files are resolved relative to the current file's directory. Top-level definitions (functions, variables, classes) from the imported file become available in the importing program.
+
+**Try/catch example:**
+
+<SoplangCodeWindow title="reference-10.sop" code={`tijaabi {
+    qor(1 / 0)
 } qabo (khalad) {
-  qor("Khalad: " + khalad)
+    qor("Qabtay: " + khalad)
 }`}/>
+
+Runtime errors inside the `tijaabi` block are caught; the error message is bound to the variable in `qabo (...)`.
+
+## Compatibility spellings
+
+| Canonical API | Supported earlier spelling |
+| --- | --- |
+| Constructor `dhis()` | `dhaw()` |
+| Try block `tijaabi { ... } qabo (e) { ... }` | `fasax { ... } qabo (e) { ... }` |
+| `jibbaar(a, b)` | `awood(a, b)` |
+| List `raadi(item)` | `muuji(item)` |
+| String `dhammaad(suffix)` | `dhamaad(suffix)` |
+| List `saar()` | `kasaar()` |
+| List `saar(index)` | `ka_saar(index)` |
+| Object `saar(key)` | `ka_qaad(key)` |
+| Object removal returning the receiver | `tir(key)`; different return contract from `saar` |
+| List `hore()` | `koowaad()` |
+| List `dambe()` | `ugu_dambeeya()` |
+| `yar(...)` | `ugu_yar(...)` |
+| `weyn(...)` | `ugu_weyn(...)` |
+| List `ururi(func, initial)` | `isku_gee(func, initial)` |
+| List/object `midee(other)` | `kudar(other)`; list argument concatenates without mutation |
+| String `xiriiri(list)` | `kudar(list)` |
+| String `weynee()` | `xarfaha_waaweyn()`, `xarafaha_weyn()` |
+| String `yaree()` | `xarfaha_yaryar()` |
+| String `masax("hore")` | `masax_bilow()` |
+| String `masax("dambe")` | `masax_dhammaad()`, `masax_dhamaad()` |
+| String `raadi(sub, "dambe")` | `raadi_dambe(sub)` |
+| String `beddel(old, new, maran)` | `beddel_dhammaan(old, new)` |
+| String `kuceli(count)` | `ku_celi(count)` |
+| `duub(value)` | `dhammeystir(value)` |
+| Object `furayaal()`, `qiimayaal()`, `lammaanayaal()` | `fure()`, `qiime()`, `lamaane()` |
+| `kale (condition) { ... }` | `haddii_kale (condition) { ... }` |
+| `kale { ... }` | `ugudambeyn { ... }` in conditionals and switches |
+
+`tijaabi` is contextual: it starts a try block only before `{`. Existing
+variables, functions, and properties named `tijaabi` remain valid. `qabo` is
+unchanged.
+
+Automatic construction searches the nearest class first, preferring its `dhis`
+over its `dhaw`, then walks to its parent. Explicit constructor calls, including
+`waalid.dhis()` and `waalid.dhaw()`, prefer the requested spelling in each class
+and fall back to the other spelling before moving to the next ancestor. If a
+class defines both, both methods remain explicitly callable.
+
+Legacy object `tir(key)` remains supported and returns the receiver; it is not
+a direct alias of `saar(key)`, which returns the removed value. Existing `kudar`
+overloads also preserve their mutation and copying behavior.
+
+List `kudar(value)` retains its original type-dependent behavior: scalar values
+append in place, while a list argument produces a concatenated copy. Prefer
+`geli(value)` for adding exactly one item, including a nested list, and `midee`
+for combining collections.
+
+## Global updates
+
+Functions, methods, and callbacks share the current value of a global variable
+with top-level code. Global variables take precedence over built-in names,
+matching local shadowing. Replacing a scalar, list, object, or callable is visible on
+the next read. Function parameters and local declarations still shadow globals;
+closure captures of enclosing local variables retain their existing snapshot
+semantics.
+
+Top-level numeric loop indexes are published to globals and can be read or
+updated by functions during the loop. The increment uses the current index,
+including any update from the body. The final index remains available after
+the loop; `jooji` preserves the index at the break.
+
+Typed global writes inside functions enforce the same type and class checks as
+top-level writes. Rejected assignments preserve the previous global value.
+An accepted integral float is converted to `abn` for an integer annotation, and
+an accepted integer is converted to `jajab` for a floating-point annotation,
+keeping the representation consistent with native arithmetic. Fractional floats
+are rejected for `abn` annotations; use `abn(value)` for explicit truncation.

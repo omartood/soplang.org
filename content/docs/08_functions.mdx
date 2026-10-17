@@ -32,7 +32,10 @@ Hawl waxa ay bilaabataa `hawl` kadibna magac hawl iyo parameters. Parameters-ku 
 
 Marka aad qeexdo, ku wac magaceeda oo raaci doodaha (arguments):
 
-<SoplangCodeWindow title="call_function.sop" code={`salaan("Aamina")`}/>
+<SoplangCodeWindow title="call_function.sop" code={`hawl salaan(magac) {
+    qor("Asalaamu calaykum, " + magac)
+}
+salaan("Aamina")`}/>
 
 ## Return Values – `celi`
 
@@ -45,7 +48,7 @@ Adeegso `celi` si aad uga soo celiso hawl qiime.
 abn natiijo = labanlaab(5)
 qor("Natiijo: " + natiijo)`}/>
 
-Hawl aan `celi` lahayn — ama `celi` aan qiime lahayn — waxay soo celisaa `null` (`maran`). `celi` bannaan waxaa loo isticmaali karaa in hawsha si degdeg ah looga baxo:
+Hawl aan `celi` lahayn — ama `celi` aan qiime lahayn — waxay soo celisaa `maran` (`maran`). `celi` bannaan waxaa loo isticmaali karaa in hawsha si degdeg ah looga baxo:
 
 <SoplangCodeWindow title="early_return.sop" code={`hawl hubi(x) {
     haddii (x < 0) {
@@ -60,7 +63,7 @@ hubi(3)    // Tiro togan`}/>
 
 ## Typed Parameters and Return Types
 
-Waxaad nooc u qori kartaa parameter kasta, iyo nooca celinta adigoo `: nooc` ku daraya `)` kadib. Noocyada waa la hubiyaa ka hor inta aan barnaamijka la fulin.
+Waxaad nooc u qori kartaa parameter kasta, iyo nooca celinta adigoo `: nooc` ku daraya `)` kadib. Noocyada la yaqaan waxaa hubiya falanqaynta; qiimayaasha dynamic-ka ahna waxaa la hubiyaa xilliga fulinta.
 
 <SoplangCodeWindow title="typed_functions.sop" code={`hawl isu_gee(abn a, abn b): abn {
     celi a + b
@@ -73,9 +76,10 @@ hawl magac_buuxa(qoraal hore, qoraal dambe): qoraal {
 qor(isu_gee(2, 3))                  // 5
 qor(magac_buuxa("Aamina", "Cali"))  // Aamina Cali`}/>
 
-Haddii nooc khaldan la gudbiyo, barnaamijku ma bilaabmayo:
+Nooc khaldan oo la yaqaan waxaa la diidaa inta falanqayntu socoto:
 
-<SoplangCodeWindow title="typed_functions_error.sop" code={`isu_gee("2", 3)   // Khalad nooc: doodda 1 ee 'isu_gee' waa 'abn', laakiin 'qoraal' ayaa la helay [E022]`}/>
+<SoplangCodeWindow title="typed_functions_error.sop" code={`hawl isu_gee(abn a, abn b): abn { celi a + b }
+isu_gee("2", 3)   // Khalad nooc: doodda 1 ee 'isu_gee' waa 'abn', laakiin 'qoraal' ayaa la helay [E022]`}/>
 
 ## Recursion
 
@@ -104,16 +108,16 @@ qor([1, 2, 3].aaddin(laban))   // [2, 4, 6]`}/>
 
 ## Scope
 
-Doorsoomayaasha lagu qeexo gudaha hawl waa maxali (local) — dibadda lagama arko. Beddelidda doorsoome dibadda ah gudaha hawl ma saameyso kan dibadda; taa beddelkeeda, natiijada ku soo celi `celi`.
+Doorsoomayaasha lagu qeexo gudaha hawl waa maxali (local). Hawluhu waxay akhriyaan qiimaha hadda ee doorsoomayaasha guud (globals), waxayna beddeli karaan qiimayaashaas. Parameters iyo doorsoomayaal maxali ah waxay qariyaan magacyada guud ee isku magaca ah.
 
 <SoplangCodeWindow title="scope.sop" code={`door tirin = 0
 
-hawl kordhi(n) {
-    celi n + 1
+hawl kordhi() {
+    tirin = tirin + 1
 }
 
-tirin = kordhi(tirin)
-tirin = kordhi(tirin)
+kordhi()
+kordhi()
 qor(tirin)   // 2`}/>
 
 ## Loops Inside Functions
@@ -148,3 +152,24 @@ Hawluhu waxay ka kooban karaan loops iyo logic kale sida blocks-ka caadiga ah.
 </Table>
 
 Functions ee Soplang waxay ka dhigaan koodhka dib-u-isticmaal leh, nadiif, oo Somali-first.
+
+## Anonymous functions and closures
+
+`hawl(...) { ... }` waa hawl aan magac lahayn. Waxay xafidi kartaa qiime
+maxali ah oo ka yimid hawsha ku hareeraysan:
+
+<SoplangCodeWindow title="closures.sop" code={`hawl samee(factor) {
+    celi hawl(x) { celi x * factor }
+}
+
+door laban = samee(2)
+qor([1, 2, 3].aaddin(laban))   // [2, 4, 6]`}/>
+
+Captured local values use snapshot semantics when the closure is created.
+Global variables are read from their current shared value. Callback methods
+validate that their argument is callable, including for empty lists. Argument
+counts are checked for functions, methods, closures, built-ins and constructors.
+
+The compiled call boundary accepts eight ABI values, including implicit receiver
+or closure environment arguments. Defaults, keyword arguments, variadic user
+functions and arbitrary callable expressions remain planned work.
