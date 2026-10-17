@@ -27,7 +27,7 @@ const ways = [
   {
     icon: "lucide:cpu",
     title: "Compiler",
-    body: "Fix bugs and add features in the Rust compiler: the lexer, parser, type checker, and Cranelift backend.",
+    body: "Fix bugs and add features in the Rust compiler: the lexer, parser, type checker, and the Cranelift and LLVM backends.",
     href: GOOD_FIRST_ISSUES_URL,
     label: "Good first issues",
   },

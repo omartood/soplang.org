@@ -37,8 +37,8 @@ intay (tiro > 0) {
     eyebrow: "Dual typing",
     title: "Start dynamic, add types when they help",
     description:
-      "Use door for quick scripts. Use abn, qoraal, or teed when you want the compiler to check your values before the program runs.",
-    points: ["Typed parameters and return values", "Type errors are caught before running", "--strict requires a type on every variable"],
+      "Use door for quick scripts. Use abn, qoraal, or teed when you want explicit type checks at analysis time and runtime.",
+    points: ["Typed parameters and return values", "Known type mismatches are caught before running", "--strict requires a type on every variable"],
     file: "noocyo.sop",
     code: `door magac = "Hodan"     // dynamic
 abn da = 21              // static: abn
@@ -55,10 +55,10 @@ qor(nooc(magac))         // qoraal`,
     title: "Classes and inheritance",
     description:
       "qaab defines a class, cusub creates an instance, and dhaxal inherits from a parent class.",
-    points: ["dhaw is the constructor", "nafta refers to the current instance", "Child classes override parent methods"],
+    points: ["dhis is the constructor", "nafta refers to the current instance", "Child classes override parent methods"],
     file: "xayawaan.sop",
     code: `qaab Xayawaan {
-    hawl dhaw(magac) {
+    hawl dhis(magac) {
         nafta.magac = magac
     }
 }
@@ -76,8 +76,8 @@ qor(e.cod())             // Libaax: Waf!`,
     eyebrow: "Helpful errors",
     title: "Error messages in Somali",
     description:
-      "Every error names the line and column, points at the problem, and suggests a fix. Catch runtime errors with fasax and qabo.",
-    points: ["Errors are written in Somali", "Each message shows the line it came from", "fasax and qabo work like try and catch"],
+      "Diagnostics name the source file, line and column, and point at the problem. Some also suggest a fix. Catch runtime errors with tijaabi and qabo.",
+    points: ["Errors are written in Somali", "Each message shows the line it came from", "tijaabi and qabo work like try and catch"],
     file: "terminal",
     terminal: [
       { kind: "command", text: "soplang luqad.sop" },
@@ -85,8 +85,9 @@ qor(e.cod())             // Libaax: Waf!`,
         kind: "error",
         text: "Khalad nooc: Ma bedeli kartid qiimaha doorsamaha madoor 'luqad' [E020] safka 2, tiirka 1",
       },
+      { kind: "output", text: "     --> luqad.sop:2:1" },
       { kind: "output", text: `   2 │   luqad = "English"` },
-      { kind: "output", text: "     │   ^" },
+      { kind: "output", text: "     │   ^^^^^" },
       {
         kind: "output",
         text: "     └─ Doorsamaha madoor ma beddeli karaan qiimahooda. Isticmaal 'door' haddii aad rabto mid beddeli kara.",

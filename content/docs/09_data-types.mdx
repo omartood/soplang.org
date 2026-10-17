@@ -1,6 +1,6 @@
 ---
 title: Data Types
-description: "Noocyada xogta ee Soplang: primitives (abn, jajab, qoraal, bool), ururinta (teed, walax), null, iyo sida loo adeegsado."
+description: "Noocyada xogta ee Soplang: primitives (abn, jajab, qoraal, bool), ururinta (teed, walax), maran, iyo sida loo adeegsado."
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
@@ -50,14 +50,14 @@ qor(magac1 + " - " + magac2)    // Soplang - Programming Language
 
 // Dherer & habab
 qor(dherer(magac1))             // 7
-qor(magac1.xarafaha_weyn())     // SOPLANG
-qor(magac1.xarfaha_yaryar())    // soplang
+qor(magac1.weynee())     // SOPLANG
+qor(magac1.yaree())    // soplang
 qor(magac3.jar(0, 7))           // Soplang
 qor(magac1[0])                  // S
 
 // Tiro iyo qoraal isku dar
-door version = 2
-qor(magac1 + " v" + version)    // Soplang v2`}/>
+door version = 3
+qor(magac1 + " v" + version)    // Soplang v3`}/>
 
 ### Booleans
 
@@ -88,11 +88,11 @@ qor(x != y)    // run`}/>
 
 ### Null
 
-`null` waxay metelaysaa qiime la'aan. Marka la daabaco, ama `nooc()` lagu baaro, waxay u muuqataa `maran`. Hawl aan waxba soo celin waxay soo celisaa `null`.
+`maran` waxay metelaysaa qiime la'aan. Marka la daabaco, ama `nooc()` lagu baaro, waxay u muuqataa `maran`. Hawl aan waxba soo celin waxay soo celisaa `maran`.
 
-**null.sop**
+**maran.sop**
 
-<SoplangCodeWindow title="null.sop" code={`door natiijo = null
+<SoplangCodeWindow title="maran.sop" code={`door natiijo = maran
 qor(natiijo)         // maran
 qor(nooc(natiijo))   // maran`}/>
 
@@ -121,10 +121,10 @@ tiro[0] = 10
 qor(tiro)             // [10, 2, 3, 4, 5]
 
 // Hababka liisaska
-tiro.kudar(6)         // ku dar dhamaadka
+tiro.geli(6)         // ku dar dhamaadka
 qor(tiro)             // [10, 2, 3, 4, 5, 6]
 
-door ugu_dambeeyay = magacyada.kasaar()   // ka saar kan ugu dambeeya
+door ugu_dambeeyay = magacyada.saar()   // ka saar kan ugu dambeeya
 qor(ugu_dambeeyay)    // Hodan
 qor(magacyada)        // [Cabdi, Caasha, Xasan]
 
@@ -168,8 +168,8 @@ qor(qof.leeyahay("magac"))    // run
 qor(qof.leeyahay("luuqad"))   // been
 
 // Habab
-qor(qof.fure())          // [da, degaan, magac, waa_arday]
-qor(qof.qiime())         // [26, Muqdisho, Cabdilaahi, run]
+qor(qof.furayaal())          // [da, degaan, magac, waa_arday]
+qor(qof.qiimayaal())         // [26, Muqdisho, Cabdilaahi, run]
 qor(dherer(luuqad))      // 3`}/>
 
 ## Checking Types

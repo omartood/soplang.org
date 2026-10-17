@@ -40,6 +40,7 @@ const keywords = [
   'walax',
   // Control flow
   'haddii',
+  'kale',
   'haddii_kale',
   'ugudambeyn',
   'dooro',
@@ -50,6 +51,7 @@ const keywords = [
   'jooji',
   'soco',
   // Error handling, modules, classes
+  'tijaabi',
   'fasax',
   'qabo',
   'keen',
@@ -57,9 +59,11 @@ const keywords = [
   'dhaxal',
   'cusub',
   'nafta',
+  'waalid',
   // Literals
   'run',
   'been',
+  'maran',
   'null',
   // Built-in I/O
   'qor',

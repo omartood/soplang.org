@@ -1,110 +1,73 @@
 ---
-title: Objects in Soplang
-description: Learn how to declare, modify, and manage walax (objects) in Soplang with Somali-first methods.
+title: Objects (walax)
+description: "Walxaha Soplang 3: furayaal, qiimayaal, lammaanayaal, hel, dhig, saar, midee iyo computed keys."
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
-# Objects in Soplang
+Walax (`walax`) waxay kaydisaa lammaanayaal fure iyo qiime ah. Furayaashu waa
+qoraal, qiimayaashuna waxay noqon karaan nooc kasta. Fure waxaa loo qori karaa
+magac caadi ah ama qoraal xigasho ku jira.
 
-Objects in Soplang are defined using the `walax` type. They store key–value pairs and provide Somali-first methods to inspect, modify, and copy structured data.
+## Abuurid iyo gelitaanka qiimayaasha
 
-## Declaring an Object – `walax`
+<SoplangCodeWindow title="objects_access.sop" code={`walax qof = {magac: "Ayaan", da: 25}
+qor(qof.magac)               // Ayaan
+qor(qof["da"])               // 25
+door fure = "magaalo"
+qof[fure] = "Hargeysa"
+qor(qof.hel(fure))           // Hargeysa
+qor(qof.hel("shaqo", "ma jiro")) // ma jiro
+qor(qof.dherer())            // 3`}/>
 
-**declare_object.sop**
+Dot-notation iyo bracket-notation labaduba way akhriyaan oo qoraan.
+`hel(key, default?)` wuxuu isticmaalaa qiimaha beddelka ah keliya marka fure
+maqan yahay. Qiime `maran` ah oo fure jira leeyahay weli waa `maran`.
+Akhrinta fure maqan waxay soo celisaa `maran`.
 
-<SoplangCodeWindow title="declare_object.sop" code={`walax qof = {
-    magac: "Ayaan",
-    da: 25,
-    shaqo: "barayaal"
-}`}/>
+## Hababka la wadaago
 
-Keys can be written as plain names (`magac:`) or as strings (`"magac":`).
+| Habka | Natiijada |
+| --- | --- |
+| `dherer()` | Tirada furayaasha; `dherer(obj)` sidoo kale waa sax |
+| `leeyahay(key)` | Hubi jiritaanka furaha |
+| `hel(key, default?)` | Soo celi qiimaha ama beddelkiisa |
+| `dhig(key, value)` | Qor qiime, soo celi isla walaxda |
+| `saar(key)` | Ka saar oo soo celi qiimaha; `maran` haddii fure maqan yahay |
+| `nadiifi()` | Ka saar dhammaan furayaasha, soo celi isla walaxda |
+| `nuqul()` | Soo celi nuqul aan qoto dheerayn |
+| `midee(other)` | Soo celi walax cusub oo isku darsan |
 
-## Reading and Updating Properties
+<SoplangCodeWindow title="objects_mutation.sop" code={`door qof = {magac: "Ayaan", da: 25}
+qof.dhig("da", 26)
+qor(qof.saar("da"))          // 26
+qor(qof.leeyahay("da"))      // been
+qor(qof.saar("maqan"))       // maran`}/>
 
-Use dot-notation to read a property, change it, or add a new one. Bracket-notation with a string key works too, which is useful when the key is stored in a variable. Use `dherer()` to count the properties.
+Magacii hore `tir(key)` weli waa la taageeraa, laakiin wuxuu soo celiyaa
+walaxda lafteeda. `saar(key)` wuxuu soo celiyaa qiimaha laga saaray.
 
-**properties.sop**
+## Furayaasha, qiimayaasha iyo lammaanayaasha
 
-<SoplangCodeWindow title="properties.sop" code={`qor(qof.magac)          // Ayaan
-qor(qof["da"])          // 25
+`furayaal()`, `qiimayaal()` iyo `lammaanayaal()` dhammaantood waxay raacaan
+kala horraynta furayaasha ee la kala habeeyey.
 
-qof.da = 26             // update
-qof.magaalo = "Hargeysa"  // add a new property
+<SoplangCodeWindow title="objects_entries.sop" code={`door qof = {magac: "Ayaan", da: 25}
+qor(qof.furayaal())          // [da, magac]
+qor(qof.qiimayaal())         // [25, Ayaan]
+qor(qof.lammaanayaal())      // [[da, 25], [magac, Ayaan]]`}/>
 
-door fure = "shaqo"
-qor(qof[fure])          // barayaal
+## Isku darid iyo nuqul
 
-qor(dherer(qof))        // 4`}/>
+`midee()` ma beddelo labada walxood ee la siiyey. Fure isku mid ah wuxuu
+qaataa qiimaha walaxda midigta. Nuqulku ma aha mid qoto dheer; ururinta gudaha
+ku jirta weli waa lala wadaagaa asalka.
 
-Reading a property that does not exist returns `null` (printed as `maran`).
+<SoplangCodeWindow title="objects_merge.sop" code={`door asal = {magac: "Ayaan", da: 25}
+door natiijo = asal.midee({da: 26, magaalo: "Hargeysa"})
+qor(asal.da)                 // 25
+qor(natiijo.da)                // 26
+qor(natiijo.magaalo)           // Hargeysa`}/>
 
-## Core Object Methods
-
-`fure()`, `qiime()`, and `lamaane()` return their results sorted alphabetically by key.
-
-### `fure()` – Get Keys
-
-**keys.sop**
-
-<SoplangCodeWindow title="keys.sop" code={`door keys = qof.fure()
-qor(keys)   // [da, magaalo, magac, shaqo]`}/>
-
-### `qiime()` – Get Values
-
-**values.sop**
-
-<SoplangCodeWindow title="values.sop" code={`door values = qof.qiime()
-qor(values)`}/>
-
-### `lamaane()` – Get Key-Value Pairs
-
-**pairs.sop**
-
-<SoplangCodeWindow title="pairs.sop" code={`door pairs = qof.lamaane()
-qor(pairs)`}/>
-
-### `leeyahay(x)` – Has Key
-
-**has_key.sop**
-
-<SoplangCodeWindow title="has_key.sop" code={`haddii (qof.leeyahay("magac")) {
-    qor("Magaca wuu jiraa")
-}`}/>
-
-### `tir(x)` – Delete Key
-
-**delete.sop**
-
-<SoplangCodeWindow title="delete.sop" code={`qof.tir("shaqo")
-qor(qof)`}/>
-
-### `kudar(obj)` – Merge
-
-`kudar()` returns a **new** object; the original objects are not changed.
-
-**merge.sop**
-
-<SoplangCodeWindow title="merge.sop" code={`walax A = {x: 1}
-walax B = {y: 2}
-walax C = A.kudar(B)
-
-qor(C)  // {x: 1, y: 2}`}/>
-
-### `nuqul()` – Copy
-
-**copy.sop**
-
-<SoplangCodeWindow title="copy.sop" code={`walax asal = {a: 10, b: 20}
-walax copy = asal.nuqul()
-qor(copy)`}/>
-
-### `nadiifi()` – Clear All Properties
-
-**clear.sop**
-
-<SoplangCodeWindow title="clear.sop" code={`asal.nadiifi()
-qor("Cleared object: " + asal)`}/>
-
-**Gunaanad:** `walax` waxay siisaa qaab awood badan oo lagu kaydiyo xog magacyo leh, iyadoo leh habab si buuxda ugu qoran Af-Soomaali.
+Objects ma laha `hore()` ama `dambe()`. Hababkaas waxay khuseeyaan liisaska
+iyo strings-ka. Eeg [tixraaca](/docs/14_keywords-reference#object-methods).

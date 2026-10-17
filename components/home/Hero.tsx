@@ -17,7 +17,7 @@ export const Hero = async () => {
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
             Write programs with Somali keywords. Soplang is free and open
             source, built for students, teachers, and developers who think in
-            Somali.
+            Somali. Soplang 3 runs programs with Cranelift JIT and builds standalone executables with LLVM.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/downloads" className="btn-primary">

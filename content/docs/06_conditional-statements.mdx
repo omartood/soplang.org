@@ -20,7 +20,7 @@ import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 Soplang waxay bixisaa fulin shuruudeed (conditional execution) iyadoo adeegsanaysa erayo Soomaali ah si ay u noqoto mid cad oo muujin leh.
 
-## If Statements – `haddii`, `haddii_kale`, `ugudambeyn`
+## If Statements – `haddii`, `kale`, `kale`
 
 Waxay u dhigmaan _if_, _else if_, iyo _else_ luqadaha kale.
 
@@ -28,9 +28,9 @@ Waxay u dhigmaan _if_, _else if_, iyo _else_ luqadaha kale.
 
 haddii (da >= 18) {
     qor("Waad qaan gaadhay")
-} haddii_kale (da >= 13) {
+} kale (da >= 13) {
     qor("Waxaad tahay dhallinyaro")
-} ugudambeyn {
+} kale {
     qor("Waad yar tahay")
 }`}/>
 
@@ -67,11 +67,11 @@ haddii (!(x == y)) {
       <TableCell>if</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>`haddii_kale`</TableCell>
+      <TableCell>`kale`</TableCell>
       <TableCell>else if</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>`ugudambeyn`</TableCell>
+      <TableCell>`kale`</TableCell>
       <TableCell>else</TableCell>
     </TableRow>
   </TableBody>
@@ -81,7 +81,7 @@ Control flow ee Soplang wuxuu raacaa qaab akhris-wanaagsan oo Somali-first ah.
 
 ## Switch-Case – `dooro` iyo `xaalad`
 
-Loogu talagalay laanayn cad oo ku saleysan hal qiime: `dooro` (switch expression), `xaalad` (case), iyo `ugudambeyn` (default).
+Loogu talagalay laanayn cad oo ku saleysan hal qiime: `dooro` (switch expression), `xaalad` (case), iyo `kale` (default).
 
 <SoplangCodeWindow title="switch_case.sop" code={`qoraal maalinta = "Jimce"
 
@@ -92,14 +92,14 @@ dooro (maalinta) {
     xaalad "Jimce" {
         qor("Waqti nasasho")
     }
-    ugudambeyn {
+    kale {
         qor("Maalin kale")
     }
 }`}/>
 
 Tani waxay ku habboon tahay go'aan-qaadasho leh laamo badan oo ku saleysan qiime go'an.
 
-`xaalad` waxay la shaqaysaa tirooyin iyo qoraallo labadaba. Hal `xaalad` oo keliya ayaa fulaysa — looma baahna `jooji` (ma jiro fall-through). `ugudambeyn` waa ikhtiyaari.
+`xaalad` waxay la shaqaysaa tirooyin iyo qoraallo labadaba. Hal `xaalad` oo keliya ayaa fulaysa — looma baahna `jooji` (ma jiro fall-through). `kale` waa ikhtiyaari.
 
 <SoplangCodeWindow title="switch_numbers.sop" code={`abn lambar = 2
 
@@ -111,4 +111,4 @@ dooro (lambar) {
 
 ## Combined Usage
 
-Waxaad isku dari kartaa `haddii`/`haddii_kale`/`ugudambeyn` iyo `dooro` si aad u dhisto logic adag oo weli akhris-wanaagsan.
+Waxaad isku dari kartaa `haddii`/`kale`/`kale` iyo `dooro` si aad u dhisto logic adag oo weli akhris-wanaagsan.

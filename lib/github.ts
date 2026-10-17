@@ -2,7 +2,8 @@ import "server-only";
 
 import { communityStats } from "@/constants/communityStats";
 import { contributors as fallbackContributors } from "@/constants/contributorsData";
-import { latestVersion } from "@/constants/latestVersion";
+import { currentRelease, mapRelease, stableRelease, type ApiRelease, type Release } from "./releases";
+export type { Release, ReleaseAsset } from "./releases";
 
 export const GITHUB_ORG = "soplang";
 export const GITHUB_REPO = "soplang/soplang";
@@ -16,21 +17,6 @@ export type Contributor = {
   avatarUrl: string;
   profileUrl: string;
   contributions: number;
-};
-
-export type ReleaseAsset = {
-  name: string;
-  url: string;
-  size: number;
-  downloads: number;
-};
-
-export type Release = {
-  tag: string;
-  name: string;
-  url: string;
-  publishedAt: string | null;
-  assets: ReleaseAsset[];
 };
 
 export type RepoStats = {
@@ -88,15 +74,6 @@ type ApiContributor = {
   type: string;
 };
 
-type ApiRelease = {
-  tag_name: string;
-  name: string | null;
-  html_url: string;
-  published_at: string | null;
-  draft: boolean;
-  assets: { name: string; browser_download_url: string; size: number; download_count: number }[];
-};
-
 export async function getContributors(): Promise<Contributor[]> {
   const data = await githubFetch<ApiContributor[]>(
     `repos/${GITHUB_REPO}/contributors?per_page=100`,
@@ -115,35 +92,12 @@ export async function getContributors(): Promise<Contributor[]> {
 
 export async function getReleases(): Promise<Release[]> {
   const data = await githubFetch<ApiRelease[]>(`repos/${GITHUB_REPO}/releases?per_page=30`);
-  if (!data) return [];
-
-  return data
-    .filter((release) => !release.draft)
-    .map((release) => ({
-      tag: release.tag_name,
-      name: release.name || release.tag_name,
-      url: release.html_url,
-      publishedAt: release.published_at,
-      assets: release.assets.map((asset) => ({
-        name: asset.name,
-        url: asset.browser_download_url,
-        size: asset.size,
-        downloads: asset.download_count,
-      })),
-    }));
+  return data ? data.filter((release) => !release.draft).map(mapRelease) : [currentRelease];
 }
 
 export async function getLatestRelease(): Promise<Release> {
-  const [latest] = await getReleases();
-  return (
-    latest ?? {
-      tag: latestVersion,
-      name: latestVersion,
-      url: `${GITHUB_URL}/releases`,
-      publishedAt: null,
-      assets: [],
-    }
-  );
+  // GitHub's latest endpoint excludes drafts and prereleases.
+  return stableRelease(await githubFetch<ApiRelease>(`repos/${GITHUB_REPO}/releases/latest`));
 }
 
 export async function getRepoStats(): Promise<RepoStats> {
