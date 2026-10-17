@@ -1,17 +1,17 @@
 ---
 title: Soplang Syntax
-description: Soplang syntax waa mid fudud, nadiif ah, oo Somali-first ah—halkan ka bar bilowga iyo dareenka luuqadda.
+description: Learn Soplang syntax, comments, declarations, blocks, strings, and the structure of a program.
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Soplang Syntax
 
-Soplang syntax waxaa loo qaabeeyey in ay noqoto mid cad, kooban, oo si sahlan loogu fahmo af-Soomaali. Waxay isticmaashaa ereyo Soomaali ah si ay u metesho fikradaha barnaamijyada caanka ah, taas oo ka dhigaysa koodhku mid dabiici ah oo la akhrin karo.
+Soplang uses Somali words for familiar programming concepts. This guide introduces the syntax for declarations, functions, control flow, and other language features.
 
 ## Hello World
 
-Tani waa barnaamijka ugu fudud ee Soplang. Waxay adeegsanaysaa shaqada-dhexdeeda `qor()` si ay u muujiso wax soo saar.
+This program uses the built-in `qor()` function to print a message.
 
 **hello-world.sop**
 
@@ -19,38 +19,38 @@ Tani waa barnaamijka ugu fudud ee Soplang. Waxay adeegsanaysaa shaqada-dhexdeeda
 
 ## Structure
 
-Barnaamijyada Soplang waxay ka kooban yihiin qaybahaan:
+Soplang programs use these building blocks:
 
-- **Declarations** – adigoo adeegsanaya `door`, `abn`, `jajab`, `qoraal`, `bool`, `teed`, `walax`, ama `madoor`
-- **Functions** – adigoo adeegsanaya `hawl`, `celi`
-- **Control flow** – adigoo adeegsanaya `haddii`, `kale`, `dooro`, `kuceli`, `intay`, iwm.
-- **Classes** – adigoo adeegsanaya `qaab`, `dhaxal`, `cusub`, `nafta`
-- **Error handling & modules** – `tijaabi`/`qabo` iyo `keen`
-- **Built-ins** – sida `qor()`, `gelin()`, `nooc()`
+- **Declarations** – `door`, `abn`, `jajab`, `qoraal`, `bool`, `teed`, `walax`, and `madoor`
+- **Functions** – `hawl` and `celi`
+- **Control flow** – `haddii`, `kale`, `dooro`, `kuceli`, and `intay`
+- **Classes** – `qaab`, `dhaxal`, `cusub`, and `nafta`
+- **Error handling and modules** – `tijaabi`/`qabo` and `keen`
+- **Built-ins** – functions such as `qor()`, `gelin()`, and `nooc()`
 
-Blocks waxaa lagu qeexaa laalaabyo (`{}`) koodhkuna wuxuu ku socdaa khad-khad.
+Curly braces (`{}`) enclose blocks. Statements execute in sequence.
 
 ## Comments
 
-Faallooyinka (comments) lama fuliyo. Soplang waxay taageertaa faallo hal sadar ah (`//`) iyo faallo sadarro badan ah (`/* ... */`).
+Comments are not executed. Soplang supports single-line comments (`//`) and multiline comments (`/* ... */`).
 
-<SoplangCodeWindow title="comments.sop" code={`// Faallo hal sadar ah
+<SoplangCodeWindow title="comments.sop" code={`// A single-line comment
 
 /*
-   Faallo
-   sadarro badan ah
+   A multiline
+   comment
 */
 
-qor("Faallooyinka lama fuliyo")  // faallo dhamaadka sadarka`}/>
+qor("Faallooyinka lama fuliyo")  // Comment: an end-of-line comment`}/>
 
 ## Basic Rules
 
-- **Kala saaridda amarada:** hal amar sadarkiiba waa qaab caadi ah. Semicolon (`;`) waa ikhtiyaari; `door x = 1; qor(x);` sidoo kale waa sax.
-- **Blocks:** `{}` ayaa lagu xiraa jirka `haddii`, `kuceli`, `intay`, `hawl`, iwm. Indentation-ku waa akhris-wanaag oo keliya.
-- **Shuruudaha:** shuruudaha `haddii`, `intay`, iyo `dooro` waxay galaan qaansooyin `()`.
-- **Xarfaha waa kala duwan yihiin (case-sensitive):** `magac` iyo `Magac` waa laba doorsoome oo kala duwan.
-- **Strings:** waxaad isticmaali kartaa `"..."` ama `'...'`. Ma jiraan escape sequences (`"\n"` si toos ah ayuu u daabacmaa) iyo string interpolation midna — isticmaal `+` si aad isugu xirto.
-- **Isku-xirka `+`:** marka mid ka mid ah dhinacyadu yahay string, qiimaha kale wuxuu si toos ah isugu beddelaa qoraal.
+- **Statement separators:** one statement per line is the usual style. Semicolons (`;`) are optional; `door x = 1; qor(x);` is also valid.
+- **Blocks:** `{}` enclose the bodies of conditionals, loops, functions, and classes. Indentation improves readability but does not define blocks.
+- **Conditions:** `haddii`, `intay`, and `dooro` require parentheses `()` around their condition or expression.
+- **Case sensitivity:** `magac` and `Magac` are different variable names.
+- **Strings:** use double quotes (`"..."`) or single quotes (`'...'`). Escape sequences and string interpolation are not supported; `"\n"` prints literally. Use `+` to join values.
+- **Concatenation with `+`:** when either operand is a string, the other value is converted to text.
 
 <SoplangCodeWindow title="basic_rules.sop" code={`door a = "Salaan"
 door b = 'Salaan'
@@ -64,7 +64,7 @@ qor("Tirada: " + 5)            // Tirada: 5`}/>
 
 ## Example Program
 
-Tusaalahan waxa uu akhriyaa gelinta isticmaalaha kadibna wuu salaamaa. Waxa uu ka kooban yahay: _qeexid hawl (function)_, _doorsoome_, iyo _built-ins_.
+This example reads a name and prints a greeting. It combines a function definition, a variable, and built-in functions.
 
 **example.sop**
 
@@ -77,12 +77,10 @@ salaan(magaca)`}/>
 
 ## File Extension
 
-Faylasha il-koodhka Soplang waxay adeegsadaan kordhinta `.sop`. Waxaad ku ordi kartaa CLI ama REPL-ka Soplang:
+Soplang source files use the `.sop` extension. Run a file from the command line, or experiment in the interactive REPL.
 
 **run.sh**
 
 ```shell
 soplang file.sop
 ```
-
-Syntax-kan waxa uu ku barayaa qulqulka iyo dareenka Soplang: fudayd, muujin, iyo Somali-first.

@@ -1,11 +1,12 @@
 ---
 title: CLI & REPL
-description: "Sida loo isticmaalo amarka soplang: fulinta faylal, REPL-ka, -c, dhisidda binary (--build), strict mode, iyo qalabka debug-ka."
+description: Run Soplang files and snippets, use the interactive shell, build standalone executables, and inspect compiler output.
 ---
 
 # Soplang CLI & REPL
 
-Amarka `soplang` wuxuu fuliyaa faylasha `.sop`, wuxuu furaa REPL (interactive shell), wuxuuna dhisi karaa binary keligiis shaqeeya.
+The `soplang` command runs `.sop` files, opens an interactive shell (REPL),
+and builds standalone executables.
 
 ## Running a File
 
@@ -13,11 +14,12 @@ Amarka `soplang` wuxuu fuliyaa faylasha `.sop`, wuxuu furaa REPL (interactive sh
 soplang hello.sop
 ```
 
-Faylka waxaa lagu fuliyaa Cranelift JIT — waa la compile-gareeyaa kadibna isla markiiba waa la socodsiiyaa.
+The Cranelift JIT compiles the program and runs it immediately.
 
 ## The REPL
 
-`soplang` oo aan lahayn wax doodo ah wuxuu furaa REPL-ka. Qor amar kasta, natiijaduna isla markiiba way soo baxaysaa:
+Run `soplang` without arguments to open the REPL. Its startup banner and help
+output are in Somali:
 
 ```text
 $ soplang
@@ -26,17 +28,17 @@ Soplang 3.0.0 — Luuqadda barnaamijka ee Soomaaliyeed.
   Ctrl+D ama /bixi = bixi
 ```
 
-| Amar | Macnaha |
+| Command | Meaning |
 | --- | --- |
-| `/caawi` ama `/help` | Caawimo (help) |
-| `/akhrifayl <fayl>` | Akhri oo fuli fayl `.sop` ah |
-| `/ast` | Muuji AST-ga |
-| `/hir` | Muuji HIR-ka |
-| `/bixi`, `/exit`, ama `Ctrl+D` | Ka bax REPL-ka |
+| `/caawi` or `/help` | Show help |
+| `/akhrifayl <file>` | Read and run a `.sop` file |
+| `/ast` | Show the AST |
+| `/hir` | Show the HIR |
+| `/bixi`, `/exit`, or `Ctrl+D` | Exit the REPL |
 
-Haddii aad geliso expression keliya (tusaale `1 + 2`), natiijada si toos ah ayaa loo muujinayaa.
+Entering an expression such as `1 + 2` displays its result automatically.
 
-Si aad fayl u fuliso kadibna u sii wadato REPL-ka (doorsoomayaasha faylka oo diyaar ah), isticmaal `-i`:
+To run a file and then continue in the REPL with its variables available, use `-i`:
 
 ```bash
 soplang -i hello.sop
@@ -51,30 +53,34 @@ soplang -c '2 + 3'        # 5
 
 ## Build a Standalone Binary – `--build`
 
-`--build` wuxuu soo saaraa LLVM IR, kadibna clang iyo rustc ayaa isku xira binary keligiis shaqeeya (AOT), kaas oo aan u baahnayn `soplang` si loo socodsiiyo:
+`--build` emits LLVM IR, then uses clang and rustc to link an ahead-of-time
+(AOT) executable. The resulting program runs without a Soplang installation:
 
 ```bash
 soplang --build hello.sop -o hello
 ./hello
 ```
 
-| Option | Macnaha |
+| Option | Meaning |
 | --- | --- |
-| `-o, --output <fayl>` | Magaca binary-ga la dhisayo |
-| `--opt-level <0-3>` | Heerka optimization-ka (default: `2`) |
-| `-q, --quiet` | Ha muujin fariinta dhisidda |
+| `-o, --output <file>` | Set the output executable's name |
+| `--opt-level <0-3>` | Set the optimization level (default: `2`) |
+| `-q, --quiet` | Hide the build message |
 
-<Callout title="Qalabka dhisidda">
-  Xirmooyinka v3.0.0 waxay u baahan yihiin Rust 1.94.0, clang 15+ iyo linker/SDK-ga madasha marka la isticmaalayo `--build`. Xirmada oo dhan isku hay. `--build` ee la rakibay ma waco Cargo. JIT iyo REPL uma baahna Rust ama clang. Eeg [rakibidda](/docs/00_installation#building-standalone-programs).
+<Callout title="Native build toolchain">
+  Official v3.0.0 packages require Rust 1.94.0, clang 15+, and the platform linker/SDK for `--build`. Keep the complete package together. Installed `--build` does not invoke Cargo. JIT execution and the REPL need neither Rust nor clang. See the [installation guide](/docs/00_installation#building-standalone-programs).
 </Callout>
 
 ## Strict Mode – `--strict`
 
-`--strict` wuxuu diidaa doorsoomayaal dynamic ah (`door`); doorsoome kasta waa inuu yeeshaa nooc cad (`abn`, `jajab`, `qoraal`, `bool`, `teed`, `walax`).
+`--strict` rejects dynamic `door` declarations. Variables must have explicit
+types, such as `abn`, `jajab`, `qoraal`, `bool`, `teed`, or `walax`.
 
 ```bash
 soplang --strict app.sop
 ```
+
+For example, an untyped declaration produces this Somali diagnostic:
 
 ```text
 Khalad nooc: 'x' waa dynamic laakiin 'strict mode' waa shidan yahay [E022] safka 1, tiirka 1
@@ -82,20 +88,20 @@ Khalad nooc: 'x' waa dynamic laakiin 'strict mode' waa shidan yahay [E022] safka
 
 ## All Options
 
-| Option | Macnaha |
+| Option | Meaning |
 | --- | --- |
-| `soplang <fayl>` | Fuli fayl |
-| `soplang` | Fur REPL-ka |
-| `-i, --interactive` | Fuli faylka kadibna fur REPL-ka |
-| `-c, --command <code>` | Fuli koodh gaaban |
-| `-f, --file <fayl>` | Fuli fayl |
-| `--build` | Dhis binary (AOT); waxay u baahan tahay fayl |
-| `-o, --output <fayl>` | Magaca binary-ga (`--build`) |
-| `--opt-level <0-3>` | Heerka optimization-ka (`--build`) |
-| `-q, --quiet` | Aamusnaan marka la dhisayo (`--build`) |
-| `--strict` | Strict static typing |
-| `--ast` | Daabac AST-ga halkii la fulin lahaa |
-| `--hir` | Daabac HIR (intermediate representation) halkii la fulin lahaa |
-| `--no-color` | Dami midabada fariimaha khaladka (sidoo kale `NO_COLOR=1`) |
-| `-V, --version` | Muuji version-ka |
-| `-h, --help` | Muuji caawimada |
+| `soplang <file>` | Run a file |
+| `soplang` | Open the REPL |
+| `-i, --interactive` | Run a file, then open the REPL |
+| `-c, --command <code>` | Run a code snippet |
+| `-f, --file <file>` | Run a file |
+| `--build` | Build an AOT executable; requires a source file |
+| `-o, --output <file>` | Set the output executable's name (`--build`) |
+| `--opt-level <0-3>` | Set the optimization level (`--build`) |
+| `-q, --quiet` | Hide the build message (`--build`) |
+| `--strict` | Require static typing |
+| `--ast` | Print the AST instead of executing the program |
+| `--hir` | Print the HIR (intermediate representation) instead of executing the program |
+| `--no-color` | Disable diagnostic colors; also supported through `NO_COLOR=1` |
+| `-V, --version` | Show the version |
+| `-h, --help` | Show help |

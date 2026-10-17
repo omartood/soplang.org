@@ -1,6 +1,6 @@
 ---
 title: Operators
-description: Arithmetic, comparison, iyo logical operators ee Soplang—syntax, tusaalooyin, iyo isticmaal caadi ah.
+description: Arithmetic, comparison, and logical operators in Soplang, with examples and precedence rules.
 ---
 
 import {
@@ -18,11 +18,11 @@ import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Operators in Soplang
 
-Soplang waxa uu taageeraa operators caadi ah oo u eg kuwa luqadaha caanka ah: arithmetic, comparison, iyo logical—si fudud oo akhris-wanaagsan.
+Soplang supports arithmetic, comparison, and logical operators.
 
 ## Arithmetic Operators
 
-Waxaa loo adeegsadaa xisaab tirooyin `abn` ama `jajab`.
+Use these operators with integers (`abn`) and floating-point numbers (`jajab`).
 
 <Table>
   <TableHeader>
@@ -68,7 +68,7 @@ qor("Hadhaaga: " + (a % b))`}/>
 
 ## Comparison Operators
 
-Lagu hubiyo isbarbar dhig ama sinnaansho u dhexeeya qiimeyaal.
+Comparison operators test equality and ordering between values.
 
 <Table>
   <TableHeader>
@@ -119,7 +119,7 @@ qor("a < b: " + (a < b))`}/>
 
 ## Logical Operators
 
-Waxaa loo adeegsadaa isku-darka xaaladaha (conditions) boolean.
+Logical operators combine or negate boolean conditions.
 
 <Table>
   <TableHeader>
@@ -158,7 +158,7 @@ qor("Mismatch: " + isMismatch)`}/>
 
 ### Operator Precedence
 
-Soplang waxay xisaabisaa operators-ka sidan (kan ugu sarreeya marka hore):
+Operators have the following precedence, from highest to lowest:
 
 1. Unary: `!`, `-`
 2. `*`, `/`, `%`
@@ -166,21 +166,19 @@ Soplang waxay xisaabisaa operators-ka sidan (kan ugu sarreeya marka hore):
 4. Comparison: `==`, `!=`, `>`, `<`, `>=`, `<=`
 5. Logical: `&&`, `||`
 
-<Callout type="warn" title="&& iyo || waa isku heer">
-  Luqadaha badankood `&&` ayaa ka horreeya `||`. Soplang-ka hadda labaduba waa isku heer, waxaana loo xisaabiyaa bidix ilaa midig — `run || been && been` waxay noqonaysaa `been`. Mar walba qaansooyin `()` isticmaal marka aad isku darayso: `run || (been && been)`.
+<Callout type="warn" title="&& and || have equal precedence">
+  Many languages give `&&` higher precedence than `||`. In Soplang, both have equal precedence and group from left to right: `run || been && been` evaluates to `been`. Use parentheses when combining them, such as `run || (been && been)`.
 </Callout>
 
 ## String Concatenation
 
-`+` waxay sidoo kale isku xirtaa strings. Haddii hal dhinac uu yahay string, dhinaca kale (tiro, bool, liis) wuxuu si toos ah isugu beddelaa qoraal.
+`+` also joins strings. When either operand is a string, the other value, such as a number, boolean, or list, is converted to text.
 
 <SoplangCodeWindow title="string_concat.sop" code={`qor("Soplang " + "waa fiican")   // Soplang waa fiican
 qor("Da'da: " + 25)               // Da'da: 25
 
-// Natiijada isbarbardhigga waa la kaydin karaa
+// Store the result of a comparison
 door natiijo = 5 > 3
 qor(natiijo)                      // run`}/>
 
-Qaybintu (`/`) waxay mar walba bixisaa natiijo sax ah: `10 / 4` waa `2.5`. Qaybinta eber (`x / 0`) waa khalad runtime.
-
-Operators-ka Soplang waxay kuu oggolaanayaan inaad dhisto muujiyeyo awood leh iyo xakamayn (control flow) nadiif ah.
+Division (`/`) can produce a fractional result: `10 / 4` is `2.5`. Division by zero (`x / 0`) produces a runtime error.

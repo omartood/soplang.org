@@ -1,6 +1,6 @@
 ---
 title: Type Conversion
-description: Baro nooc-ogaanshaha (nooc) iyo shaqooyinka beddelka noocyo xog (abn, jajab, qoraal, bool) ee Soplang.
+description: Inspect values with nooc() and convert between integers, floating-point numbers, strings, and booleans.
 ---
 
 import {
@@ -18,11 +18,11 @@ import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Type Conversion in Soplang
 
-Soplang waxa uu leeyahay shaqooyin-dhexdeed (built-ins) oo fudud oo lagu kala beddelo noocyada xogta. Kuwaas waxay kuu oggolaanayaan inaad si ammaan ah ugu beddesho u dhaxeysa integer, string, decimal, iyo boolean—adigoo ilaalinaya saxnaanta xogta.
+Soplang provides built-in functions for inspecting types and converting values. Use `abn()`, `jajab()`, `qoraal()`, and `bool()` for explicit conversions.
 
-## `nooc()` – Type Checking
+## `nooc()` – Inspect a Type
 
-Adeegso `nooc()` si aad u hubiso nooca qiime kasta.
+Use `nooc()` to get the type name of a value.
 
 **type_checking.sop**
 
@@ -30,12 +30,12 @@ Adeegso `nooc()` si aad u hubiso nooca qiime kasta.
 door natiijo2 = nooc("abc")     // "qoraal"
 door natiijo3 = nooc(3.14)      // "jajab"`}/>
 
-`nooc()` waxay soo celisaa mid ka mid ah magacyadan:
+`nooc()` returns one of these type names:
 
 <Table>
   <TableHeader>
     <TableRow>
-      <TableHead>Qiime</TableHead>
+      <TableHead>Value</TableHead>
       <TableHead>`nooc()`</TableHead>
     </TableRow>
   </TableHeader>
@@ -45,15 +45,15 @@ door natiijo3 = nooc(3.14)      // "jajab"`}/>
     <TableRow><TableCell>`"abc"`</TableCell><TableCell>`qoraal`</TableCell></TableRow>
     <TableRow><TableCell>`run` / `been`</TableCell><TableCell>`bool`</TableCell></TableRow>
     <TableRow><TableCell>`[1, 2]`</TableCell><TableCell>`teed`</TableCell></TableRow>
-    <TableRow><TableCell>`{a: 1}` ama object class</TableCell><TableCell>`walax`</TableCell></TableRow>
-    <TableRow><TableCell>hawl (function)</TableCell><TableCell>`hawl`</TableCell></TableRow>
+    <TableRow><TableCell>`{a: 1}` or a class instance</TableCell><TableCell>`walax`</TableCell></TableRow>
+    <TableRow><TableCell>Function</TableCell><TableCell>`hawl`</TableCell></TableRow>
     <TableRow><TableCell>`maran`</TableCell><TableCell>`maran`</TableCell></TableRow>
   </TableBody>
 </Table>
 
 ## Type Conversion Functions
 
-Hoos waxaa ku qoran is-beddellada caanka ah iyo shaqada la adeegsado:
+The following table shows common conversions:
 
 <Table>
   <TableHeader>
@@ -104,7 +104,7 @@ Hoos waxaa ku qoran is-beddellada caanka ah iyo shaqada la adeegsado:
 
 ## `bool()` Rules
 
-`bool()` waxay soo celisaa `been` qiimayaashan: `0`, `0.0`, `""`, `maran`, `been`, liis madhan `[]`, object madhan `{}`, iyo qoraallada `"false"` ama `"False"`. Wax kasta oo kale waa `run` — xitaa qoraalka `"been"`.
+`bool()` returns `been` for `0`, `0.0`, `""`, `maran`, `been`, an empty list `[]`, an empty object `{}`, and the strings `"false"` and `"False"`. All other values produce `run`, including the string `"been"`.
 
 <SoplangCodeWindow title="bool_rules.sop" code={`qor(bool(0))          // been
 qor(bool(""))         // been
@@ -130,4 +130,4 @@ jajab decimal_num = 42.75
 abn int_from_decimal = abn(decimal_num)
 qor("Decimal to integer (truncation): " + int_from_decimal)`}/>
 
-Shaqooyinkan beddelka noocyadu waxay muhiim u yihiin dhismaha _input-handling_ adag, tusaale ahaan marka aad akhrinayso gelinta isticmaalaha ama faylasha oo aad rabto inaad hubiso noocyo sax ah ka hor inta aanad xisaab samayn.
+Input from `gelin()` is a string. Convert it to the type you need before using it in numeric calculations.

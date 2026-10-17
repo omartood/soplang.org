@@ -150,20 +150,20 @@ from zero. `xidid()` computes only a square root, not an arbitrary root.
 
 ## baaxad (Range)
 
-`baaxad()` waa hawl ku dhex jirta Soplang oo soo saarta teed abn ah.
+`baaxad()` is a built-in function that creates a list of integers.
 
 Unlike a lazy range iterator, it creates a list containing all the requested
 integers. The stop bound is excluded.
 
-**Isticmaalka:**
+**Usage:**
 
-<SoplangCodeWindow title="reference-2.sop" code={`// baaxad(stop): 0 ilaa stop-1
+<SoplangCodeWindow title="reference-2.sop" code={`// baaxad(stop): from 0 through stop - 1
 qor(baaxad(5))  // [0, 1, 2, 3, 4]
 
-// baaxad(start, stop): start ilaa stop-1
+// baaxad(start, stop): from start through stop - 1
 qor(baaxad(2, 6))  // [2, 3, 4, 5]
 
-// baaxad(start, stop, step): dhammaadka kuma jiro; tallaabadu waa step
+// baaxad(start, stop, step): stop is excluded; increment by step
 qor(baaxad(1, 10, 2))  // [1, 3, 5, 7, 9]`}/>
 
 `baaxad` accepts integers only. A zero step reports an error that can be caught with `tijaabi` and `qabo`.
@@ -310,35 +310,35 @@ mutated.
 String positions and bracket indexes count characters rather than UTF-8 bytes. `jar()` and bracket indexing accept negative positions from the end. Missing indexes return `maran`; `raadi()` returns `-1` when it finds no match. Calls with the wrong number of arguments report an error that can be caught with `tijaabi` and `qabo`.
 
 ### weynee (Uppercase)
-**Isticmaal:**
+**Usage:**
 
 <SoplangCodeWindow title="reference-4.sop" code={`door q = "soplang"
 door natiijo = q.weynee()
 qor(natiijo)  // SOPLANG`}/>
 
 ### yaree (Lowercase)
-**Isticmaal:**
+**Usage:**
 
 <SoplangCodeWindow title="reference-5.sop" code={`door q = "SOPLANG"
 door natiijo = q.yaree()
 qor(natiijo)  // soplang`}/>
 
 ### masax (Trim Whitespace)
-**Isticmaal:**
+**Usage:**
 
 <SoplangCodeWindow title="reference-6.sop" code={`door q = "  soplang  "
 door natiijo = q.masax()
 qor(natiijo)  // soplang`}/>
 
 ### raadi (Find Substring)
-**Isticmaal:**
+**Usage:**
 
 <SoplangCodeWindow title="reference-7.sop" code={`door q = "soplang programming"
 door natiijo = q.raadi("pro")
 qor(natiijo)  // 8`}/>
 
 ### beddel (Replace All)
-**Isticmaal:**
+**Usage:**
 
 <SoplangCodeWindow title="reference-8.sop" code={`door q = "abaaba"
 door natiijo = q.beddel("a", "x", maran)

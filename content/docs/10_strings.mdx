@@ -1,16 +1,16 @@
 ---
 title: Strings (qoraal)
-description: "Qoraalka Soplang 3: Unicode, hel, hore, dambe, masax, raadi, beddel, xiriiri, weynee iyo yaree."
+description: "Soplang strings: Unicode indexing, slicing, search, trimming, replacement, joining, and case conversion."
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
-String (`qoraal`) waa taxane xarfo Unicode ah. Adeegso xigasho labalaab
-(`"..."`) ama mid keliya (`'...'`). String interpolation iyo escape sequences
-lama taageero; `+` ayaa isku xira qiimayaasha. Hababka strings-ku waxay soo
-celiyaan qiimayaal cusub, mana beddelaan qoraalka asalka ah.
+A string (`qoraal`) is a sequence of Unicode characters. Use double quotes
+(`"..."`) or single quotes (`'...'`). String interpolation and escape sequences
+are not supported; use `+` to join values. String methods return new values
+without changing the original string.
 
-## Abuurid, dherer iyo indexing
+## Creation, Length, and Indexing
 
 <SoplangCodeWindow title="strings_unicode.sop" code={`qoraal magac = "Ayaan"
 qor("Salaan, " + magac)    // Salaan, Ayaan
@@ -22,22 +22,22 @@ qor(qoraalka.hore())       // A
 qor(qoraalka.dambe())      // 🙂
 qor(qoraalka.hel(9, "?"))  // ?`}/>
 
-Boosasku waxay tiriyaan Unicode scalar values, ma aha UTF-8 bytes ama xarfo
-isku dhafan (grapheme clusters). Index taban wuxuu ka tiriyaa dhammaadka.
-Index maqan, `hore()` ee string madhan iyo `dambe()` ee string madhan waxay
-soo celiyaan `maran`. `dherer(text)` iyo `text.dherer()` labaduba waa sax.
+Positions count Unicode scalar values, rather than UTF-8 bytes or grapheme
+clusters. Negative indexes count from the end. An out-of-range read returns
+`maran`, as do `hore()` and `dambe()` on an empty string. Both `dherer(text)`
+and `text.dherer()` return the length.
 
-## Jarid iyo raadin
+## Slicing and Search
 
-| Habka | Shaqada |
+| Method | Description |
 | --- | --- |
-| `hel(index, default?)` | Hel hal xaraf ama qiimaha beddelka ah |
-| `jar(start?, end?)` | Soo celi qayb; xadka dambe kuma jiro |
-| `leeyahay(sub)` | Hubi in qoraal ku jiro |
-| `bilow(sub)` | Hubi bilowga |
-| `dhammaad(sub)` | Hubi dhammaadka |
-| `raadi(sub, direction?)` | Soo celi index-ka koowaad ama kii dambe; `-1` marka la waayo |
-| `tiri(sub)` | Tiri isku-aadyada aan is dul saarnayn |
+| `hel(index, default?)` | Read one character or return the supplied default |
+| `jar(start?, end?)` | Return a slice, excluding the end bound |
+| `leeyahay(sub)` | Check whether the string contains a substring |
+| `bilow(sub)` | Check whether the string starts with a substring |
+| `dhammaad(sub)` | Check whether the string ends with a substring |
+| `raadi(sub, direction?)` | Return the first or last matching index, or `-1` when absent |
+| `tiri(sub)` | Count non-overlapping matches |
 
 <SoplangCodeWindow title="strings_search.sop" code={`door qoraalka = "moos iyo moos"
 qor(qoraalka.jar(0, 4))        // moos
@@ -47,21 +47,20 @@ qor(qoraalka.raadi("moos", "dambe")) // 9
 qor(qoraalka.raadi("canbe"))   // -1
 qor(qoraalka.tiri("moos"))     // 2`}/>
 
-`jar()` wuxuu aqbalaa xadad tiro dhan ah. Xadad ka baxsan qoraalka waa la
-xaddidaa, xadad is rogayna waxay keenaan `""`. `raadi()` wuxuu aqbalaa
-`"hore"` ama `"dambe"` marka jiho la siinayo. `tiri("")` waa khalad.
-Xusuusnow: raadin liis ka maqan waxay soo celisaa `maran`, raadin string
-ka maqanina waxay soo celisaa `-1`.
+`jar()` requires integer bounds. Bounds outside the string are clamped, and
+reversed bounds produce `""`. An optional direction for `raadi()` must be
+`"hore"` (first) or `"dambe"` (last). `tiri("")` produces an error.
+Search misses return `maran` for lists and `-1` for strings.
 
-## Nadiifin iyo beddelid
+## Trimming and Transformation
 
-| Habka | Shaqada |
+| Method | Description |
 | --- | --- |
-| `masax(direction?)` | Ka saar bannaanada labada gees ama `"hore"` / `"dambe"` |
-| `weynee()` | U beddel xarfo waaweyn iyadoo la raacayo Unicode |
-| `yaree()` | U beddel xarfo yaryar iyadoo la raacayo Unicode |
-| `beddel(old, new, count?)` | Beddel isku-aadka koowaad, tiro la cayimay ama dhammaan |
-| `kuceli(count)` | Ku celi string-ka tiro jeer |
+| `masax(direction?)` | Trim whitespace at both ends, or only `"hore"` / `"dambe"` |
+| `weynee()` | Convert to uppercase using Unicode case conversion |
+| `yaree()` | Convert to lowercase using Unicode case conversion |
+| `beddel(old, new, count?)` | Replace the first match, a specified number of matches, or all matches |
+| `kuceli(count)` | Repeat the string a specified number of times |
 
 <SoplangCodeWindow title="strings_transform.sop" code={`door qoraalka = "  Salaan  "
 qor(qoraalka.masax())          // Salaan
@@ -72,20 +71,20 @@ qor("aa-aa".beddel("a", "x", 2)) // xx-aa
 qor("aa-aa".beddel("a", "x", maran)) // xx-xx
 qor("ha".kuceli(3))            // hahaha`}/>
 
-`beddel()` ee laba dood leh wuxuu beddelaa isku-aadka koowaad. Doodda
-saddexaad waxay noqon kartaa tiro dhan oo aan tabanayn ama `maran` oo
-beddelaysa dhammaan. `0` waxba ma beddelo. `kuceli()` wuxuu aqbalaa tiro
-dhan oo aan tabanayn.
+With two arguments, `beddel()` replaces the first match. Its third argument
+may be a nonnegative integer limit, or `maran` to replace all matches. A limit
+of `0` leaves the string unchanged. `kuceli()` requires a nonnegative integer.
 
-## Kala qaybin iyo isku xirid
+## Splitting and Joining
 
-`qeybi(separator)` wuxuu soo celiyaa liis strings ah. `xiriiri(values)` wuxuu
-qiimayaasha liiska isugu xiraa string-ka loo adeegsaday kala-soocaha.
+`qeybi(separator)` returns a list of strings. `xiriiri(values)` joins the string
+representations of list items, using the receiver as the separator.
 
 <SoplangCodeWindow title="strings_split_join.sop" code={`door magacyo = "Ayaan,Bilan,Hodan".qeybi(",")
 qor(magacyo)                  // [Ayaan, Bilan, Hodan]
 qor(" iyo ".xiriiri(magacyo))  // Ayaan iyo Bilan iyo Hodan
 qor(", ".xiriiri([1, run, maran])) // 1, run, maran`}/>
 
-Magacyada cusub waxaa lala wadaagaa hawlaha kale ee luqadda. Magacyadii hore
-ee la taageero waxaa lagu qoray [tixraaca](/docs/14_keywords-reference#compatibility-spellings).
+These method names are shared with other language APIs where applicable.
+Supported earlier names are listed in the
+[reference](/docs/14_keywords-reference#compatibility-spellings).

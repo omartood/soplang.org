@@ -1,17 +1,17 @@
 ---
 title: Input and Output
-description: Sida loo isticmaalo qor() iyo gelin() si aad u daabacdo wax soo saar ama u akhrido gelinta isticmaalaha ee Soplang.
+description: Use qor() to print values and gelin() to read user input in Soplang.
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Input and Output in Soplang
 
-Soplang waxay isticmaashaa shaqooyin-dhexdeed fudud si loo soo bandhigo wax soo saar iyo in lagu akhriyo gelinta isticmaalaha.
+Soplang provides built-in functions for console output and user input.
 
 ### `qor()` – Print to Console
 
-Adeegso `qor()` si aad u muujiso qiimayaal ama xarfo (strings) shaashadda.
+Use `qor()` to display a value in the terminal.
 
 **print_console.sop**
 
@@ -19,23 +19,23 @@ Adeegso `qor()` si aad u muujiso qiimayaal ama xarfo (strings) shaashadda.
 door magaca = "Aamina"
 qor("Magaca: " + magaca)`}/>
 
-`qor()` waxay qaadataa **hal qiime**. Si aad u daabacdo dhowr qiime, isku xir adigoo adeegsanaya `+`:
+`qor()` accepts **one value**. To print several values together, join them with `+`:
 
 <SoplangCodeWindow title="print_multiple.sop" code={`door da = 19
 qor("Magaca: " + "Aamina" + ", Da'da: " + da)
 qor([1, 2, 3])          // [1, 2, 3]
 qor(run)                // run`}/>
 
-### `gelin()` – Read from User Input
+### `gelin()` – Read User Input
 
-Adeegso `gelin()` si aad u weydiiso isticmaalaha gelin. Qoraalka aad siiso (prompt) waa ikhtiyaari. Qiimaha wuxuu had iyo jeer kusoo noqdaa _string_ (`qoraal`).
+Use `gelin()` to read a line of input. The prompt is optional. The result is always a string (`qoraal`).
 
 **read_input.sop**
 
 <SoplangCodeWindow title="read_input.sop" code={`door magaca = gelin("Magacaaga qor: ")
 qor("Waad ku mahadsan tahay, " + magaca)`}/>
 
-Haddii aad u baahan tahay is-beddel nooc (type conversion), waxaad adeegsan kartaa `abn()` si aad ugu rogto tiro.
+Use a conversion function such as `abn()` when you need a number rather than a string.
 
 **type_conversion.sop**
 

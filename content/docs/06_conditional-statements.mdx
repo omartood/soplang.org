@@ -1,6 +1,6 @@
 ---
 title: Conditional Statements
-description: Learn about conditional statements, loops, and other control flow structures in the Soplang programming language.
+description: Use haddii and kale for conditional branches, and dooro and xaalad for switch statements.
 ---
 
 import {
@@ -18,11 +18,11 @@ import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
 # Conditional Statements
 
-Soplang waxay bixisaa fulin shuruudeed (conditional execution) iyadoo adeegsanaysa erayo Soomaali ah si ay u noqoto mid cad oo muujin leh.
+Conditional statements choose which block to execute based on a condition or value.
 
-## If Statements – `haddii`, `kale`, `kale`
+## If Statements – `haddii` and `kale`
 
-Waxay u dhigmaan _if_, _else if_, iyo _else_ luqadaha kale.
+`haddii` starts an *if* statement. Use `kale (condition)` for *else if* and `kale` without a condition for *else*.
 
 <SoplangCodeWindow title="if_statements.sop" code={`abn da = 17
 
@@ -34,11 +34,11 @@ haddii (da >= 18) {
     qor("Waad yar tahay")
 }`}/>
 
-Block walba waxaa lagu xiraa `{}`. Waxaad isku xirin ama isku dhex dhigi kartaa (nest) sidaad u baahan tahay.
+Enclose each block in `{}`. You can chain conditional branches or nest them inside other blocks.
 
 ## Boolean Conditions
 
-Adeegso muujiyeyaasha `bool` iyo operators-ka `&&`, `||`, iyo `!`.
+Use boolean expressions and the operators `&&`, `||`, and `!` to write conditions.
 
 <SoplangCodeWindow title="boolean_conditions.sop" code={`abn x = 4
 abn y = 9
@@ -77,11 +77,9 @@ haddii (!(x == y)) {
   </TableBody>
 </Table>
 
-Control flow ee Soplang wuxuu raacaa qaab akhris-wanaagsan oo Somali-first ah.
+## Switch-Case – `dooro` and `xaalad`
 
-## Switch-Case – `dooro` iyo `xaalad`
-
-Loogu talagalay laanayn cad oo ku saleysan hal qiime: `dooro` (switch expression), `xaalad` (case), iyo `kale` (default).
+Use `dooro` to select a branch based on one expression. Each `xaalad` defines a case, and an optional `kale` defines the default branch.
 
 <SoplangCodeWindow title="switch_case.sop" code={`qoraal maalinta = "Jimce"
 
@@ -97,9 +95,9 @@ dooro (maalinta) {
     }
 }`}/>
 
-Tani waxay ku habboon tahay go'aan-qaadasho leh laamo badan oo ku saleysan qiime go'an.
+Switch statements are useful when several branches depend on the same value.
 
-`xaalad` waxay la shaqaysaa tirooyin iyo qoraallo labadaba. Hal `xaalad` oo keliya ayaa fulaysa — looma baahna `jooji` (ma jiro fall-through). `kale` waa ikhtiyaari.
+`xaalad` supports both numbers and strings. Only the matching case executes; there is no fall-through, so `jooji` is unnecessary. The default `kale` branch is optional.
 
 <SoplangCodeWindow title="switch_numbers.sop" code={`abn lambar = 2
 
@@ -111,4 +109,4 @@ dooro (lambar) {
 
 ## Combined Usage
 
-Waxaad isku dari kartaa `haddii`/`kale`/`kale` iyo `dooro` si aad u dhisto logic adag oo weli akhris-wanaagsan.
+You can combine `haddii`/`kale` branches with `dooro` statements to express more complex decisions.
