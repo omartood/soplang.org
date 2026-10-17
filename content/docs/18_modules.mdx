@@ -20,7 +20,7 @@ hawl labajibbaar(x) {
 }
 
 qaab Goob {
-    hawl dhaw(r) {
+    hawl dhis(r) {
         nafta.r = r
     }
 
@@ -50,11 +50,15 @@ soplang main.sop
 - Haddii faylka la waayo, waxaa dhacaya khalad import:
 
 ```text
-Khalad import: Faylka 'nope.sop' ma helin [E021] safka 0, tiirka 0
+Khalad soo-dejin: Faylka 'nope.sop' ma helin [E021] safka 1, tiirka 1
+     --> main.sop:1:1
+   1 │   keen "nope.sop"
+     │   ^^^^
+     └─ Hubi in magaca faylka iyo jidka ay sax yihiin.
 ```
 
 ## Tips
 
 - Dhig `keen` bilowga faylka si loo arko waxa uu ku tiirsan yahay.
 - Faylasha caawinta ah (helpers) sii magacyo cad, sida `utils/xisaab.sop` ama `_math_lib.sop`.
-- Iska ilaali in laba fayl ay qeexaan magac isku mid ah — qeexidda faylkaaga (`keen` kadib) ayaa beddelaysa tan faylka la soo raray, taasoo keeni karta khaladaad aan la dareemin.
+- Iska ilaali in laba fayl ay qeexaan magac isku mid ah — magacyada isku dhaca waxay keeni karaan khalad dib-u-qeexid ah. U dooro magacyo kala duwan.

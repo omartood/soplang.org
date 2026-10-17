@@ -1,6 +1,6 @@
 ---
 title: Classes
-description: "Object-oriented programming ee Soplang: qaab (class), dhaw (constructor), nafta (self), cusub (new), iyo dhaxal (inheritance)."
+description: "Object-oriented programming ee Soplang: qaab (class), dhis (constructor), nafta (self), cusub (new), iyo dhaxal (inheritance)."
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
@@ -12,17 +12,17 @@ Soplang waxay taageertaa object-oriented programming. Class waxaa lagu qeexaa `q
 | Keyword | Macnaha | English |
 | --- | --- | --- |
 | `qaab` | Qeexidda class | `class` |
-| `dhaw` | Constructor (waxaa wacaya `cusub`) | `constructor` |
+| `dhis` | Constructor (waxaa wacaya `cusub`) | `constructor` |
 | `nafta` | Instance-ka hadda | `this` / `self` |
 | `cusub` | Abuur instance cusub | `new` |
 | `dhaxal` | Ka dhaxal class kale | `extends` |
 
 ## Defining a Class – `qaab`
 
-Jirka `qaab` wuxuu ka koobnaan karaa **hawlo (methods) oo keliya**. Xogta instance-ka (fields) waxaa lagu kaydiyaa `nafta` gudaheeda, inta badan constructor-ka `dhaw`.
+Jirka `qaab` wuxuu ka koobnaan karaa **hawlo (methods) oo keliya**. Xogta instance-ka (fields) waxaa lagu kaydiyaa `nafta` gudaheeda, inta badan constructor-ka `dhis`.
 
 <SoplangCodeWindow title="class_basic.sop" code={`qaab Qof {
-    hawl dhaw(magac, da) {
+    hawl dhis(magac, da) {
         nafta.magac = magac
         nafta.da = da
     }
@@ -38,9 +38,24 @@ Jirka `qaab` wuxuu ka koobnaan karaa **hawlo (methods) oo keliya**. Xogta instan
 
 ## Creating Instances – `cusub`
 
-`cusub` waxay abuurtaa instance cusub, waxayna si toos ah u wacdaa `dhaw` iyadoo u gudbinaysa doodaha (arguments).
+`cusub` waxay abuurtaa instance cusub, waxayna si toos ah u wacdaa `dhis` iyadoo u gudbinaysa doodaha (arguments).
 
-<SoplangCodeWindow title="class_instances.sop" code={`door aamina = cusub Qof("Aamina", 20)
+<SoplangCodeWindow title="class_instances.sop" code={`qaab Qof {
+    hawl dhis(magac, da) {
+        nafta.magac = magac
+        nafta.da = da
+    }
+
+    hawl salaam() {
+        celi "Salaan, waxaan ahay " + nafta.magac
+    }
+
+    hawl dhalasho() {
+        nafta.da = nafta.da + 1
+    }
+}
+
+door aamina = cusub Qof("Aamina", 20)
 
 qor(aamina.salaam())   // Salaan, waxaan ahay Aamina
 
@@ -53,14 +68,14 @@ qor(aamina.magac)      // Aamina Cali
 
 qor(nooc(aamina))      // walax`}/>
 
-Class aan lahayn `dhaw` sidoo kale waa la abuuri karaa: `cusub Tiriye()`.
+Class aan lahayn `dhis` sidoo kale waa la abuuri karaa: `cusub Tiriye()`.
 
 ## Inheritance – `dhaxal`
 
-Class wuxuu ka dhaxli karaa class kale isagoo adeegsanaya `dhaxal`. Class-ka ilmaha ah wuxuu helayaa dhammaan methods-ka waalidka (oo uu ku jiro `dhaw`), wuxuuna beddeli karaa (override) method kasta isagoo qeexaya mid isku magac ah.
+Class wuxuu ka dhaxli karaa class kale isagoo adeegsanaya `dhaxal`. Class-ka ilmaha ah wuxuu helayaa dhammaan methods-ka waalidka (oo uu ku jiro `dhis`), wuxuuna beddeli karaa (override) method kasta isagoo qeexaya mid isku magac ah.
 
 <SoplangCodeWindow title="class_inheritance.sop" code={`qaab Xayawaan {
-    hawl dhaw(magac) {
+    hawl dhis(magac) {
         nafta.magac = magac
     }
 
@@ -98,7 +113,7 @@ qor(b.sharax())   // Mia wuxuu yiraahdaa Myaaw!`}/>
 Instances waa qiimayaal caadi ah — waxaad ku kaydin kartaa liisas, u gudbin kartaa hawlo, kana soo celin kartaa hawlo.
 
 <SoplangCodeWindow title="class_collections.sop" code={`qaab Akoon {
-    hawl dhaw(lacag) {
+    hawl dhis(lacag) {
         nafta.lacag = lacag
     }
 
@@ -117,6 +132,25 @@ qor(akoonno[1].lacag)       // 2`}/>
 ## Rules
 
 - Jirka `qaab` wuxuu ka koobnaan karaa `hawl` oo keliya. `door x = 1` gudaha class waa khalad parser: _Jirka qaabka waa in uu ka koobnaado hawl (methods) kaliya_.
-- `dhaw` waa magaca constructor-ka; waxaa si toos ah u wacaya `cusub`.
+- `dhis` waa magaca constructor-ka; waxaa si toos ah u wacaya `cusub`.
 - `nafta` waxaa si toos ah loogu daraa method kasta — looma baahna inaad parameter ahaan u qorto.
 - Method-ka la raadinayo wuxuu ka bilaabmaa class-ka instance-ka, kadibna waalidka (`dhaxal`).
+
+## Parent calls and class annotations
+
+`waalid` wuxuu raadiyaa method-ka waalidka ee class-ka method-ka hadda qeexay.
+Class waalid ah oo nooc ahaan loo qoray wuxuu aqbalaa instance ka farcamay:
+
+<SoplangCodeWindow title="parent_calls.sop" code={`qaab Xayawaan {
+    hawl dhis(magac) { nafta.magac = magac }
+    hawl cod() { celi nafta.magac }
+}
+qaab Bisad dhaxal Xayawaan {
+    hawl dhis(magac) { waalid.dhis(magac) }
+    hawl cod() { celi waalid.cod() + ": Mia" }
+}
+Xayawaan x = cusub Bisad("Bilan")
+qor(x.cod())   // Bilan: Mia`}/>
+
+Inheritance cycles and invalid class-typed assignments are rejected. The
+constructor name `dhaw` remains supported for compatibility; prefer `dhis`.

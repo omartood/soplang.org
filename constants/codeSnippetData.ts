@@ -10,7 +10,7 @@ hawl salaan(qof) {
 
 haddii (da >= 18) {
     qor(salaan(magac))
-} ugudambeyn {
+} kale {
     qor("Weli waad yar tahay")
 }
 `;

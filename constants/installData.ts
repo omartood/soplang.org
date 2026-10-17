@@ -1,73 +1,60 @@
+import type { Release, ReleaseAsset } from "../lib/releases";
+
 export type PlatformId = "windows" | "macos" | "linux";
-
-export type InstallMethod = {
-  name: string;
-  description: string;
-  command: string;
-};
-
+export type InstallMethod = { name: string; description: string; command: string };
 export type Platform = {
   id: PlatformId;
   name: string;
   icon: string;
   requirements: string[];
-  // Release assets whose file name matches are offered as manual downloads.
+  notes: string;
   assetPattern: RegExp;
   install: InstallMethod[];
 };
+export type InstallPlatform = Pick<Platform, "id" | "name" | "icon" | "install">;
 
-const cargoInstall: InstallMethod = {
-  name: "Cargo",
-  description: "Builds the newest compiler from source. Needs the Rust toolchain from rustup.rs.",
-  command: "cargo install --git https://github.com/soplang/soplang",
-};
+export function assetLabel(asset: ReleaseAsset): string {
+  if (asset.name.endsWith(".exe")) return "Windows installer";
+  if (asset.name.endsWith(".zip")) return "Windows ZIP";
+  if (asset.name.endsWith(".deb")) return "Debian package";
+  if (asset.name.includes("macos")) return "Apple Silicon archive";
+  return "Linux archive";
+}
 
-const docker: InstallMethod = {
-  name: "Docker",
-  description: "Runs Soplang in a container, with nothing else to install.",
-  command: `docker run -it --rm soplang/soplang
-
-# Run a file from the current folder
-docker run -it --rm -v "$PWD":/scripts soplang/soplang hello.sop`,
-};
-
-export const platforms: Platform[] = [
-  {
-    id: "windows",
-    name: "Windows",
-    icon: "fa6-brands:windows",
-    requirements: ["Windows 10 or 11, 64-bit"],
-    assetPattern: /(\.exe|\.msi|windows|win64)/i,
-    install: [
-      {
-        name: "winget",
-        description: "Installs the stable release with the Windows Package Manager.",
-        command: "winget install Soplang.Soplang",
-      },
-      cargoInstall,
-      {
-        ...docker,
-        command: `docker run -it --rm soplang/soplang
-
-# Run a file from the current folder (PowerShell)
-docker run -it --rm -v "\${PWD}:/scripts" soplang/soplang hello.sop`,
-      },
-    ],
-  },
-  {
-    id: "macos",
-    name: "macOS",
-    icon: "fa6-brands:apple",
-    requirements: ["Apple silicon or Intel"],
-    assetPattern: /(\.dmg|\.pkg|macos|darwin|apple)/i,
-    install: [cargoInstall, docker],
-  },
-  {
-    id: "linux",
-    name: "Linux",
-    icon: "fa6-brands:linux",
-    requirements: ["x86_64 or arm64"],
-    assetPattern: /(\.deb|\.rpm|\.appimage|linux)/i,
-    install: [cargoInstall, docker],
-  },
-];
+export function createPlatforms(release: Release): Platform[] {
+  const docker = (windows = false): InstallMethod => ({
+    name: "Docker",
+    description: "Linux amd64 image with Rust and clang included. Docker Desktop can emulate it on Apple Silicon.",
+    command: `docker run --platform linux/amd64 -it --rm soplang/soplang:${release.tag.replace(/^v/, "")}\n\n# Run hello.sop from the current folder\ndocker run --platform linux/amd64 --rm -v "${windows ? "${PWD}" : "$PWD"}:/scripts:ro" soplang/soplang:${release.tag.replace(/^v/, "")} hello.sop`,
+  });
+  const platforms: Platform[] = [
+    { id: "windows", name: "Windows", icon: "fa6-brands:windows",
+      requirements: ["x64 (AMD64)"], notes: "The installer is unsigned. Open a new terminal after installation to use PATH changes.",
+      assetPattern: /(?:^soplang-setup\.exe$|windows-AMD64\.zip$)/i, install: [] },
+    { id: "macos", name: "macOS", icon: "fa6-brands:apple",
+      requirements: ["Apple Silicon (ARM64)", "macOS 14.8.9+"], notes: "Command-line app bundle, not notarized. Keep the complete Soplang.app bundle together.",
+      assetPattern: /macos-arm64\.tar\.gz$/i, install: [] },
+    { id: "linux", name: "Linux", icon: "fa6-brands:linux",
+      requirements: ["x86_64 (amd64)", "glibc 2.39+", "libgcc"], notes: "Debian package or tar archive. Keep the archive's soplang executable and lib directory together.",
+      assetPattern: /(?:linux-x86_64\.tar\.gz|_amd64\.deb)$/i, install: [] },
+  ];
+  for (const platform of platforms) {
+    const files = release.assets.filter((asset) => platform.assetPattern.test(asset.name));
+    for (const file of files) {
+      let command: string;
+      if (file.name.endsWith(".exe")) {
+        command = `Invoke-WebRequest -Uri "${file.url}" -OutFile "${file.name}"\nStart-Process .\\${file.name} -Wait\n# Open a new terminal, then run:\nsoplang --version`;
+      } else if (file.name.endsWith(".zip")) {
+        command = `Invoke-WebRequest -Uri "${file.url}" -OutFile "${file.name}"\nExpand-Archive -Path ".\\${file.name}" -DestinationPath ".\\soplang-${release.tag}"\n.\\soplang-${release.tag}\\soplang\\soplang.exe --version`;
+      } else if (file.name.endsWith(".deb")) {
+        command = `curl -fLO "${file.url}"\nsudo dpkg -i ${file.name}\nsoplang --version`;
+      } else {
+        const binary = platform.id === "macos" ? "./Soplang.app/Contents/MacOS/soplang" : "./soplang/soplang";
+        command = `curl -fLO "${file.url}"\ntar -xzf ${file.name}\n${binary} --version`;
+      }
+      platform.install.push({ name: assetLabel(file), description: platform.id === "windows" ? "PowerShell commands for the official release package." : "Download and extract the official release package.", command });
+    }
+    platform.install.push(docker(platform.id === "windows"));
+  }
+  return platforms;
+}

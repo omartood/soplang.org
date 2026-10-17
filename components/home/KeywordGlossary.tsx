@@ -6,17 +6,17 @@ const keywords = [
   ["hawl", "function"],
   ["celi", "return"],
   ["haddii", "if"],
-  ["ugudambeyn", "else"],
+  ["kale", "else"],
   ["intay", "while"],
   ["kuceli", "for"],
   ["qaab", "class"],
   ["cusub", "new"],
-  ["fasax", "try"],
+  ["tijaabi", "try"],
   ["qabo", "catch"],
   ["keen", "import"],
   ["run", "true"],
   ["been", "false"],
-  ["null", "null"],
+  ["maran", "null"],
 ];
 
 export const KeywordGlossary = () => {

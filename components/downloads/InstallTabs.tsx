@@ -1,27 +1,33 @@
 "use client";
 
 import CodeWindow from "@/components/SoplangCodeWindow";
-import { platforms, type PlatformId } from "@/constants/installData";
+import type { InstallPlatform, PlatformId } from "@/constants/installData";
 import { Icon } from "@iconify/react";
-import { useEffect, useState, type KeyboardEvent } from "react";
+import { useState, useSyncExternalStore, type KeyboardEvent } from "react";
 
+function subscribe() { return () => {}; }
 function detectPlatform(): PlatformId {
   const agent = navigator.userAgent.toLowerCase();
   if (agent.includes("win")) return "windows";
   if (agent.includes("mac")) return "macos";
   return "linux";
 }
+function serverPlatform(): PlatformId { return "windows"; }
 
-export function InstallTabs() {
-  const [active, setActive] = useState<PlatformId>("windows");
-
-  // The server renders Windows; switch to the visitor's system after hydration.
-  useEffect(() => {
-    setActive(detectPlatform());
-  }, []);
+export function InstallTabs({ platforms }: { platforms: InstallPlatform[] }) {
+  const detected = useSyncExternalStore(subscribe, detectPlatform, serverPlatform);
+  const [selected, setActive] = useState<PlatformId | null>(null);
+  const active = selected ?? detected;
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     const index = platforms.findIndex((platform) => platform.id === active);
+    if (event.key === "Home" || event.key === "End") {
+      event.preventDefault();
+      const next = platforms[event.key === "Home" ? 0 : platforms.length - 1];
+      setActive(next.id);
+      document.getElementById(`install-tab-${next.id}`)?.focus();
+      return;
+    }
     const offset = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
     if (offset === 0) return;
 
@@ -67,10 +73,10 @@ export function InstallTabs() {
           role="tabpanel"
           aria-labelledby={`install-tab-${platform.id}`}
           hidden={platform.id !== active}
-          className="mt-6 grid gap-4 lg:grid-cols-2"
+          className="mt-6 grid min-w-0 grid-cols-1 gap-4 lg:grid-cols-2"
         >
           {platform.install.map((method) => (
-            <div key={method.name} className="panel-sm p-6">
+            <div key={method.name} className="panel-sm min-w-0 p-6">
               <h3 className="font-semibold text-ink">{method.name}</h3>
               <p className="mt-1 text-[14px] leading-relaxed text-muted-foreground">
                 {method.description}

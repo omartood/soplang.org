@@ -11,7 +11,7 @@ Soplang is the Somali programming language. Its keywords and built-ins are in So
 
 ### How does Soplang run my code?
 
-Soplang is implemented in Rust. `soplang file.sop` compiles your program with a Cranelift JIT and runs it immediately. `soplang --build file.sop -o app` produces a standalone native binary. See [CLI & REPL](/docs/19_cli-and-repl).
+Soplang is implemented in Rust. `soplang file.sop` compiles your program with a Cranelift JIT and runs it immediately. `soplang --build file.sop -o app` emits LLVM IR and links a standalone native binary with clang and the matching rustc. Installed JIT execution and the REPL need no Rust or clang; native builds need the toolchain documented in the installation guide. See [CLI & REPL](/docs/19_cli-and-repl).
 
 ### Is it open source?
 
@@ -25,7 +25,7 @@ Download a prebuilt release from the [downloads page](/downloads), build it from
 
 ### What file extension does Soplang use?
 
-`.sop`
+Use `.sop` for new programs. The CLI also accepts the compatible `.so` source extension.
 
 ## Language Features
 
@@ -35,7 +35,7 @@ Yes. Classes are defined with `qaab`, created with `cusub`, can inherit with `dh
 
 ### Can I handle errors?
 
-Yes, with `fasax { ... } qabo (khalad) { ... }`. See [Error Handling](/docs/17_error-handling).
+Yes, with `tijaabi { ... } qabo (khalad) { ... }`. See [Error Handling](/docs/17_error-handling).
 
 ### Can I split my program into multiple files?
 
@@ -43,7 +43,7 @@ Yes, with `keen "file.sop"`. See [Modules](/docs/18_modules).
 
 ### Do I need semicolons?
 
-No. Each statement ends at the end of its line, and a `;` is a syntax error.
+No. Semicolons are optional statement separators. Both `door x = 1` on its own line and `door x = 1; qor(x);` are valid.
 
 ### Does Soplang have string interpolation?
 

@@ -108,7 +108,7 @@ export default function TermsPage() {
                 </h2>
                 <div className="bg-secondary/30 p-4 rounded-lg border border-border/50 text-sm mt-4">
                   <p className="font-semibold mb-2">Disclaimer of Warranties</p>
-                  <p className="text-muted-foreground mb-4">Soplang is provided "as is" without warranty of any kind.</p>
+                  <p className="text-muted-foreground mb-4">Soplang is provided &quot;as is&quot; without warranty of any kind.</p>
 
                   <p className="font-semibold mb-2">Limitation of Liability</p>
                   <p className="text-muted-foreground mb-0">In no event shall Somast be liable for any indirect, incidental, special, consequential, or punitive damages.</p>

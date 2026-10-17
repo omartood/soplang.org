@@ -23,7 +23,7 @@ abn b = 3
 qor(a + b)   // 13
 qor(a - b)   // 7
 qor(a * b)   // 30
-qor(a / b)   // 3.333...  (natiijo jajab ah)
+qor(a / b)   // 3.3333333333333335 (natiijo jajab ah)
 qor(a % b)   // 1         (remainder)
 
 // Comparisons
@@ -101,9 +101,9 @@ qor("Sanad: " + s)`}/>
 
 ## Rounding — `daji()` iyo `kor()`
 
-`daji()` waxay hoos ugu soo koobtaa (floor), `kor()` waxay kor ugu qaaddaa (ceil). Labaduba waxay soo celiyaan `jajab`; isticmaal `abn()` haddii aad u baahan tahay `abn`.
+`daji()` waxay hoos ugu soo koobtaa (floor), `kor()` waxay kor ugu qaaddaa (ceil). Labaduba waxay soo celiyaan `abn`.
 
 <SoplangCodeWindow title="rounding.sop" code={`qor(daji(4.8))         // 4
 qor(kor(4.2))          // 5
-qor(nooc(daji(4.8)))   // jajab
+qor(nooc(daji(4.8)))   // abn
 qor(abn(kor(4.2)))     // 5`}/>

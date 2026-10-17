@@ -24,29 +24,25 @@ export const Typewriter = ({ words, delay = 3000, className = '' }: TypewriterPr
 
     // Typing logic
     useEffect(() => {
-        if (index === words.length) return; // Should not happen with modulo logic below
-
-        if (subIndex === words[index].length + 1 && !reverse) {
-            setTimeout(() => setReverse(true), delay);
-            return;
-        }
-
-        if (subIndex === 0 && reverse) {
-            setReverse(false);
-            setIndex((prev) => (prev + 1) % words.length);
-            return;
-        }
-
+        if (!words.length || index >= words.length) return;
+        const atEnd = subIndex === words[index].length + 1 && !reverse;
         const timeout = setTimeout(() => {
-            setSubIndex((prev) => prev + (reverse ? -1 : 1));
-        }, reverse ? 75 : 150);
+            if (atEnd) {
+                setReverse(true);
+            } else if (subIndex === 0 && reverse) {
+                setReverse(false);
+                setIndex((prev) => (prev + 1) % words.length);
+            } else {
+                setSubIndex((prev) => prev + (reverse ? -1 : 1));
+            }
+        }, atEnd ? delay : reverse ? 75 : 150);
 
         return () => clearTimeout(timeout);
     }, [subIndex, index, reverse, delay, words]);
 
     return (
         <span className={`${className}`}>
-            {words[index].substring(0, subIndex)}
+            {words[index]?.substring(0, subIndex) ?? ""}
             <span className={`inline-block w-[2px] h-[1em] bg-primary ml-1 align-middle ${blink ? 'opacity-100' : 'opacity-0'}`}></span>
         </span>
     );

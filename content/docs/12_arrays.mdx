@@ -1,132 +1,112 @@
 ---
-title: Arrays
-description: "Isticmaalka teed (arrays): qeexid, dherer, ku darid/kasaarid, rog, nadiifi, habee, aaddin/shaandhee, indexing iyo jarid."
+title: Lists (teed)
+description: "Liisaska Soplang 3: geli, saar, midee, hel, dhig, hore, dambe, jar, iyo callbacks."
 ---
 
 import SoplangCodeWindow from "../../components/SoplangCodeWindow";
 
-# Arrays
+Liis (`teed`) waa ururin qiimayaal ah oo kala horraysa. Qiimayaashu waxay yeelan karaan noocyo kala duwan. `teed` waa nooca la qoro, `door`-na wuxuu qaadan karaa liis dynamic ah.
 
-Arrays waxa lagu qeexaa erayga `teed`. Waxay hayaan uruurin qiimayaal ah oo leh habab badan: maarayn, beddelid, iyo falanqayn.
+## Abuuridda iyo akhrinta liiska
 
-## Declaring Arrays
+<SoplangCodeWindow title="lists_lookup.sop" code={`teed tirooyin = [10, 20, 30]
+qor(tirooyin.dherer())     // 3
+qor(tirooyin[0])           // 10
+qor(tirooyin[-1])          // 30
+qor(tirooyin.hore())       // 10
+qor(tirooyin.dambe())      // 30
+qor(tirooyin.hel(9, 0))    // 0`}/>
 
-<SoplangCodeWindow title="arrays_declaring.sop" code={`teed numbers = [1, 2, 3, 4]
-teed magacyo = ["Ali", "Zahra"]`}/>
+Index-ku wuxuu ka bilaabmaa `0`; index taban wuxuu ka tiriyaa dhammaadka.
+Akhrin ka baxsan liiska waxay soo celisaa `maran`. `hel(index, default?)`
+wuxuu soo celiyaa qiimaha beddelka ah marka booska la waayo. Qiime `maran`
+ah oo liiska ku jira lama beddelo. `hore()` iyo `dambe()` waxay liis madhan
+ka soo celiyaan `maran`.
 
-## Core Array Methods
+## Wax ku darid, beddelid iyo saarid
 
-### `dherer()` – Get Length
+| Habka | Shaqada |
+| --- | --- |
+| `geli(value)` | Ku dar hal qiime dhammaadka liiska, xitaa haddii qiimuhu yahay liis kale |
+| `geli(index, value)` | Geli hal qiime boos la cayimay |
+| `dhig(index, value)` | Beddel boos jira; ma abuuro boos cusub |
+| `saar()` | Ka saar oo soo celi qiimaha ugu dambeeya |
+| `saar(index)` | Ka saar oo soo celi qiimaha booskaas |
+| `nadiifi()` | Ka saar dhammaan qiimayaasha |
 
-<SoplangCodeWindow title="arrays_length.sop" code={`teed x = [10, 20, 30]
-qor("Length: " + x.dherer())  // 3`}/>
+<SoplangCodeWindow title="lists_mutation.sop" code={`door tirooyin = [10, 20]
+tirooyin.geli(30)
+tirooyin.dhig(0, 5)
+qor(tirooyin.saar(1))     // 20
+qor(tirooyin)             // [5, 30]
+tirooyin.geli([40, 50])
+qor(tirooyin)             // [5, 30, [40, 50]]`}/>
 
-### `kudar(x)` – Add to End
+`saar()` ee liis madhan iyo qorista boos aan jirin waa khaladaad la qaban
+karo. Hababka kale ee liiska beddela waxay soo celiyaan isla liiska.
 
-`kudar()` oo qiime keliya la siiyo wuxuu beddelaa liiska laftiisa (in-place).
+## Isku darid iyo nuqul
 
-<SoplangCodeWindow title="arrays_push.sop" code={`teed x = [1, 2]
-x.kudar(3)   // [1, 2, 3]
-x.kudar(4)   // [1, 2, 3, 4]`}/>
+`midee(other)` wuxuu soo celiyaa **liis cusub**. `nuqul()` iyo `jar()` sidoo
+kale waxay abuuraan liisas cusub. Kuwani waa nuqullo aan qoto dheerayn:
+liis ama walax gudaha ku jira weli waa lala wadaagaa asalka.
 
-### `kasaar()` – Remove Last
+<SoplangCodeWindow title="lists_copy.sop" code={`door asal = [10, 20, 30]
+door natiijo = asal.midee([40])
+qor(asal)                 // [10, 20, 30]
+qor(natiijo)                // [10, 20, 30, 40]
+qor(asal.jar(1, 3))       // [20, 30]
+qor(asal.jar(-2))         // [20, 30]`}/>
 
-<SoplangCodeWindow title="arrays_pop.sop" code={`door last = x.kasaar()
-qor("Removed: " + last)   // Removed: 4`}/>
+Xadka dambe ee `jar(start?, end?)` kuma jiro natiijada. Xadadku waa tirooyin
+dhan, waxaa lagu xaddidaa dhererka liiska, xadad is rogayna waxay keenaan
+liis madhan. `jar()` wuxuu nuqul ka sameeyaa liiska oo dhan.
 
-`kasaar()` liis madhan waa khalad runtime.
+## Raadin, tirin iyo kala habayn
 
-### `kudar(teed)` – Concatenate
+| Habka | Natiijada |
+| --- | --- |
+| `leeyahay(value)` | `run` haddii qiimuhu jiro |
+| `raadi(value)` | Index-ka koowaad, ama `maran` marka la waayo |
+| `tiri(value)` | Tirada qiimayaasha la midka ah |
+| `rog()` | Rog kala horraynta liiska laftiisa |
+| `habee()` | U kala hormari qiimayaasha liiska laftiisa |
 
-Marka `kudar()` la siiyo liis kale, wuxuu soo celiyaa **liis cusub** — `a` isma beddelo.
+<SoplangCodeWindow title="lists_sort.sop" code={`door tirooyin = [10, 2, 3, 2]
+tirooyin.habee()
+qor(tirooyin)             // [2, 2, 3, 10]
+qor(tirooyin.raadi(2))    // 0
+qor(tirooyin.raadi(99))   // maran
+qor(tirooyin.tiri(2))     // 2`}/>
 
-<SoplangCodeWindow title="arrays_concat.sop" code={`teed a = [1, 2]
-teed b = [3, 4]
-teed c = a.kudar(b)    // [1, 2, 3, 4]
-qor(a)                 // [1, 2]`}/>
+Tirooyinka waxaa loo kala hormariyaa tiro ahaan. Liis ka kooban noocyo isku
+dhafan wuxuu isticmaalaa isbarbardhigga runtime-ka; ha ku tiirsanaan inuu noqdo
+kala horrayn af-Soomaali ama kala horrayn tiro oo isku nooc ah. Raadin guulaysata
+waxay soo celin kartaa `0`, sidaa darteed si cad u hubi `maran` markaad raadinayso
+qiime maqan. Isbarbardhigga ururintu wuxuu kala saaraa `abn` iyo `jajab`.
 
-### `leeyahay(x)` – Contains Check
+## Hawlaha callback-ka
 
-<SoplangCodeWindow title="arrays_contains.sop" code={`haddii (c.leeyahay(3)) {
-    qor("Waa jiraa")
-}`}/>
+| Habka | Shaqada |
+| --- | --- |
+| `aaddin(callback)` | U beddel qiime kasta, soo celi liis cusub |
+| `shaandhee(callback)` | Soo celi qiimayaasha buuxiya shuruudda |
+| `ururi(callback, initial)` | Isku ururi bidix ilaa midig; callback-ku wuxuu helaa natiijada iyo qiimaha xiga |
+| `dhammaan(callback)` | Hubi in dhammaan qiimayaashu shuruudda buuxiyaan |
+| `qaar(callback)` | Hubi in ugu yaraan hal qiime shuruudda buuxiyo |
 
-## Utility Methods
+<SoplangCodeWindow title="lists_callbacks.sop" code={`door tirooyin = [1, 2, 3, 4]
+qor(tirooyin.aaddin(hawl(x) { celi x * 2 }))       // [2, 4, 6, 8]
+qor(tirooyin.shaandhee(hawl(x) { celi x % 2 == 0 })) // [2, 4]
+qor(tirooyin.ururi(hawl(a, b) { celi a * b }, 1)) // 24
+qor(tirooyin.dhammaan(hawl(x) { celi x > 0 }))    // run
+qor(tirooyin.qaar(hawl(x) { celi x > 3 }))        // run`}/>
 
-### `nuqul()` – Copy Array
+Ku-celcelintu waxay isticmaashaa nuqul aan qoto dheerayn oo laga qaaday
+liiska markii la bilaabay. Callback-ku wuu beddeli karaa liiska asalka ah;
+qiimayaashii ku-celcelintu raacaysay isma beddelaan. Khalad callback ah wuxuu
+joojiyaa hawsha oo u gudbaa `qabo`. `dhammaan()` iyo `qaar()` waxay joojiyaan
+marka natiijadu caddaato; liis madhan waxay ka soo celiyaan `run` iyo `been`.
 
-<SoplangCodeWindow title="arrays_copy.sop" code={`teed asal = [10, 20]
-teed copy = asal.nuqul()
-qor("Copy: " + copy)`}/>
-
-### `rog()` – Reverse
-
-<SoplangCodeWindow title="arrays_reverse.sop" code={`asal.rog()
-qor("Reversed: " + asal)`}/>
-
-### `nadiifi()` – Clear
-
-<SoplangCodeWindow title="arrays_clear.sop" code={`copy.nadiifi()
-qor("Emptied copy: " + copy)`}/>
-
-### `habee()` – Sort
-
-<SoplangCodeWindow title="arrays_sort.sop" code={`teed t = [4, 2, 3]
-t.habee()
-qor("Sorted: " + t)   // Sorted: [2, 3, 4]
-
-teed magacyo = ["Zahra", "Ali", "Hodan"]
-magacyo.habee()
-qor(magacyo)          // [Ali, Hodan, Zahra]`}/>
-
-<Callout type="warn" title="habee() wuxuu u kala soocaa sida qoraal">
-  Hadda `habee()` wuxuu isbarbardhigaa qiimayaasha sida qoraal (string), ma aha sida tiro. Sidaa darteed `[10, 2, 3].habee()` wuxuu noqonayaa `[10, 2, 3]`, maxaa yeelay `"10"` ayaa ka horreeya `"2"`. Tirooyin hal-xaraf ah si sax ah ayay u shaqeeyaan.
-</Callout>
-
-## Transform and Filter
-
-### `aaddin(funk)` – Map Items
-
-`aaddin()` iyo `shaandhee()` waxay qaataan **hawl** — u gudbi magaca hawsha iyadoon xigasho (`"..."`) lahayn. Labaduba waxay soo celiyaan liis cusub.
-
-<SoplangCodeWindow title="arrays_map.sop" code={`hawl laban(x) {
-    celi x * 2
-}
-
-teed nums = [1, 2, 3, 4]
-teed doubled = nums.aaddin(laban)
-qor(doubled)   // [2, 4, 6, 8]`}/>
-
-### `shaandhee(funk)` – Filter Items
-
-<SoplangCodeWindow title="arrays_filter.sop" code={`hawl waa_dhaban(x) {
-    celi x % 2 == 0
-}
-
-teed filtered = nums.shaandhee(waa_dhaban)
-qor(filtered)   // [2, 4]`}/>
-
-## Indexing and Slicing
-
-### `muuji(x)` – Find Index
-
-<SoplangCodeWindow title="arrays_index_of.sop" code={`door i = nums.muuji(2)
-qor("Index of 2: " + i)   // Index of 2: 1
-
-qor(nums.muuji(99))       // maran (lama helin)`}/>
-
-### Negative Indexing
-
-Index taban wuxuu ka tiriyaa dhamaadka liiska.
-
-<SoplangCodeWindow title="arrays_negative_index.sop" code={`qor(nums[-1])            // 4
-qor(nums.jar(-2, 4))     // [3, 4]`}/>
-
-### `jar(a, b)` – Slice Sublist
-
-`jar(a, b)` waxay soo celisaa walxaha laga bilaabo index `a` ilaa `b` (`b` kuma jiro).
-
-<SoplangCodeWindow title="arrays_slice.sop" code={`teed subset = nums.jar(1, 3)
-qor("Subset: " + subset)   // Subset: [2, 3]`}/>
-
-**Gunaanad:** `teed` waa qaab-dhismeed aasaasi ah oo Somali-first ah, fududeynaaya maaraynta iyo ku celcelinta liisaska.
+Magacyadii hore ee la taageero iyo kala duwanaanshaha `kudar()` waxaa lagu
+sharaxay [tixraaca](/docs/14_keywords-reference#compatibility-spellings).

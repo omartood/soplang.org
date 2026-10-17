@@ -142,7 +142,7 @@ export default function SecurityPolicyPage() {
               Bug Bounty
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              We don't have a formal program yet, but we credit all reporters in our security releases.
+              We don&apos;t have a formal program yet, but we credit all reporters in our security releases.
             </p>
           </div>
 
